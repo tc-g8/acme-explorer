@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "acme-explorer-g8": {
+      "hosting": {
+        "acme-explorer": [
+          "acme-explorer-g8"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "acme-explorer-g8"
+  }
+}

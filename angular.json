@@ -95,8 +95,21 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "acme-explorer:build:production",
+            "firebaseProject": "acme-explorer-g8",
+            "firebaseHostingSite": "acme-explorer-g8"
+          }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "336a5003-8b2c-4339-ab48-e3c9791f66eb"
   }
 }

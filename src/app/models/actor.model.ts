@@ -10,8 +10,7 @@ export class Actor extends Entity {
   private _customToken?: string | undefined;
   private _idToken?: string | undefined;
   private _preferredLanguage?: string | undefined;
-  private _role!: string[];
-  private _banned!: boolean;
+  private _role!: string;
 
   constructor() {
     super();
@@ -80,17 +79,10 @@ export class Actor extends Entity {
     this._preferredLanguage = value;
   }
 
-  public get role(): string[] {
+  public get role(): string {
     return this._role;
   }
-  public set role(value: string[]) {
+  public set role(value: string) {
     this._role = value;
-  }
-
-  public get banned(): boolean {
-    return this._banned;
-  }
-  public set banned(value: boolean) {
-    this._banned = value;
   }
 }
