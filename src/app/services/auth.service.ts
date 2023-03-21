@@ -18,6 +18,7 @@ export class AuthService {
   constructor(private fireAuth: AngularFireAuth, private http: HttpClient) { }
 
   registerUser(actor: Actor) {
+    console.log("holaaaa")
     return new Promise<any>((resolve, reject) => {
       this.fireAuth.createUserWithEmailAndPassword(actor.email, actor.password)
         .then(res => {
