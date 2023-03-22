@@ -8,6 +8,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { RegisterComponent } from './components/security/register/register.component';
+import { LoginComponent } from './components/security/login/login.component';
+import { FormsModule } from '@angular/forms';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyB4KZiJ04_eH_nAQadct84F-h8zQYuZ8J8",
@@ -19,10 +21,11 @@ export const firebaseConfig = {
 };
 
 @NgModule({
-  declarations: [AppComponent, RegisterComponent],
+  declarations: [AppComponent, RegisterComponent, LoginComponent],
   imports: [
-    BrowserModule, 
-    AppRoutingModule, 
+    BrowserModule,
+    FormsModule,
+    AppRoutingModule,
     NgbModule,
     HttpClientModule,
     AngularFireModule.initializeApp(firebaseConfig)
