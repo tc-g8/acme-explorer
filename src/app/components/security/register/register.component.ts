@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { AuthService } from 'src/app/services/auth.service';
-import { Actor } from 'src/app/models/actor.model';
 
 @Component({
   selector: 'app-register',
@@ -10,38 +10,39 @@ import { Actor } from 'src/app/models/actor.model';
 })
 export class RegisterComponent implements OnInit {
 
-  roleList: string[]
+  registrationForm: FormGroup;
+  errorMessage: string = '';
+  successMessage: string = '';
 
-  constructor(private authService: AuthService) {
-    this.roleList = this.authService.getRoles();
+  constructor(private authService: AuthService, private fb: FormBuilder) {
+    this.registrationForm = this.fb.group({
+      name: [''],
+      surname: [''],
+      email: [''],
+      phone: [''],
+      address: [''],
+      password: ['']
+    });
   }
 
   ngOnInit(): void {
-    this.onRegister();
   }
 
   onRegister() {
-    const actor: Actor = new Actor();
-    actor.name = "Juan";
-    actor.surname = "Garcia";
-    actor.email = "juangarcia@gmail.com";
-    actor.password = "Juan_12345";
-    actor.role = "ADMINISTRATOR";
-
-    const actorcillo: any = {
-    "name": "Juan",
-    "surname": "Garcia",
-    "email": "juangarcia@gmail.com",
-    "password": "Juan_12345",
-    "role": ["ADMINISTRATOR"]
-    }
-
-    this.authService.registerUser(actorcillo)
-    .then( res => {
-      console.log(res);
-    }, err => {
-      console.log(err);
-    })
+    this.authService.registerUser(this.registrationForm.value)
+      .then(res => {
+        console.log(res);
+        this.errorMessage = '';
+        this.successMessage = 'Registration successful';
+      }, err => {
+        if (err.status === 422) {
+          console.log('There are some errors in the data introduced');
+          this.errorMessage = 'There are some errors in the data introduced';
+        } else {
+          console.log(err);
+          this.errorMessage = 'There was an error during the registration process';
+        }
+        this.successMessage = '';
+      });
   }
-
 }

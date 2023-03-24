@@ -20,15 +20,13 @@ export class AuthService {
   registerUser(actor: Actor) {
     console.log("holaaaa")
     return new Promise<any>((resolve, reject) => {
-      this.fireAuth.createUserWithEmailAndPassword(actor.email, actor.password)
-        .then(res => {
-          console.log("holaaaa:", res);
-          // Firebase registration was correct, proceed with our backend
-          const headers = new HttpHeaders();
-          headers.append('Content-Type', 'application/json');
-          const url = `${environment.backendApiBaseURL + '/actors'}`;
-          const body = JSON.stringify(actor);
-          this.http.post(url, body, httpOptions).toPromise()
+      const headers = new HttpHeaders();
+      headers.append('Content-Type', 'application/json');
+      const url = `${environment.backendApiBaseURL + '/api/v2/actors'}`;
+      const body = JSON.stringify(actor);
+      this.http.post(url, body, httpOptions).toPromise()
+        .then(_ => {
+          this.fireAuth.createUserWithEmailAndPassword(actor.email, actor.password)
             .then(res => {
               resolve(res);
             }, err => {
@@ -46,7 +44,7 @@ export class AuthService {
         .then(_ => {
           const headers = new HttpHeaders();
           headers.append('Content-Type', 'application/json');
-          const url = `${environment.backendApiBaseURL + '/actors/login'}`;
+          const url = `${environment.backendApiBaseURL + '/api/v1/actors/login'}`;
           const body = JSON.stringify({email: email, password: password});
           this.http.post(url, body, httpOptions).toPromise()
             .then(res => {

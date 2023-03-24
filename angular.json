@@ -96,9 +96,15 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/@fortawesome/fontawesome-free/css/fontawesome.css",
+              "node_module/@fortawesome/fontawesome-free/css/brands.css",
+              "node_module/@fortawesome/fontawesome-free/css/solid.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ]
           }
         },
         "deploy": {
