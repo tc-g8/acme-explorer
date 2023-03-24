@@ -18,17 +18,18 @@ export class AuthService {
   constructor(private fireAuth: AngularFireAuth, private http: HttpClient) { }
 
   registerUser(actor: Actor) {
-    console.log("holaaaa")
     return new Promise<any>((resolve, reject) => {
       const headers = new HttpHeaders();
       headers.append('Content-Type', 'application/json');
       const url = `${environment.backendApiBaseURL + '/api/v2/actors'}`;
       const body = JSON.stringify(actor);
+      let result : Actor;
       this.http.post(url, body, httpOptions).toPromise()
-        .then(_ => {
+        .then(res => {
+          result = res as Actor;
           this.fireAuth.createUserWithEmailAndPassword(actor.email, actor.password)
             .then(res => {
-              resolve(res);
+              resolve(result);
             }, err => {
               reject(err);
             });
@@ -53,7 +54,8 @@ export class AuthService {
               reject(err);
             });
         }).catch(error => {
-          reject(error);
+          console.log("hola")
+          reject(new Error('Something bad happened with Firebase credentials'));
         });
     });
   }

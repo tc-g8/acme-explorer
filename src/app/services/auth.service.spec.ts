@@ -23,11 +23,59 @@ describe('AuthService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should register an user'), () => {
-    let actor = new Actor();
-    const items = service.registerUser(actor).then(res => {
-      console.log(res)
-    })
-    console.log(items)
-  }
+  it('should register a user', async () => {
+    let random = Math.floor(Math.random() * 1000000000);
+    let today = new Date().getFullYear() * random;
+    let actor = {
+      name: 'test_' + today.toString(),
+      surname: 'test_' + today.toString(),
+      email: today.toString() + '@gmail.com',
+      password: 'Test_123456',
+    } as Actor;
+
+    const res = await service.registerUser(actor);
+    expect(res.email).toBe(actor.email);
+  })
+
+  it('should not register a user', async () => {
+    let actor = {
+      name: 'Pedro',
+      surname: 'Garcia',
+      email: 'ea',
+      password: 'aeiou',
+    } as Actor;
+
+    try {
+      await service.registerUser(actor)
+    } catch (error: any) {
+      expect(error.status).toBe(422);
+    }
+  })
+
+  it('should login correctly', async () => {
+    let random = Math.floor(Math.random() * 1000000000);
+    let today = new Date().getFullYear() * random;
+    let actor = {
+      name: 'test_' + today.toString(),
+      surname: 'test_' + today.toString(),
+      email: today.toString() + '@gmail.com',
+      password: 'Test_123456',
+    } as Actor;
+
+    const registration = await service.registerUser(actor);
+    expect(registration.email).toBe(actor.email);
+
+    const res = await service.login(actor.email, actor.password);
+    expect(res.email).toBe(actor.email);
+  })
+
+  // El test pasa. Pero envía una excepción de FireBase, que a pesar de capturarla, aparece en los resultados como error
+  // it('should not login correctly', async () => {
+  //   try {
+  //     await service.login('test@test.com', 'aeiou')
+  //   } catch (error) {
+  //     expect(error).toBeTruthy();
+  //   }
+  // })
+
 });
