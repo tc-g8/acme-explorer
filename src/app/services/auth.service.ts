@@ -18,9 +18,11 @@ export class AuthService {
   constructor(private fireAuth: AngularFireAuth, private http: HttpClient) { }
 
   registerUser(actor: Actor) {
+    console.log("holaaaa")
     return new Promise<any>((resolve, reject) => {
       this.fireAuth.createUserWithEmailAndPassword(actor.email, actor.password)
-        .then(_ => {
+        .then(res => {
+          console.log("holaaaa:", res);
           // Firebase registration was correct, proceed with our backend
           const headers = new HttpHeaders();
           headers.append('Content-Type', 'application/json');

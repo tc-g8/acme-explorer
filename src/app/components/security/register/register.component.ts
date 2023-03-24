@@ -12,7 +12,7 @@ export class RegisterComponent implements OnInit {
 
   roleList: string[]
 
-  constructor(private authService: AuthService) { 
+  constructor(private authService: AuthService) {
     this.roleList = this.authService.getRoles();
   }
 
@@ -27,8 +27,16 @@ export class RegisterComponent implements OnInit {
     actor.email = "juangarcia@gmail.com";
     actor.password = "Juan_12345";
     actor.role = "ADMINISTRATOR";
-  
-    this.authService.registerUser(actor)
+
+    const actorcillo: any = {
+    "name": "Juan",
+    "surname": "Garcia",
+    "email": "juangarcia@gmail.com",
+    "password": "Juan_12345",
+    "role": ["ADMINISTRATOR"]
+    }
+
+    this.authService.registerUser(actorcillo)
     .then( res => {
       console.log(res);
     }, err => {
