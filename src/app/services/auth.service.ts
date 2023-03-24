@@ -18,6 +18,7 @@ export class AuthService {
   constructor(private fireAuth: AngularFireAuth, private http: HttpClient) { }
 
   registerUser(actor: Actor) {
+    console.log("holaaaa")
     return new Promise<any>((resolve, reject) => {
       const headers = new HttpHeaders();
       headers.append('Content-Type', 'application/json');
@@ -26,6 +27,26 @@ export class AuthService {
       this.http.post(url, body, httpOptions).toPromise()
         .then(_ => {
           this.fireAuth.createUserWithEmailAndPassword(actor.email, actor.password)
+            .then(res => {
+              resolve(res);
+            }, err => {
+              reject(err);
+            });
+        }).catch(error => {
+          reject(error);
+        });
+    });
+  }
+
+  login(email: string, password: string) {
+    return new Promise<any>((resolve, reject) => {
+      this.fireAuth.signInWithEmailAndPassword(email, password)
+        .then(_ => {
+          const headers = new HttpHeaders();
+          headers.append('Content-Type', 'application/json');
+          const url = `${environment.backendApiBaseURL + '/actors/login'}`;
+          const body = JSON.stringify({email: email, password: password});
+          this.http.post(url, body, httpOptions).toPromise()
             .then(res => {
               resolve(res);
             }, err => {

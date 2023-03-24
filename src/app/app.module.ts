@@ -9,28 +9,29 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { RegisterComponent } from './components/security/register/register.component';
+import { LoginComponent } from './components/security/login/login.component';
+import { FormsModule } from '@angular/forms';
+import { NotFoundComponent } from './components/shared/not-found/not-found.component';
+import { HeaderComponent } from './components/master/header/header.component';
+import { environment } from 'src/environments/environment';
 
-export const firebaseConfig = {
-  apiKey: "AIzaSyB4KZiJ04_eH_nAQadct84F-h8zQYuZ8J8",
-  authDomain: "acme-explorer-g8.firebaseapp.com",
-  projectId: "acme-explorer-g8",
-  storageBucket: "acme-explorer-g8.appspot.com",
-  messagingSenderId: "408887835652",
-  appId: "1:408887835652:web:70fd310011ddec774f4951"
-};
 
 @NgModule({
   declarations: [
-    AppComponent, 
-    RegisterComponent
+    AppComponent,
+    RegisterComponent,
+    LoginComponent,
+    NotFoundComponent,
+    HeaderComponent
   ],
   imports: [
-    BrowserModule, 
-    AppRoutingModule, 
+    BrowserModule,
+    FormsModule,
+    AppRoutingModule,
     NgbModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [],
   bootstrap: [AppComponent],
