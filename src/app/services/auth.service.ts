@@ -26,8 +26,28 @@ export class AuthService {
           // Firebase registration was correct, proceed with our backend
           const headers = new HttpHeaders();
           headers.append('Content-Type', 'application/json');
-          const url = `${environment.backendApiBaseURL + '/api/v1/actors'}`;
+          const url = `${environment.backendApiBaseURL + '/actors'}`;
           const body = JSON.stringify(actor);
+          this.http.post(url, body, httpOptions).toPromise()
+            .then(res => {
+              resolve(res);
+            }, err => {
+              reject(err);
+            });
+        }).catch(error => {
+          reject(error);
+        });
+    });
+  }
+
+  login(email: string, password: string) {
+    return new Promise<any>((resolve, reject) => {
+      this.fireAuth.signInWithEmailAndPassword(email, password)
+        .then(_ => {
+          const headers = new HttpHeaders();
+          headers.append('Content-Type', 'application/json');
+          const url = `${environment.backendApiBaseURL + '/actors/login'}`;
+          const body = JSON.stringify({email: email, password: password});
           this.http.post(url, body, httpOptions).toPromise()
             .then(res => {
               resolve(res);
