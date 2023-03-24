@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { Actor } from 'src/app/models/actor.model';
@@ -10,30 +12,35 @@ import { Actor } from 'src/app/models/actor.model';
 })
 export class RegisterComponent implements OnInit {
 
+  registrationForm: FormGroup;
   roleList: string[]
 
-  constructor(private authService: AuthService) { 
+  constructor(private authService: AuthService, private fb: FormBuilder) {
     this.roleList = this.authService.getRoles();
+    this.registrationForm = this.fb.group({
+      name: [''],
+      surname: [''],
+      email: [''],
+      phone: [''],
+      address: [''],
+      password: [''],
+      role: ['']
+    });
   }
-
+  
   ngOnInit(): void {
-    this.onRegister();
   }
 
   onRegister() {
-    const actor: Actor = new Actor();
-    actor.name = "Juan";
-    actor.surname = "Garcia";
-    actor.email = "juangarcia@gmail.com";
-    actor.password = "Juan_12345";
-    actor.role = "ADMINISTRATOR";
-  
-    this.authService.registerUser(actor)
-    .then( res => {
-      console.log(res);
-    }, err => {
-      console.log(err);
-    })
+    this.authService.registerUser(this.registrationForm.value)
+      .then(res => {
+        console.log(res);
+      }, err => {
+        if (err.status === 422) {
+          console.log('There are some errors in the data introduced');
+        }
+        console.log(err);
+      })
   }
 
 }

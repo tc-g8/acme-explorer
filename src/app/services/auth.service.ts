@@ -24,7 +24,7 @@ export class AuthService {
           // Firebase registration was correct, proceed with our backend
           const headers = new HttpHeaders();
           headers.append('Content-Type', 'application/json');
-          const url = `${environment.backendApiBaseURL + '/v1/actors'}`;
+          const url = `${environment.backendApiBaseURL + '/api/v2/actors'}`;
           const body = JSON.stringify(actor);
           this.http.post(url, body, httpOptions).toPromise()
             .then(res => {
