@@ -13,21 +13,20 @@ import { Actor } from 'src/app/models/actor.model';
 export class RegisterComponent implements OnInit {
 
   registrationForm: FormGroup;
-  roleList: string[]
+  errorMessage: string = '';
+  successMessage: string = '';
 
   constructor(private authService: AuthService, private fb: FormBuilder) {
-    this.roleList = this.authService.getRoles();
     this.registrationForm = this.fb.group({
       name: [''],
       surname: [''],
       email: [''],
       phone: [''],
       address: [''],
-      password: [''],
-      role: ['']
+      password: ['']
     });
   }
-  
+
   ngOnInit(): void {
   }
 
@@ -35,12 +34,17 @@ export class RegisterComponent implements OnInit {
     this.authService.registerUser(this.registrationForm.value)
       .then(res => {
         console.log(res);
+        this.errorMessage = '';
+        this.successMessage = 'Registration successful';
       }, err => {
         if (err.status === 422) {
           console.log('There are some errors in the data introduced');
+          this.errorMessage = 'There are some errors in the data introduced';
+        } else {
+          console.log(err);
+          this.errorMessage = 'There was an error during the registration process';
         }
-        console.log(err);
-      })
+        this.successMessage = '';
+      });
   }
-
 }
