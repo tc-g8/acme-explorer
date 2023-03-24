@@ -44,7 +44,7 @@ export class AuthService {
         .then(_ => {
           const headers = new HttpHeaders();
           headers.append('Content-Type', 'application/json');
-          const url = `${environment.backendApiBaseURL + '/actors/login'}`;
+          const url = `${environment.backendApiBaseURL + '/api/v1/actors/login'}`;
           const body = JSON.stringify({email: email, password: password});
           this.http.post(url, body, httpOptions).toPromise()
             .then(res => {
