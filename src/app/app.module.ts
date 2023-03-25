@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { NotFoundComponent } from './components/shared/not-found/not-found.component';
 import { HeaderComponent } from './components/master/header/header.component';
 import { environment } from 'src/environments/environment';
+import { ProfileComponent } from './components/actor/profile/profile.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { environment } from 'src/environments/environment';
     RegisterComponent,
     LoginComponent,
     NotFoundComponent,
-    HeaderComponent
+    HeaderComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
