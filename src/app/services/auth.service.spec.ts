@@ -12,9 +12,11 @@ describe('AuthService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [AngularFireModule.initializeApp(environment.firebaseConfig),
-        HttpClientModule],
-      providers: [AngularFireAuth]
+      imports: [
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        HttpClientModule,
+      ],
+      providers: [AngularFireAuth],
     });
     service = TestBed.inject(AuthService);
   });
@@ -35,7 +37,7 @@ describe('AuthService', () => {
 
     const res = await service.registerUser(actor);
     expect(res.email).toBe(actor.email);
-  })
+  });
 
   it('should not register a user', async () => {
     let actor = {
@@ -46,11 +48,11 @@ describe('AuthService', () => {
     } as Actor;
 
     try {
-      await service.registerUser(actor)
+      await service.registerUser(actor);
     } catch (error: any) {
       expect(error.status).toBe(422);
     }
-  })
+  });
 
   it('should login correctly', async () => {
     let random = Math.floor(Math.random() * 1000000000);
@@ -67,15 +69,13 @@ describe('AuthService', () => {
 
     const res = await service.login(actor.email, actor.password);
     expect(res.email).toBe(actor.email);
-  })
+  });
 
-  // El test pasa. Pero envía una excepción de FireBase, que a pesar de capturarla, aparece en los resultados como error
-  // it('should not login correctly', async () => {
-  //   try {
-  //     await service.login('test@test.com', 'aeiou')
-  //   } catch (error) {
-  //     expect(error).toBeTruthy();
-  //   }
-  // })
-
+  it('should not login correctly', async () => {
+    try {
+      await service.login('test@test.com', '123abc');
+    } catch (error) {
+      expect(error).toBeTruthy();
+    }
+  });
 });
