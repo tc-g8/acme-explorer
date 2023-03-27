@@ -13,6 +13,7 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class AuthService {
+
   constructor(private fireAuth: AngularFireAuth, private http: HttpClient) {}
 
   registerUser(actor: Actor) {
@@ -60,7 +61,7 @@ export class AuthService {
             .then(async (_) => {
               const idToken = await this.fireAuth.currentUser;
               actor.idToken = await idToken?.getIdToken();
-              localStorage.setItem('idToken', actor.idToken!);
+              this.setCurrentActor(actor);
               resolve(actor);
             })
             .catch((error) => {
@@ -74,6 +75,33 @@ export class AuthService {
         .catch((error) => {
           reject(error);
         });
+    });
+  }
+
+  logout() {
+    return new Promise<any>((resolve, reject) => {
+      this.fireAuth.signOut()
+        .then(_ => {
+          localStorage.clear();
+          resolve('Logout succesful');
+        }).catch(error => {
+          reject(error);
+        });
+    });
+  }
+
+  setCurrentActor(actor: Actor) {
+    localStorage.setItem('currentActor', JSON.stringify({ actor: actor }));
+  }
+
+  getCurrentActor(): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      const currentActor = localStorage.getItem('currentActor');
+      if (currentActor) {
+        resolve(JSON.parse(currentActor).actor);
+      } else {
+        resolve(null);
+      }
     });
   }
 
