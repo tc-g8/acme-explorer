@@ -9,6 +9,7 @@ import { ListFavouritesComponent } from './components/trip/list-favourites/list-
 import { CreateManagerComponent } from './components/actor/create-manager/create-manager.component';
 import { DisplayComponent as DisplayDashboard } from './components/dashboard/display/display.component';
 import { DisplayComponent as DisplayConfiguration } from './components/configuration/display/display.component';
+import { ProfileComponent } from './components/actor/profile/profile.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'actors/create-manager', component: CreateManagerComponent },
   { path: 'dashboard', component: DisplayDashboard },
   { path: 'config', component: DisplayConfiguration },
+  { path: 'me', component: ProfileComponent },
   { path: '**', component: NotFoundComponent },
 ];
 

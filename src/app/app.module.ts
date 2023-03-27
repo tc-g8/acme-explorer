@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { NotFoundComponent } from './components/shared/not-found/not-found.component';
 import { HeaderComponent } from './components/master/header/header.component';
 import { environment } from 'src/environments/environment';
+import { ProfileComponent } from './components/actor/profile/profile.component';
 import { FooterComponent } from './components/master/footer/footer.component';
 import { ListTripsComponent } from './components/trip/list-trips/list-trips.component';
 import { ListApplicationsComponent } from './components/application/list-applications/list-applications.component';
@@ -21,7 +22,6 @@ import { ListFavouritesComponent } from './components/trip/list-favourites/list-
 import { ListSponsorshipsComponent } from './components/sponsorship/list-sponsorships/list-sponsorships.component';
 import { CreateManagerComponent } from './components/actor/create-manager/create-manager.component';
 import { DisplayComponent } from './components/dashboard/display/display.component';
-
 
 @NgModule({
   declarations: [
@@ -36,7 +36,9 @@ import { DisplayComponent } from './components/dashboard/display/display.compone
     ListFavouritesComponent,
     ListSponsorshipsComponent,
     CreateManagerComponent,
-    DisplayComponent
+    DisplayComponent,
+    ProfileComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,9 +47,9 @@ import { DisplayComponent } from './components/dashboard/display/display.compone
     NgbModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig)
+    AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
