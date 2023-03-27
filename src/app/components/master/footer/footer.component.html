@@ -1,0 +1,68 @@
+<footer class="footer-distributed">
+  <div class="row">
+    <div class="col-12 col-sm-12 col-lg-5 mb-4">
+      <div class="footer-left">
+        <div class="d-flex align-items-center mb-2">
+          <object
+            class="me-2"
+            data="../../../../assets/images/logo-footer.svg"
+            width="40"
+            height="40"
+          ></object>
+          <h3 class="m-0">Acme Explorer</h3>
+        </div>
+        <p class="footer-links">
+          <a href="#">Terms and conditions</a>
+        </p>
+        <p class="footer-company-name">
+          Acme-Explorer, Inc. &copy; {{ today | date : "medium" }}
+        </p>
+        <span class="text-muted">
+          <b>{{ "Visitors" }}</b>
+          {{ visitorsNumber }}
+        </span>
+      </div>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-3 mb-4">
+      <div class="footer-center">
+        <div>
+          <p>
+            <i class="fa fa-map-marker"></i>
+            Av. Reina Mercedes s/n, 41012<br />Sevilla, Spain
+          </p>
+        </div>
+        <div>
+          <p>
+            <i class="fa-solid fa-phone"></i>
+            +34 456123987
+          </p>
+        </div>
+        <div>
+          <p>
+            <i class="fa-solid fa-envelope"></i>
+            <a href="#">mailto@acmeexlporer.com</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-4 mb-4">
+      <div class="footer-right">
+        <p class="footer-company-about">
+          <span class="h5">{{ "About us" }}</span
+          ><br />
+          {{
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras scelerisque euismod ex, " +
+              "in luctus dolor viverra sit amet. In hac habitasse platea dictumst. " +
+              "Maecenas maximus condimentum nibh, eu viverra erat."
+          }}
+        </p>
+        <div class="footer-icons">
+          <a><i class="fa-brands fa-facebook"></i></a>
+          <a><i class="fa-brands fa-instagram"></i></a>
+          <a><i class="fa-brands fa-twitter"></i></a>
+          <a><i class="fa-brands fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
