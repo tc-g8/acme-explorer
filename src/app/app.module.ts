@@ -15,6 +15,7 @@ import { NotFoundComponent } from './components/shared/not-found/not-found.compo
 import { HeaderComponent } from './components/master/header/header.component';
 import { environment } from 'src/environments/environment';
 import { ProfileComponent } from './components/actor/profile/profile.component';
+import { FooterComponent } from './components/master/footer/footer.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { ProfileComponent } from './components/actor/profile/profile.component';
     NotFoundComponent,
     HeaderComponent,
     ProfileComponent
+    FooterComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,26 @@
+p,
+i,
+h3 {
+  color: whitesmoke;
+}
+
+.footer-distributed {
+  background-color: #373a3c;
+  box-shadow: 0 1px 40px 5px rgba(0, 0, 0, 0.15);
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  width: 100%;
+  text-align: left;
+  padding: 55px 50px;
+  margin-top: 125px;
+  border-top: 3px solid #1c1d1e;
+}
+
+.footer-icons {
+  font-size: 1.5rem;
+}
+
+.footer-icons i {
+  margin-right: 0.6rem;
+}
