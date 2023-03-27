@@ -60,11 +60,20 @@
                 </li>
               </ul>
             </li>
-            <li class="nav-item">
-              <a class="nav-link active" routerLink="/me">
-                <i class="fa-solid fa-user" aria-hidden="true"></i>
-                Profile
+            <li class="nav-item dropdown">
+              <a
+                href="#"
+                class="d-block nav-link link-dark text-decoration-none dropdown-toggle show"
+                data-bs-toggle="dropdown"
+                arial-expanded="false"
+              >
+                Sponsorship
               </a>
+              <ul class="dropdown-menu text-small dropdown-menu-end">
+                <li>
+                  <a class="dropdown-item" href="/sponsorships/list">List</a>
+                </li>
+              </ul>
             </li>
             <li class="nav-item">
               <a class="nav-link active" routerLink="/register">
@@ -95,7 +104,7 @@
               </a>
               <ul class="dropdown-menu text-small dropdown-menu-end">
                 <li>
-                  <a class="dropdown-item" href="#">Profile</a>
+                  <a class="dropdown-item" href="/me">Profile</a>
                 </li>
                 <li>
                   <a class="dropdown-item" href="#" (click)="logout()">
