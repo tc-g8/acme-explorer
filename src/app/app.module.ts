@@ -15,6 +15,12 @@ import { NotFoundComponent } from './components/shared/not-found/not-found.compo
 import { HeaderComponent } from './components/master/header/header.component';
 import { environment } from 'src/environments/environment';
 import { FooterComponent } from './components/master/footer/footer.component';
+import { ListTripsComponent } from './components/trip/list-trips/list-trips.component';
+import { ListApplicationsComponent } from './components/application/list-applications/list-applications.component';
+import { ListFavouritesComponent } from './components/trip/list-favourites/list-favourites.component';
+import { ListSponsorshipsComponent } from './components/sponsorship/list-sponsorships/list-sponsorships.component';
+import { CreateManagerComponent } from './components/actor/create-manager/create-manager.component';
+import { DisplayComponent } from './components/dashboard/display/display.component';
 
 
 @NgModule({
@@ -24,7 +30,13 @@ import { FooterComponent } from './components/master/footer/footer.component';
     LoginComponent,
     NotFoundComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ListTripsComponent,
+    ListApplicationsComponent,
+    ListFavouritesComponent,
+    ListSponsorshipsComponent,
+    CreateManagerComponent,
+    DisplayComponent
   ],
   imports: [
     BrowserModule,
