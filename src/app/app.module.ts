@@ -17,7 +17,6 @@ import { environment } from 'src/environments/environment';
 import { ProfileComponent } from './components/actor/profile/profile.component';
 import { FooterComponent } from './components/master/footer/footer.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,8 +24,8 @@ import { FooterComponent } from './components/master/footer/footer.component';
     LoginComponent,
     NotFoundComponent,
     HeaderComponent,
-    ProfileComponent
-    FooterComponent
+    ProfileComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,9 +34,9 @@ import { FooterComponent } from './components/master/footer/footer.component';
     NgbModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig)
+    AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
