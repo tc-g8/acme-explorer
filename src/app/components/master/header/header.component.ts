@@ -17,14 +17,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getStatus().subscribe(loggedIn => {
       if (loggedIn) {
-        this.authService.getCurrentActor()
-          .then(res => {
-            this.currentActor = res;
-            this.activeRole = this.currentActor.role.toString().toLowerCase();
-          }, err => {
-            this.activeRole = 'anonymous';
-            this.currentActor = undefined;
-          });
+        this.currentActor = this.authService.getCurrentActor();
+        this.activeRole = this.currentActor!.role.toString().toLowerCase();
       } else {
         this.activeRole = 'anonymous';
         this.currentActor = undefined;
@@ -33,11 +27,11 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-      this.authService.logout()
-        .then(_ => {
-        }).catch(error => {
-          console.log(error);
-        });
-    }
+    this.authService.logout()
+      .then(_ => {
+      }).catch(error => {
+        console.log(error);
+      });
+  }
 
 }

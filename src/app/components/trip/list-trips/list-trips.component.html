@@ -1,1 +1,18 @@
-<p>list-trips works!</p>
+
+<div *ngIf="trips && trips.length > 0" class="row .row-cols-3 row-cols-md-3 g-4 mt-2">
+    <div *ngFor="let trip of trips" class="card">
+        <div class="card-body">
+            <h4 class="card-title">
+                {{ trip.title }}
+            </h4>
+            <p class="card-text">
+                {{ trip.startDate | date : "dd/MM/yyyy" }} - {{ trip.endDate | date : "dd/MM/yyyy" }}
+            </p>
+            <p class="card-text">
+                <span class="badge bg-primary">
+                    {{ trip.price }} $
+                </span>
+            </p>
+        </div>
+    </div>
+</div>

@@ -100,15 +100,13 @@ export class AuthService {
     localStorage.setItem('currentActor', JSON.stringify({ actor: actor }));
   }
 
-  getCurrentActor(): Promise<Actor> {
-    return new Promise<any>((resolve, reject) => {
+  getCurrentActor(): Actor | undefined {
       const currentActor = localStorage.getItem('currentActor');
       if (currentActor) {
-        resolve(JSON.parse(currentActor).actor);
+        return JSON.parse(currentActor).actor;
       } else {
-        resolve(null);
+        return undefined;
       }
-    });
   }
 
   getStatus(): Observable<Boolean> {
