@@ -19,17 +19,20 @@ const routes: Routes = [
   { path: 'singin', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'me', component: ProfileComponent },
-  { path: 'trips', component: ListTripsComponent },
-  { path: 'trips/:id', component: DisplayTripComponent },
-  { path: 'trips/manager/:id', component: ListManagerTripsComponent },
-  { path: 'applications/trip/:id', component: ListTripApplicationsComponent },
-  {
-    path: 'applications/explorer/:id',
-    component: ListExplorerApplicationsComponent,
-  },
+  { path: 'trips', component: ListTripsComponent, children: [
+    { path: ':id', component: DisplayTripComponent },
+    { path: 'manager/:id', component: ListManagerTripsComponent }
+  ]},
+  { path: 'applications', children: [
+    { path: 'trip/:id', component: ListTripApplicationsComponent },
+    { path: 'explorer/:id', component: ListExplorerApplicationsComponent },
+  ]},
   { path: 'favourites/explorer/:id', component: ListFavouritesComponent },
-  { path: 'sponsorships/sponsor/:id', component: ListSponsorshipsComponent },
-  { path: 'sponsorships/:id', component: DisplaySponsorshipComponent },
+  { path: 'sponsorships', children: [
+    { path: 'sponsor/:id', component: ListSponsorshipsComponent },
+    { path: ':id', component: DisplaySponsorshipComponent }
+  ]},
+  { path: '', redirectTo: '', pathMatch: 'full'},
   { path: '**', component: NotFoundComponent },
 ];
 
