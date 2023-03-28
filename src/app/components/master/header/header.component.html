@@ -2,13 +2,19 @@
   class="navbar navbar-expand-md bg-light border-bottom border-secondary-subtle"
 >
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">
-      <object
-        data="../../../../assets/images/logo.svg"
-        width="40"
-        height="40"
-      ></object>
+    <a class="navbar-brand ps-2" href="/">
+      <img src="../../../../assets/images/logo.svg" width="40" height="40" />
     </a>
+    <form class="d-flex" role="search">
+      <input
+        class="form-control ms-5"
+        type="search"
+        placeholder="Search"
+        aria-label="Search"
+      />
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+
     <button
       class="navbar-toggler"
       type="button"
@@ -25,79 +31,6 @@
       <ul class="navbar-nav mb-2 mb-md-0">
         <div>
           <ul class="navbar-nav mb-2 mb-lg-0">
-            <li class="nav-item dropdown">
-              <a
-                href="#"
-                class="d-block nav-link link-dark text-decoration-none dropdown-toggle show"
-                data-bs-toggle="dropdown"
-                arial-expanded="false"
-              >
-                Trips
-              </a>
-              <ul class="dropdown-menu text-small dropdown-menu-end">
-                <li>
-                  <a class="dropdown-item" href="/trips/list">List</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/trips/favourites"
-                    >Favourites</a
-                  >
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                href="#"
-                class="d-block nav-link link-dark text-decoration-none dropdown-toggle show"
-                data-bs-toggle="dropdown"
-                arial-expanded="false"
-              >
-                Applications
-              </a>
-              <ul class="dropdown-menu text-small dropdown-menu-end">
-                <li>
-                  <a class="dropdown-item" href="/applications/list">List</a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                href="#"
-                class="d-block nav-link link-dark text-decoration-none dropdown-toggle show"
-                data-bs-toggle="dropdown"
-                arial-expanded="false"
-              >
-                Sponsorship
-              </a>
-              <ul class="dropdown-menu text-small dropdown-menu-end">
-                <li>
-                  <a class="dropdown-item" href="/sponsorships/list">List</a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                href="#"
-                class="d-block nav-link link-dark text-decoration-none dropdown-toggle show"
-                data-bs-toggle="dropdown"
-                arial-expanded="false"
-              >
-                Administrator
-              </a>
-              <ul class="dropdown-menu text-small dropdown-menu-end">
-                <li>
-                  <a class="dropdown-item" href="/dashboard">Dashboard</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/actors/create-manager"
-                    >Create manager</a
-                  >
-                </li>
-                <li>
-                  <a class="dropdown-item" href="/config">Configuration</a>
-                </li>
-              </ul>
-            </li>
             <li class="nav-item">
               <a class="nav-link active" routerLink="/register">
                 <i class="fa fa-user-plus" aria-hidden="true"></i>
@@ -120,14 +53,33 @@
                 <img
                   src="https:/github.com/mdo.png"
                   alt="mdo"
-                  width="32"
-                  height="32"
-                  class="rounded-circle"
+                  class="rounded-circle img-fluid"
+                  width="40px"
                 />
               </a>
               <ul class="dropdown-menu text-small dropdown-menu-end">
                 <li>
                   <a class="dropdown-item" href="/me">Profile</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/trips/manager/:id"
+                    >My Trips</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/applications/explorer/:id"
+                    >My Applications</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/favourites/explorer/:id"
+                    >My Favourites</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/sponsorships/sponsor/:id"
+                    >My Sponsorships</a
+                  >
                 </li>
                 <li>
                   <a class="dropdown-item" href="#" (click)="logout()">
