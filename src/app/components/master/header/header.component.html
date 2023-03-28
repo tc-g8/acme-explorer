@@ -2,7 +2,7 @@
   class="navbar navbar-expand-md bg-light border-bottom border-secondary-subtle"
 >
   <div class="container-fluid">
-    <a class="navbar-brand ps-2" href="/">
+    <a class="navbar-brand ps-2" routerLink="/">
       <img src="../../../../assets/images/logo.svg" width="40" height="40" />
     </a>
     <form class="d-flex" role="search">
@@ -26,26 +26,25 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse flex-row-reverse" id="headerCollapse">
       <ul class="navbar-nav mb-2 mb-md-0">
         <div>
           <ul class="navbar-nav mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" routerLink="/register">
+            <li class="nav-item" *ngIf="!currentActor">
+              <a class="nav-link active" routerLink="/singin">
                 <i class="fa fa-user-plus" aria-hidden="true"></i>
                 Register
               </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="!currentActor">
               <a class="nav-link active" routerLink="/login">
                 <i class="fa fa-sign-in" aria-hidden="true"></i>
                 Login
               </a>
             </li>
-            <li class="nav-item dropdown">
+            <li class="nav-item dropdown" *ngIf="currentActor">
               <a
-                href="#"
+                routerLink="#"
                 class="d-block link-dark text-decoration-none dropdown-toggle show"
                 data-bs-toggle="dropdown"
                 arial-expanded="false"
@@ -59,30 +58,30 @@
               </a>
               <ul class="dropdown-menu text-small dropdown-menu-end">
                 <li>
-                  <a class="dropdown-item" href="/me">Profile</a>
+                  <a class="dropdown-item" routerLink="/me">Profile</a>
                 </li>
-                <li>
-                  <a class="dropdown-item" href="/trips/manager/:id"
+                <li *ngIf="activeRole === 'manager'">
+                  <a class="dropdown-item" routerLink="/trips/manager/:id"
                     >My Trips</a
                   >
                 </li>
-                <li>
-                  <a class="dropdown-item" href="/applications/explorer/:id"
+                <li *ngIf="activeRole === 'explorer'">
+                  <a class="dropdown-item" routerLink="/applications/explorer/:id"
                     >My Applications</a
                   >
                 </li>
-                <li>
-                  <a class="dropdown-item" href="/favourites/explorer/:id"
+                <li *ngIf="activeRole === 'explorer'">
+                  <a class="dropdown-item" routerLink="/favourites/explorer/:id"
                     >My Favourites</a
                   >
                 </li>
-                <li>
-                  <a class="dropdown-item" href="/sponsorships/sponsor/:id"
+                <li *ngIf="activeRole === 'sponsor'">
+                  <a class="dropdown-item" routerLink="/sponsorships/sponsor/:id"
                     >My Sponsorships</a
                   >
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#" (click)="logout()">
+                  <a class="dropdown-item" routerLink="#" (click)="logout()">
                     Logout
                   </a>
                 </li>

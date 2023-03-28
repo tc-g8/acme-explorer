@@ -4,6 +4,8 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 import { environment } from 'src/environments/environment';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Observable, Subject } from 'rxjs';
+
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -13,6 +15,8 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class AuthService {
+
+  private loginStatus = new Subject<Boolean>();
 
   constructor(private fireAuth: AngularFireAuth, private http: HttpClient) {}
 
@@ -62,6 +66,7 @@ export class AuthService {
               const idToken = await this.fireAuth.currentUser;
               actor.idToken = await idToken?.getIdToken();
               this.setCurrentActor(actor);
+              this.loginStatus.next(true);
               resolve(actor);
             })
             .catch((error) => {
@@ -83,6 +88,7 @@ export class AuthService {
       this.fireAuth.signOut()
         .then(_ => {
           localStorage.clear();
+          this.loginStatus.next(false);
           resolve('Logout succesful');
         }).catch(error => {
           reject(error);
@@ -94,7 +100,7 @@ export class AuthService {
     localStorage.setItem('currentActor', JSON.stringify({ actor: actor }));
   }
 
-  getCurrentActor(): Promise<any> {
+  getCurrentActor(): Promise<Actor> {
     return new Promise<any>((resolve, reject) => {
       const currentActor = localStorage.getItem('currentActor');
       if (currentActor) {
@@ -103,6 +109,10 @@ export class AuthService {
         resolve(null);
       }
     });
+  }
+
+  getStatus(): Observable<Boolean> {
+    return this.loginStatus.asObservable();
   }
 
   getRoles(): string[] {
