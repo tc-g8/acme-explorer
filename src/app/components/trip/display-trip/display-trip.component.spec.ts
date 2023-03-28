@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateManagerComponent } from './create-manager.component';
+import { DisplayTripComponent } from './display-trip.component';
 
-describe('CreateManagerComponent', () => {
-  let component: CreateManagerComponent;
-  let fixture: ComponentFixture<CreateManagerComponent>;
+describe('DisplayTripComponent', () => {
+  let component: DisplayTripComponent;
+  let fixture: ComponentFixture<DisplayTripComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateManagerComponent ]
+      declarations: [ DisplayTripComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CreateManagerComponent);
+    fixture = TestBed.createComponent(DisplayTripComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
