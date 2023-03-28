@@ -1,5 +1,14 @@
 # AcmeExplorer
 
+## Users
+
+| email | password |
+|--------|----------|
+| explorer@gmail.com | Prueba_12345 |
+| manager@gmail.com | Prueba_12345 |
+| sponsor@gmail.com | Prueba_12345 |
+| admin@gmail.com | Prueba_12345 |
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.10.
 
 ## Development server

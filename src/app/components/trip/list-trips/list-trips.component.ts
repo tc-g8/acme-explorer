@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Actor } from 'src/app/models/actor.model';
+import { Trip } from 'src/app/models/trip';
+import { AuthService } from 'src/app/services/auth.service';
+import { TripService } from 'src/app/services/trip.service';
 
 @Component({
   selector: 'app-list-trips',
@@ -7,9 +12,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListTripsComponent implements OnInit {
 
-  constructor() { }
+  trips: Trip[];
+  actor: Actor;
 
-  ngOnInit(): void {
+  constructor(private tripService: TripService, private router: Router, private authService: AuthService) { 
+    this.trips = [];
+    this.actor = new Actor();
   }
 
+  ngOnInit(): void {
+    this.tripService.getTrips().subscribe((data:any) => this.trips = data);
+    this.actor = this.authService.getCurrentActor()!;
+  }
 }
