@@ -1,4 +1,6 @@
-export class Trip {
+import { Entity } from './entity.model';
+
+export class Trip extends Entity {
   private _ticker!: string;
   private _title!: string;
   private _description!: string;
@@ -10,10 +12,14 @@ export class Trip {
   private _status!: string;
   private _imageCollections?: Buffer[] | undefined;
 
+  constructor() {
+    super();
+  }
+
   public get ticker(): string {
     return this._ticker;
   }
-  
+
   public set ticker(value: string) {
     this._ticker = value;
   }
@@ -90,6 +96,3 @@ export class Trip {
     this._imageCollections = value;
   }
 }
-
-
-

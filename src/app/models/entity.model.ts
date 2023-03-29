@@ -1,14 +1,14 @@
 export class Entity {
-  private _id: string;
+  private __id: string;
   private _version: number;
 
   constructor() {
-    this._id = '0';
+    this.__id = '0';
     this._version = 0;
   }
 
-  public get id(): string {
-    return this._id;
+  public get _id(): string {
+    return this.__id;
   }
 
   public get version(): number {
