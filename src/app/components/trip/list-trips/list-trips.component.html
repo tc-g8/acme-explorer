@@ -1,18 +1,24 @@
-
-<div *ngIf="trips && trips.length > 0" class="row .row-cols-3 row-cols-md-3 g-4 mt-2">
-    <div *ngFor="let trip of trips" class="card">
-        <div class="card-body">
+<div *ngIf="trips && trips.length > 0" class="row g-4 mt-2">
+  <div *ngFor="let trip of trips" class="col-12 col-md-6">
+    <div class="card" routerLink="/trips/{{ trip._id }}">
+      <div class="card-body row">
+        <div class="d-flex">
+          <div class="d-flex flex-column col-10">
             <h4 class="card-title">
-                {{ trip.title }}
+              {{ trip.title }}
             </h4>
-            <p class="card-text">
-                {{ trip.startDate | date : "dd/MM/yyyy" }} - {{ trip.endDate | date : "dd/MM/yyyy" }}
+            <small class="card-text">
+              {{ trip.startDate | date : "dd/MM/yyyy" }} -
+              {{ trip.endDate | date : "dd/MM/yyyy" }}
+            </small>
+          </div>
+          <div class="align-self-center col-2">
+            <p class="card-text text-center">
+              <span class="badge bg-primary"> {{ trip.price }} $ </span>
             </p>
-            <p class="card-text">
-                <span class="badge bg-primary">
-                    {{ trip.price }} $
-                </span>
-            </p>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>

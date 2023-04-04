@@ -19,20 +19,30 @@ const routes: Routes = [
   { path: 'singin', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'me', component: ProfileComponent },
-  { path: 'trips', component: ListTripsComponent, children: [
-    { path: ':id', component: DisplayTripComponent },
-    { path: 'manager/:id', component: ListManagerTripsComponent }
-  ]},
-  { path: 'applications', children: [
-    { path: 'trip/:id', component: ListTripApplicationsComponent },
-    { path: 'explorer/:id', component: ListExplorerApplicationsComponent },
-  ]},
+  {
+    path: 'trips',
+    children: [
+      { path: ':id', component: DisplayTripComponent },
+      { path: 'manager/:id', component: ListManagerTripsComponent },
+      { path: '', component: ListTripsComponent },
+    ],
+  },
+  {
+    path: 'applications',
+    children: [
+      { path: 'trip/:id', component: ListTripApplicationsComponent },
+      { path: 'explorer/:id', component: ListExplorerApplicationsComponent },
+    ],
+  },
   { path: 'favourites/explorer/:id', component: ListFavouritesComponent },
-  { path: 'sponsorships', children: [
-    { path: 'sponsor/:id', component: ListSponsorshipsComponent },
-    { path: ':id', component: DisplaySponsorshipComponent }
-  ]},
-  { path: '', redirectTo: '', pathMatch: 'full'},
+  {
+    path: 'sponsorships',
+    children: [
+      { path: 'sponsor/:id', component: ListSponsorshipsComponent },
+      { path: ':id', component: DisplaySponsorshipComponent },
+    ],
+  },
+  { path: '', redirectTo: '', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent },
 ];
 
