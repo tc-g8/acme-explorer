@@ -9,11 +9,27 @@ import { Trip } from '../models/trip.model';
 export class TripService {
   private tripsUrl = environment.backendApiBaseURL + '/api/v1/trips';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getTrips() {
+  getTrips(query: any) {
+    let finder = {};
+    if (query.keyword) {
+      finder = { keyword: query.keyword };
+    }
+    if (query.minPrice) {
+      finder = { ...finder, minPrice: query.minPrice };
+    }
+    if (query.maxPrice) {
+      finder = { ...finder, maxPrice: query.maxPrice };
+    }
+    if (query.minDate) {
+      finder = { ...finder, minDate: query.minDate };
+    }
+    if (query.maxDate) {
+      finder = { ...finder, maxDate: query.maxDate };
+    }
     const url = `${this.tripsUrl}`;
-    return this.http.get<Trip[]>(url);
+    return this.http.get<Trip[]>(url, { params: finder });
   }
 
   getTrip(id: string) {
