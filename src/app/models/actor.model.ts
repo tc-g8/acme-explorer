@@ -1,4 +1,5 @@
 import { Entity } from './entity.model';
+import { Role } from '../enums/role.enum';
 
 export class Actor extends Entity {
   private _name!: string;
@@ -10,7 +11,7 @@ export class Actor extends Entity {
   private _customToken?: string | undefined;
   private _idToken?: string | undefined;
   private _preferredLanguage?: string | undefined;
-  private _role!: string;
+  private _role!: Role;
 
   constructor() {
     super();
@@ -79,10 +80,10 @@ export class Actor extends Entity {
     this._preferredLanguage = value;
   }
 
-  public get role(): string {
+  public get role(): Role {
     return this._role;
   }
-  public set role(value: string) {
+  public set role(value: Role) {
     this._role = value;
   }
 }

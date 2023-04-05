@@ -1,4 +1,8 @@
 import { Entity } from './entity.model';
+import { Image } from './image.model';
+import { Sponsorship } from './sponsorship.model';
+import { Stage } from './stage.model';
+import { TripStatus } from '../enums/trip.enum';
 
 export class Trip extends Entity {
   private _ticker!: string;
@@ -9,8 +13,11 @@ export class Trip extends Entity {
   private _price!: number;
   private _startDate!: Date;
   private _endDate!: Date;
-  private _status!: string;
-  private _imageCollections?: Buffer[] | undefined;
+  private _status!: TripStatus;
+  private _stages?: Stage[] | undefined;
+  private _sponsorships?: Sponsorship | undefined;
+  private _manager_id!: string;
+  private _imageCollection!: Image[];
 
   constructor() {
     super();
@@ -80,19 +87,40 @@ export class Trip extends Entity {
     this._endDate = value;
   }
 
-  public get status(): string {
+  public get status(): TripStatus {
     return this._status;
   }
 
-  public set status(value: string) {
+  public set status(value: TripStatus) {
     this._status = value;
   }
 
-  public get imageCollections(): Buffer[] | undefined {
-    return this._imageCollections;
+  public get stages(): Stage[] | undefined {
+    return this._stages;
+  }
+  public set stages(value: Stage[] | undefined) {
+    this._stages = value;
   }
 
-  public set imageCollections(value: Buffer[] | undefined) {
-    this._imageCollections = value;
+  public get imageCollection(): Image[] {
+    return this._imageCollection;
+  }
+
+  public get sponsorships(): Sponsorship | undefined {
+    return this._sponsorships;
+  }
+  public set sponsorships(value: Sponsorship | undefined) {
+    this._sponsorships = value;
+  }
+
+  public get manager_id(): string {
+    return this._manager_id;
+  }
+  public set manager_id(value: string) {
+    this._manager_id = value;
+  }
+
+  public set imageCollection(value: Image[]) {
+    this._imageCollection = value;
   }
 }
