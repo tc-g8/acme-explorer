@@ -13,15 +13,22 @@ import { TripService } from 'src/app/services/trip.service';
 })
 export class ListTripsComponent implements OnInit {
   trips: Trip[];
+  protected currentActor: Actor | undefined;
+  protected activeRole: string = 'anonymous';
 
   constructor(
-    private tripService: TripService
+    private tripService: TripService,
+    private authService: AuthService
   ) {
     this.trips = [];
   }
 
   ngOnInit(): void {
     const query = {};
+    this.currentActor = this.authService.getCurrentActor();
+    if (this.currentActor){
+      this.activeRole = this.currentActor!.role.toString().toLowerCase();
+    }
     this.tripService.getTrips(query).subscribe((data: any) => (this.trips = data));
   }
 

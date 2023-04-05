@@ -31,7 +31,6 @@ export class RegisterComponent implements OnInit {
   onRegister() {
     this.authService.registerUser(this.registrationForm.value)
       .then(res => {
-        console.log(res);
         this.errorMessage = '';
         this.successMessage = 'Registration successful';
       }, err => {
