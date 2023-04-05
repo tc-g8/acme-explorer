@@ -1,8 +1,9 @@
 import { Entity } from './entity.model';
 import { SponsorshipStatus } from '../enums/sponsorship.enum';
+import { Image } from './image.model';
 
 export class Sponsorship extends Entity {
-  private _banner!: Buffer[];
+  private _banner!: Image;
   private _landingPage!: string;
   private _amount!: number;
   private _status!: SponsorshipStatus;
@@ -12,10 +13,10 @@ export class Sponsorship extends Entity {
     super();
   }
 
-  public get banner(): Buffer[] {
+  public get banner(): Image {
     return this._banner;
   }
-  public set banner(value: Buffer[]) {
+  public set banner(value: Image) {
     this._banner = value;
   }
 
