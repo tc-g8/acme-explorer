@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 import { Actor } from 'src/app/models/actor.model';
 import { Trip } from 'src/app/models/trip.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -12,19 +13,20 @@ import { TripService } from 'src/app/services/trip.service';
 })
 export class ListTripsComponent implements OnInit {
   trips: Trip[];
-  actor: Actor;
 
   constructor(
-    private tripService: TripService,
-    private router: Router,
-    private authService: AuthService
+    private tripService: TripService
   ) {
     this.trips = [];
-    this.actor = new Actor();
   }
 
   ngOnInit(): void {
-    this.tripService.getTrips().subscribe((data: any) => (this.trips = data));
-    this.actor = this.authService.getCurrentActor()!;
+    const query = {};
+    this.tripService.getTrips(query).subscribe((data: any) => (this.trips = data));
+  }
+
+  search(form: NgForm) {
+    const query = form.value;
+    this.tripService.getTrips(query).subscribe((data: any) => (this.trips = data));
   }
 }
