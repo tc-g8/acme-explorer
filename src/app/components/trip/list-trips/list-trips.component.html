@@ -31,7 +31,7 @@
     <div class="card" routerLink="/trips/{{ trip._id }}">
       <div class="card-body row">
         <div class="d-flex">
-          <div class="d-flex flex-column col-10">
+          <div class="d-flex flex-column col-9">
             <h4 class="card-title">
               {{ trip.title }}
             </h4>
@@ -40,9 +40,9 @@
               {{ trip.endDate | date : "dd/MM/yyyy" }}
             </small>
           </div>
-          <div class="align-self-center col-2">
-            <p class="card-text text-center">
-              <span class="badge bg-primary"> {{ trip.price }} $ </span>
+          <div class="align-self-center col-2 offset-1">
+            <p class="card-text text-center h4">
+              <span class="badge bg-success"> {{ trip.price }} $ </span>
             </p>
           </div>
         </div>
