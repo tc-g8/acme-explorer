@@ -9,7 +9,7 @@ import { Trip } from '../models/trip.model';
 export class TripService {
   private tripsUrl = environment.backendApiBaseURL + '/api/v1/trips';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getTrips(query: any) {
     let finder = {};
@@ -35,5 +35,10 @@ export class TripService {
   getTrip(id: string) {
     const url = `${this.tripsUrl}/${id}`;
     return this.http.get<Trip>(url);
+  }
+
+  getTripsByManager(managerId: string) {
+    const url = `${this.tripsUrl}/manager/${managerId}`;
+    return this.http.get<Trip[]>(url);
   }
 }

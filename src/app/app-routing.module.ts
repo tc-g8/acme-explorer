@@ -36,7 +36,7 @@ const routes: Routes = [
         data: { expectedRole: 'anonymous|explorer|manager' },
       },
       {
-        path: 'manager/:id',
+        path: 'manager/:managerId',
         component: ListManagerTripsComponent,
         canActivate: [ActorRoleGuard],
         data: { expectedRole: 'manager' },

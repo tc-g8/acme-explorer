@@ -66,7 +66,9 @@
                   <a class="dropdown-item" routerLink="/me">Profile</a>
                 </li>
                 <li *ngIf="activeRole === 'manager'">
-                  <a class="dropdown-item" routerLink="/trips/manager/:id"
+                  <a
+                    class="dropdown-item"
+                    routerLink="/trips/manager/{{ currentActor._id }}"
                     >My Trips</a
                   >
                 </li>
