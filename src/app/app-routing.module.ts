@@ -20,23 +20,58 @@ const routes: Routes = [
   { path: '', component: MainComponent },
   { path: 'singin', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'me', component: ProfileComponent, canActivate: [ActorRoleGuard], data: {expectedRole: 'manager|sponsor|administrator'} },
+  {
+    path: 'me',
+    component: ProfileComponent,
+    canActivate: [ActorRoleGuard],
+    data: { expectedRole: 'explorer|manager|sponsor|administrator' },
+  },
   {
     path: 'trips',
     children: [
-      { path: ':id', component: DisplayTripComponent, canActivate: [ActorRoleGuard], data: {expectedRole: 'explorer|manager'} },
-      { path: 'manager/:id', component: ListManagerTripsComponent, canActivate: [ActorRoleGuard], data: {expectedRole: 'manager'} },
-      { path: '', component: ListTripsComponent, canActivate: [ActorRoleGuard], data: {expectedRole: 'explorer|anonymous'} },
+      {
+        path: ':id',
+        component: DisplayTripComponent,
+        canActivate: [ActorRoleGuard],
+        data: { expectedRole: 'anonymous|explorer|manager' },
+      },
+      {
+        path: 'manager/:id',
+        component: ListManagerTripsComponent,
+        canActivate: [ActorRoleGuard],
+        data: { expectedRole: 'manager' },
+      },
+      {
+        path: '',
+        component: ListTripsComponent,
+        canActivate: [ActorRoleGuard],
+        data: { expectedRole: 'explorer|anonymous' },
+      },
     ],
   },
   {
     path: 'applications',
     children: [
-      { path: 'trip/:id', component: ListTripApplicationsComponent, canActivate: [ActorRoleGuard], data: {expectedRole: 'manager'} },
-      { path: 'explorer/:id', component: ListExplorerApplicationsComponent, canActivate: [ActorRoleGuard], data: {expectedRole: 'explorer'} },
+      {
+        path: 'trip/:id',
+        component: ListTripApplicationsComponent,
+        canActivate: [ActorRoleGuard],
+        data: { expectedRole: 'manager' },
+      },
+      {
+        path: 'explorer/:id',
+        component: ListExplorerApplicationsComponent,
+        canActivate: [ActorRoleGuard],
+        data: { expectedRole: 'explorer' },
+      },
     ],
   },
-  { path: 'favourites/explorer/:id', component: ListFavouritesComponent, canActivate: [ActorRoleGuard], data: {expectedRole: 'explorer'} },
+  {
+    path: 'favourites/explorer/:id',
+    component: ListFavouritesComponent,
+    canActivate: [ActorRoleGuard],
+    data: { expectedRole: 'explorer' },
+  },
   {
     path: 'sponsorships',
     children: [
