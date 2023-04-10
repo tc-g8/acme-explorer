@@ -24,6 +24,5 @@ export class ListManagerTripsComponent implements OnInit {
     this.tripService
       .getTripsByManager(this.id)
       .subscribe((data: any) => (this.trips = data));
-    console.log(this.trips);
   }
 }
