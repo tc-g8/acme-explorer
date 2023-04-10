@@ -25,6 +25,7 @@ import { ListTripApplicationsComponent } from './components/application/list-tri
 import { ListExplorerApplicationsComponent } from './components/application/list-explorer-applications/list-explorer-applications.component';
 import { DisplaySponsorshipComponent } from './components/sponsorship/display-sponsorship/display-sponsorship.component';
 import { MainComponent } from './components/master/main/main.component';
+import { I18nModule } from './i18n.module';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { MainComponent } from './components/master/main/main.component';
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
+  //providers: [I18nModule.setLocale(), I18nModule.setLocaleId()],
   providers: [],
   bootstrap: [AppComponent],
 })

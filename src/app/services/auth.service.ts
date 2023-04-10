@@ -87,6 +87,8 @@ export class AuthService {
     return new Promise<any>((resolve, reject) => {
       this.fireAuth.signOut()
         .then(_ => {
+          let msg = $localize `Logging out`;
+          console.log(msg);
           localStorage.clear();
           this.loginStatus.next(false);
           resolve('Logout succesful');
