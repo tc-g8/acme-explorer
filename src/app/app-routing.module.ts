@@ -23,7 +23,7 @@ const routes: Routes = [
     path: 'trips',
     children: [
       { path: ':id', component: DisplayTripComponent },
-      { path: 'manager/:id', component: ListManagerTripsComponent },
+      { path: 'manager/:managerId', component: ListManagerTripsComponent },
       { path: '', component: ListTripsComponent },
     ],
   },
