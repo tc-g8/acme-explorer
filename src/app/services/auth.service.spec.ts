@@ -3,7 +3,6 @@ import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Actor } from '../models/actor.model';
-
 import { AuthService } from './auth.service';
 import { HttpClientModule } from '@angular/common/http';
 
