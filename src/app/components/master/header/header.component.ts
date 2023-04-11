@@ -15,15 +15,10 @@ export class HeaderComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.authService.getStatus().subscribe(loggedIn => {
-      if (loggedIn) {
-        this.currentActor = this.authService.getCurrentActor();
-        this.activeRole = this.currentActor!.role.toString().toLowerCase();
-      } else {
-        this.activeRole = 'anonymous';
-        this.currentActor = undefined;
-      }
-    });
+    this.currentActor = this.authService.getCurrentActor();
+    if (this.currentActor) {
+      this.activeRole = this.currentActor!.role.toString().toLowerCase();
+    }
   }
 
   logout() {
