@@ -32,6 +32,11 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  changeLanguage(language: string) {
+    localStorage.setItem('locale', language);
+    location.reload();
+  }
+
   logout() {
     this.authService
       .logout()
