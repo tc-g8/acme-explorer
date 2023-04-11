@@ -1,8 +1,8 @@
 <div class="row mt-4">
-    <div class="col-12 col-md-8 offset-2">
+    <div class="col-12 col-md-8 offset-md-2">
         <h1>Acme-explorer</h1>
     </div>
-    <div class="col-12 col-md-8 offset-2 mt-2">
+    <div class="col-12 col-md-8 offset-md-2 mt-2">
         <h3>Trips managed by manager</h3>
         <table class="table">
             <thead>
@@ -15,15 +15,15 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>{{ dashboard[0].tripsManagedByManager[0].averageTripsPerManager }}</td>
-                    <td>{{ dashboard[0].tripsManagedByManager[0].maxTripsPerManager }}</td>
-                    <td>{{ dashboard[0].tripsManagedByManager[0].minTripsPerManager }}</td>
-                    <td>{{ dashboard[0].tripsManagedByManager[0].stdDevTripsPerManager }}</td>
+                    <td>{{ dashboard[0].tripsManagedByManager[0].averageTripsPerManager | number:'.1-3' }}</td>
+                    <td>{{ dashboard[0].tripsManagedByManager[0].maxTripsPerManager | number:'.1-3' }}</td>
+                    <td>{{ dashboard[0].tripsManagedByManager[0].minTripsPerManager | number:'.1-3' }}</td>
+                    <td>{{ dashboard[0].tripsManagedByManager[0].stdDevTripsPerManager | number:'.1-3' }}</td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="col-12 col-md-8 offset-2 mt-2">
+    <div class="col-12 col-md-8 offset-md-2 mt-2">
         <h3>Applications per trip</h3>
         <table class="table">
             <thead>
@@ -36,15 +36,15 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>{{ dashboard[0].applicationsPerTrip[0].averageApplicationsPerTrip }}</td>
-                    <td>{{ dashboard[0].applicationsPerTrip[0].maxApplicationsPerTrip }}</td>
-                    <td>{{ dashboard[0].applicationsPerTrip[0].minApplicationsPerTrip }}</td>
-                    <td>{{ dashboard[0].applicationsPerTrip[0].stdDevApplicationsPerTrip }}</td>
+                    <td>{{ dashboard[0].applicationsPerTrip[0].averageApplicationsPerTrip | number:'.1-3' }}</td>
+                    <td>{{ dashboard[0].applicationsPerTrip[0].maxApplicationsPerTrip | number:'.1-3' }}</td>
+                    <td>{{ dashboard[0].applicationsPerTrip[0].minApplicationsPerTrip | number:'.1-3' }}</td>
+                    <td>{{ dashboard[0].applicationsPerTrip[0].stdDevApplicationsPerTrip | number:'.1-3' }}</td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="col-12 col-md-8 offset-2 mt-2">
+    <div class="col-12 col-md-8 offset-md-2 mt-2">
         <h3>Price of trips</h3>
         <table class="table">
             <thead>
@@ -57,16 +57,19 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>{{ dashboard[0].tripsPrice[0].averagePrice }}</td>
-                    <td>{{ dashboard[0].tripsPrice[0].maxPrice}}</td>
-                    <td>{{ dashboard[0].tripsPrice[0].minPrice }}</td>
-                    <td>{{ dashboard[0].tripsPrice[0].stdDevPrice }}</td>
+                    <td>{{ dashboard[0].tripsPrice[0].averagePrice | number:'.1-3' }}</td>
+                    <td>{{ dashboard[0].tripsPrice[0].maxPrice | number:'.1-3'}}</td>
+                    <td>{{ dashboard[0].tripsPrice[0].minPrice | number:'.1-3' }}</td>
+                    <td>{{ dashboard[0].tripsPrice[0].stdDevPrice | number:'.1-3' }}</td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="col-12 col-md-4 offset-2 mt-2">
+    <div class="col-12 col-md-4 offset-md-2 mt-2">
         <h3>Ratio applications</h3>
+        <div class="chart-container">
+            <canvas id="ratioApplicationsByStatus">{{ ratioApplicationsByStatus }}</canvas>
+        </div>
     </div>
     <div class="col-12 col-md-4 mt-2">
         <h3>Average price range</h3>
@@ -79,14 +82,16 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>{{ dashboard[0].averagePriceRange[0].averageMinPrice }}</td>
-                    <td>{{ dashboard[0].averagePriceRange[0].averageMaxPrice}}</td>
+                    <td>{{ dashboard[0].averagePriceRange[0].averageMinPrice | number:'.1-3' }}</td>
+                    <td>{{ dashboard[0].averagePriceRange[0].averageMaxPrice | number:'.1-3' }}</td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="col-12 col-md-8 offset-2 mt-2">
+    <div class="col-12 col-md-8 offset-md-2 mt-2">
         <h3>Top keywords</h3>
-        
+        <div class="chart-container">
+            <canvas id="topSearchedKeyWords">{{ topSearchedKeyWords }}</canvas>
+        </div>
     </div>
 </div>
