@@ -1,1 +1,18 @@
-<p>list-sponsorships works!</p>
+<div *ngIf="sponsorships && sponsorships.length > 0" class="row g-4 mt-2">
+    <div *ngFor="let sponsorship of sponsorships" class="col-12 col-md-6">
+        <div class="card" routerLink="/sponsorships/{{ sponsorship._id }}">
+            <div class="card-body row">
+                <div class="d-flex">
+                    <div class="d-flex flex-column col-12">
+                        <p class="h5">
+                          <span class="badge bg-primary"> #{{ sponsorship.status }} </span>
+                        </p>
+                        <h4 class="card-title">
+                          {{sponsorship.landingPage}}
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

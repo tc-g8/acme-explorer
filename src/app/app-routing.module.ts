@@ -82,8 +82,18 @@ const routes: Routes = [
   {
     path: 'sponsorships',
     children: [
-      { path: 'sponsor/:id', component: ListSponsorshipsComponent },
-      { path: ':id', component: DisplaySponsorshipComponent },
+      {
+        path: 'sponsor/:sponsorId',
+        component: ListSponsorshipsComponent,
+        canActivate: [ActorRoleGuard],
+        data: { expectedRole: 'sponsor' }
+      },
+      {
+        path: ':id',
+        component: DisplaySponsorshipComponent,
+        canActivate: [ActorRoleGuard],
+        data: { expectedRole: 'sponsor' }
+      },
     ],
   },
   { path: '', redirectTo: '', pathMatch: 'full' },

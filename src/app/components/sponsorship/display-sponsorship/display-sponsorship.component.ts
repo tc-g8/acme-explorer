@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Sponsorship } from 'src/app/models/sponsorship.model';
+import { TripService } from 'src/app/services/trip.service';
 
 @Component({
   selector: 'app-display-sponsorship',
@@ -7,9 +10,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DisplaySponsorshipComponent implements OnInit {
 
-  constructor() { }
+  sponsorship: Sponsorship;
+  id: string;
+
+  constructor(
+    private tripService: TripService,
+    private route: ActivatedRoute
+  ) {
+    this.id = '0';
+    this.sponsorship = new Sponsorship();
+  }
 
   ngOnInit(): void {
+    this.id = this.route.snapshot.params['id'];
+    this.tripService.getTripSponsorshipById(this.id).subscribe((sponsorship) => {
+      this.sponsorship = sponsorship;
+    });
   }
 
 }

@@ -49,7 +49,7 @@
             </li>
             <li class="nav-item dropdown" *ngIf="currentActor">
               <a
-                routerLink="#"
+                href="javascript:void(0)"
                 class="d-block link-dark text-decoration-none dropdown-toggle show"
                 data-bs-toggle="dropdown"
                 arial-expanded="false"
@@ -87,7 +87,7 @@
                 <li *ngIf="activeRole === 'sponsor'">
                   <a
                     class="dropdown-item"
-                    routerLink="/sponsorships/sponsor/:id"
+                    routerLink="/sponsorships/sponsor/{{ currentActor._id }}"
                     >My Sponsorships</a
                   >
                 </li>
