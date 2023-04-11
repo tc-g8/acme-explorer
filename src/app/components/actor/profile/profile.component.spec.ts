@@ -3,7 +3,6 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { NgForm } from '@angular/forms';
 import { ProfileComponent } from './profile.component';
 
 describe('ProfileComponent', () => {
