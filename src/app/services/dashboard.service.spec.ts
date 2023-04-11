@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
-import { TripService } from './trip.service';
+import { DashboardService } from './dashboard.service';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 
-describe('TripService', () => {
-  let service: TripService;
+describe('DashboardService', () => {
+  let service: DashboardService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -16,7 +16,7 @@ describe('TripService', () => {
       ],
       providers: [AngularFireAuth],
     });
-    service = TestBed.inject(TripService);
+    service = TestBed.inject(DashboardService);
   });
 
   it('should be created', () => {

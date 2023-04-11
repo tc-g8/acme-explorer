@@ -13,36 +13,91 @@ import { ListTripApplicationsComponent } from './components/application/list-tri
 import { ListExplorerApplicationsComponent } from './components/application/list-explorer-applications/list-explorer-applications.component';
 import { DisplaySponsorshipComponent } from './components/sponsorship/display-sponsorship/display-sponsorship.component';
 import { MainComponent } from './components/master/main/main.component';
+import { ActorRoleGuard } from './guards/actor-role.guard';
+import { DeniedAccessComponent } from './components/shared/denied-access/denied-access.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
   { path: 'singin', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'me', component: ProfileComponent },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [ActorRoleGuard],
+    data: { expectedRole: 'administrator' },
+  },
+  {
+    path: 'me',
+    component: ProfileComponent,
+    canActivate: [ActorRoleGuard],
+    data: { expectedRole: 'explorer|manager|sponsor|administrator' },
+  },
   {
     path: 'trips',
     children: [
-      { path: ':id', component: DisplayTripComponent },
-      { path: 'manager/:id', component: ListManagerTripsComponent },
-      { path: '', component: ListTripsComponent },
+      {
+        path: ':id',
+        component: DisplayTripComponent,
+        canActivate: [ActorRoleGuard],
+        data: { expectedRole: 'anonymous|explorer|manager' },
+      },
+      {
+        path: 'manager/:managerId',
+        component: ListManagerTripsComponent,
+        canActivate: [ActorRoleGuard],
+        data: { expectedRole: 'manager' },
+      },
+      {
+        path: '',
+        component: ListTripsComponent,
+        canActivate: [ActorRoleGuard],
+        data: { expectedRole: 'explorer|anonymous' },
+      },
     ],
   },
   {
     path: 'applications',
     children: [
-      { path: 'trip/:id', component: ListTripApplicationsComponent },
-      { path: 'explorer/:id', component: ListExplorerApplicationsComponent },
+      {
+        path: 'trip/:id',
+        component: ListTripApplicationsComponent,
+        canActivate: [ActorRoleGuard],
+        data: { expectedRole: 'manager' },
+      },
+      {
+        path: 'explorer/:id',
+        component: ListExplorerApplicationsComponent,
+        canActivate: [ActorRoleGuard],
+        data: { expectedRole: 'explorer' },
+      },
     ],
   },
-  { path: 'favourites/explorer/:id', component: ListFavouritesComponent },
+  {
+    path: 'favourites/explorer/:id',
+    component: ListFavouritesComponent,
+    canActivate: [ActorRoleGuard],
+    data: { expectedRole: 'explorer' },
+  },
   {
     path: 'sponsorships',
     children: [
-      { path: 'sponsor/:id', component: ListSponsorshipsComponent },
-      { path: ':id', component: DisplaySponsorshipComponent },
+      {
+        path: 'sponsor/:sponsorId',
+        component: ListSponsorshipsComponent,
+        canActivate: [ActorRoleGuard],
+        data: { expectedRole: 'sponsor' }
+      },
+      {
+        path: ':id',
+        component: DisplaySponsorshipComponent,
+        canActivate: [ActorRoleGuard],
+        data: { expectedRole: 'sponsor' }
+      },
     ],
   },
   { path: '', redirectTo: '', pathMatch: 'full' },
+  { path: 'denied-access', component: DeniedAccessComponent },
   { path: '**', component: NotFoundComponent },
 ];
 
@@ -50,4 +105,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

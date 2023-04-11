@@ -17,8 +17,9 @@ const httpOptions = {
 export class AuthService {
 
   private loginStatus = new Subject<Boolean>();
+  currentActor: Actor | undefined;
 
-  constructor(private fireAuth: AngularFireAuth, private http: HttpClient) {}
+  constructor(private fireAuth: AngularFireAuth, private http: HttpClient) { }
 
   registerUser(actor: Actor) {
     return new Promise<any>((resolve, reject) => {
@@ -67,6 +68,7 @@ export class AuthService {
               actor.idToken = await idToken?.getIdToken();
               this.setCurrentActor(actor);
               this.loginStatus.next(true);
+              this.currentActor = actor;
               resolve(actor);
             })
             .catch((error) => {

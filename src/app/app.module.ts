@@ -24,7 +24,11 @@ import { ListTripApplicationsComponent } from './components/application/list-tri
 import { ListExplorerApplicationsComponent } from './components/application/list-explorer-applications/list-explorer-applications.component';
 import { DisplaySponsorshipComponent } from './components/sponsorship/display-sponsorship/display-sponsorship.component';
 import { MainComponent } from './components/master/main/main.component';
+import { DeniedAccessComponent } from './components/shared/denied-access/denied-access.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { MessageComponent } from './components/master/message/message.component';
 import { I18nModule } from './i18n.module';
+
 
 @NgModule({
   declarations: [
@@ -44,6 +48,9 @@ import { I18nModule } from './i18n.module';
     ListExplorerApplicationsComponent,
     DisplaySponsorshipComponent,
     MainComponent,
+    DeniedAccessComponent,
+    DashboardComponent,
+    MessageComponent,
   ],
   imports: [
     BrowserModule,

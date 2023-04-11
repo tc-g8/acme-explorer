@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from 'src/environments/environment';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ProfileComponent } from './profile.component';
 
 describe('ProfileComponent', () => {
@@ -8,9 +11,13 @@ describe('ProfileComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProfileComponent ]
-    })
-    .compileComponents();
+      imports: [
+        HttpClientTestingModule,
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+      ],
+      providers: [AngularFireAuth],
+      declarations: [ProfileComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ProfileComponent);
     component = fixture.componentInstance;

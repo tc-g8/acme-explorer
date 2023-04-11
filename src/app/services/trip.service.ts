@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { Sponsorship } from '../models/sponsorship.model';
 import { Trip } from '../models/trip.model';
 
 @Injectable({
@@ -9,7 +10,7 @@ import { Trip } from '../models/trip.model';
 export class TripService {
   private tripsUrl = environment.backendApiBaseURL + '/api/v1/trips';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getTrips(query: any) {
     let finder = {};
@@ -36,4 +37,20 @@ export class TripService {
     const url = `${this.tripsUrl}/${id}`;
     return this.http.get<Trip>(url);
   }
+
+  getTripsByManager(managerId: string) {
+    const url = `${this.tripsUrl}/manager/${managerId}`;
+    return this.http.get<Trip[]>(url);
+  }
+
+  getSponsorshipsBySponsorId(sponsorId: string) {
+    const url = `${this.tripsUrl}/sponsorships/sponsor/${sponsorId}`;
+    return this.http.get<Sponsorship[]>(url);
+  }
+
+  getTripSponsorshipById(id: string) {
+    const url = `${this.tripsUrl}/sponsorships/${id}`;
+    return this.http.get<Sponsorship>(url);
+  }
+
 }
