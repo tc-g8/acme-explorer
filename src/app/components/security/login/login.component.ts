@@ -10,7 +10,6 @@ import { MessageService } from 'src/app/services/message.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  error: string = '';
   private returnUrl!: string;
 
   constructor(
@@ -34,7 +33,6 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl(this.returnUrl);
       })
       .catch((error) => {
-        //this.error = `${error.status} Login Error`;
         this.messageService.notifyMessage(
           `${error.status} Login Error`,
           'alert alert-danger'
