@@ -26,6 +26,7 @@ import { ListExplorerApplicationsComponent } from './components/application/list
 import { DisplaySponsorshipComponent } from './components/sponsorship/display-sponsorship/display-sponsorship.component';
 import { MainComponent } from './components/master/main/main.component';
 import { DeniedAccessComponent } from './components/shared/denied-access/denied-access.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { DeniedAccessComponent } from './components/shared/denied-access/denied-
     DisplaySponsorshipComponent,
     MainComponent,
     DeniedAccessComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,

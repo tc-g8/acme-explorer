@@ -15,11 +15,18 @@ import { DisplaySponsorshipComponent } from './components/sponsorship/display-sp
 import { MainComponent } from './components/master/main/main.component';
 import { ActorRoleGuard } from './guards/actor-role.guard';
 import { DeniedAccessComponent } from './components/shared/denied-access/denied-access.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
   { path: 'singin', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [ActorRoleGuard],
+    data: { expectedRole: 'administrator' },
+  },
   {
     path: 'me',
     component: ProfileComponent,
@@ -88,4 +95,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

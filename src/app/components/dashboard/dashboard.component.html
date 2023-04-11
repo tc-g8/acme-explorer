@@ -1,0 +1,92 @@
+<div class="row mt-4">
+    <div class="col-12 col-md-8 offset-2">
+        <h1>Acme-explorer</h1>
+    </div>
+    <div class="col-12 col-md-8 offset-2 mt-2">
+        <h3>Trips managed by manager</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Average</th>
+                    <th scope="col">Minimum</th>
+                    <th scope="col">Maximum</th>
+                    <th scope="col">S.deviation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ dashboard[0].tripsManagedByManager[0].averageTripsPerManager }}</td>
+                    <td>{{ dashboard[0].tripsManagedByManager[0].maxTripsPerManager }}</td>
+                    <td>{{ dashboard[0].tripsManagedByManager[0].minTripsPerManager }}</td>
+                    <td>{{ dashboard[0].tripsManagedByManager[0].stdDevTripsPerManager }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-12 col-md-8 offset-2 mt-2">
+        <h3>Applications per trip</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Average</th>
+                    <th scope="col">Minimum</th>
+                    <th scope="col">Maximum</th>
+                    <th scope="col">S.deviation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ dashboard[0].applicationsPerTrip[0].averageApplicationsPerTrip }}</td>
+                    <td>{{ dashboard[0].applicationsPerTrip[0].maxApplicationsPerTrip }}</td>
+                    <td>{{ dashboard[0].applicationsPerTrip[0].minApplicationsPerTrip }}</td>
+                    <td>{{ dashboard[0].applicationsPerTrip[0].stdDevApplicationsPerTrip }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-12 col-md-8 offset-2 mt-2">
+        <h3>Price of trips</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Average</th>
+                    <th scope="col">Minimum</th>
+                    <th scope="col">Maximum</th>
+                    <th scope="col">S.deviation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ dashboard[0].tripsPrice[0].averagePrice }}</td>
+                    <td>{{ dashboard[0].tripsPrice[0].maxPrice}}</td>
+                    <td>{{ dashboard[0].tripsPrice[0].minPrice }}</td>
+                    <td>{{ dashboard[0].tripsPrice[0].stdDevPrice }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-12 col-md-4 offset-2 mt-2">
+        <h3>Ratio applications</h3>
+    </div>
+    <div class="col-12 col-md-4 mt-2">
+        <h3>Average price range</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Minimum</th>
+                    <th scope="col">Maximum</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ dashboard[0].averagePriceRange[0].averageMinPrice }}</td>
+                    <td>{{ dashboard[0].averagePriceRange[0].averageMaxPrice}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-12 col-md-8 offset-2 mt-2">
+        <h3>Top keywords</h3>
+        
+    </div>
+</div>
