@@ -18,6 +18,14 @@
                 Search
               </button>
             </form>
+            <form class="d-flex float-right">
+              <button i18n (click)="changeLanguage('en')" class="btn btn-sm btn-outline-secondary" type="button">
+                EN
+              </button>
+              <button i18n (click)="changeLanguage('es')" class="btn btn-sm btn-outline-secondary" type="button">
+                ES
+              </button>
+            </form>
             <li class="nav-item">
               <a i18n class="nav-link active" routerLink="/trips"> Trips </a>
             </li>

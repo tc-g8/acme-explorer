@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -55,8 +54,10 @@ import { I18nModule } from './i18n.module';
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
-  //providers: [I18nModule.setLocale(), I18nModule.setLocaleId()],
-  providers: [],
+  providers: [
+    I18nModule.setLocale(),
+    I18nModule.setLocaleId(),
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
