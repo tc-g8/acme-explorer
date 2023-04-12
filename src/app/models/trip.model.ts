@@ -18,6 +18,7 @@ export class Trip extends Entity {
   private _sponsorships?: Sponsorship | undefined;
   private _manager_id!: string;
   private _imageCollection!: Image[];
+  private _isNext?: boolean | undefined;
 
   constructor() {
     super();
@@ -122,5 +123,12 @@ export class Trip extends Entity {
 
   public set imageCollection(value: Image[]) {
     this._imageCollection = value;
+  }
+
+  public get isNext(): boolean | undefined {
+    return this._isNext;
+  }
+  public set isNext(value: boolean | undefined) {
+    this._isNext = value;
   }
 }
