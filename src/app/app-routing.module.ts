@@ -40,7 +40,9 @@ const routes: Routes = [
         path: ':id',
         component: DisplayTripComponent,
         canActivate: [ActorRoleGuard],
-        data: { expectedRole: 'anonymous|explorer|manager' },
+        data: {
+          expectedRole: 'anonymous|explorer|manager|sponsor|administrator',
+        },
       },
       {
         path: 'manager/:managerId',
@@ -52,7 +54,9 @@ const routes: Routes = [
         path: '',
         component: ListTripsComponent,
         canActivate: [ActorRoleGuard],
-        data: { expectedRole: 'explorer|anonymous' },
+        data: {
+          expectedRole: 'explorer|anonymous|sponsor|administrator|manager',
+        },
       },
     ],
   },
@@ -86,13 +90,13 @@ const routes: Routes = [
         path: 'sponsor/:sponsorId',
         component: ListSponsorshipsComponent,
         canActivate: [ActorRoleGuard],
-        data: { expectedRole: 'sponsor' }
+        data: { expectedRole: 'sponsor' },
       },
       {
         path: ':id',
         component: DisplaySponsorshipComponent,
         canActivate: [ActorRoleGuard],
-        data: { expectedRole: 'sponsor' }
+        data: { expectedRole: 'sponsor' },
       },
     ],
   },
@@ -105,4 +109,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
