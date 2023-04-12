@@ -1,18 +1,58 @@
 <div *ngIf="sponsorships && sponsorships.length > 0" class="row g-4 mt-2">
-    <div *ngFor="let sponsorship of sponsorships" class="col-12 col-md-6">
-        <div class="card" routerLink="/sponsorships/{{ sponsorship._id }}">
-            <div class="card-body row">
-                <div class="d-flex">
-                    <div class="d-flex flex-column col-12">
-                        <p class="h5">
-                          <span class="badge bg-primary"> #{{ sponsorship.status }} </span>
-                        </p>
-                        <h4 class="card-title">
-                          {{sponsorship.landingPage}}
-                        </h4>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="row mt-2">
+    <div class="col-12 col-md-6 offset-md-3">
+      <h1>My Sponsorships</h1>
     </div>
+  </div>
+  <div
+    *ngFor="let sponsorship of sponsorships"
+    class="col-12 col-md-6 offset-md-3"
+  >
+    <div class="card">
+      <div class="card-body row">
+        <div class="d-flex">
+          <div
+            class="d-lg-flex justify-content-between align-items-center col-12"
+          >
+            <div>
+              <p class="h5">
+                <span
+                  *ngIf="sponsorship.status == 'ACCEPTED'"
+                  class="badge bg-success"
+                >
+                  #{{ sponsorship.status }}
+                </span>
+                <span
+                  *ngIf="sponsorship.status == 'PENDING'"
+                  class="badge bg-warning"
+                >
+                  #{{ sponsorship.status }}
+                </span>
+                <span
+                  *ngIf="sponsorship.status == 'CANCELLED'"
+                  class="badge bg-danger"
+                >
+                  #{{ sponsorship.status }}
+                </span>
+              </p>
+              <p class="card-title">
+                <strong>Landing page</strong>:
+                <a href="{{ sponsorship.landingPage }}">{{
+                  sponsorship.landingPage
+                }}</a>
+              </p>
+            </div>
+            <div>
+              <button
+                class="btn btn-primary"
+                routerLink="/sponsorships/{{ sponsorship._id }}"
+              >
+                More info
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

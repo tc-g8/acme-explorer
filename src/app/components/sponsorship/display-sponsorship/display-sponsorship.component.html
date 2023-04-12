@@ -1,29 +1,49 @@
-<div class="row mt-4">
-    <div class="col-8 offset-2">
-      <div class="card">
-        <div class="card-body row">
-          <div class="d-flex">
-            <div class="d-flex flex-column col-9">
-              <p class="h5">
-                <span class="badge bg-primary"> #{{ sponsorship.status }} </span>
-              </p>
-              <h4 class="card-title">
-                {{sponsorship.landingPage}}
-              </h4>
-              <div class="row mt-1">
-                <div class="col-12">
-                    <img src="{{ sponsorship.banner.image }}" width="150" height="150" />
-                </div>
+<div class="row mt-3">
+  <div class="col-12 col-md-8 offset-md-2">
+    <div class="card">
+      <div class="card-body row">
+        <div class="d-flex">
+          <div class="d-flex flex-column col-9">
+            <p class="h5">
+              <span
+                *ngIf="sponsorship.status == 'ACCEPTED'"
+                class="badge bg-success"
+              >
+                #{{ sponsorship.status }}
+              </span>
+              <span
+                *ngIf="sponsorship.status == 'PENDING'"
+                class="badge bg-warning"
+              >
+                #{{ sponsorship.status }}
+              </span>
+              <span
+                *ngIf="sponsorship.status == 'CANCELLED'"
+                class="badge bg-danger"
+              >
+                #{{ sponsorship.status }}
+              </span>
+            </p>
+            <p class="card-title">
+              <strong>Landing page</strong>:
+              <a href="{{ sponsorship.landingPage }}">{{
+                sponsorship.landingPage
+              }}</a>
+            </p>
+            <div class="row mt-2">
+              <div class="col-12">
+                <p><strong>Banner</strong></p>
+                <img class="img-fluid" src="{{ sponsorship.banner.image }}" />
               </div>
             </div>
-            <div class="align-self-center col-2 offset-1">
-              <p class="card-text text-center h2">
-                <span class="badge bg-success"> {{ sponsorship.amount }} $ </span>
-              </p>
-            </div>
+          </div>
+          <div class="align-self-center col-2 offset-1">
+            <p class="card-text text-center h2">
+              <span class="badge bg-success"> {{ sponsorship.amount }} $ </span>
+            </p>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+</div>
