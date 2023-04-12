@@ -1,38 +1,49 @@
 <div class="row mt-4">
   <div class="col-8 offset-2">
     <div class="card">
-      <div class="card-body row">
-        <div class="d-flex">
-          <div class="d-flex flex-column col-9">
-            <p class="h5">
-              <span class="badge bg-primary"> #{{ trip.status }} </span>
-            </p>
-            <h4 class="card-title">
-              {{trip.title}}
-            </h4>
-            <small class="card-text">
-              {{ trip.startDate | date : "dd/MM/yyyy" }} -
-              {{ trip.endDate | date : "dd/MM/yyyy" }}
-            </small>
-            <div class="row mt-1">
-              <div class="col-12">
-                <p>{{ trip.description }}</p>
-              </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="d-flex">
+            <div class="d-flex flex-column col-9">
+              <p class="h5">
+                <span class="badge bg-primary"> #{{ trip.status }} </span>
+              </p>
             </div>
-            <div class="row mt-1">
-              <div class="col-12">
-                <ul>
-                  <div *ngFor="let req of trip.requirements">
-                    <li>{{ req }}</li>
-                  </div>
-                </ul>
-              </div>
+            <div class="col-3">
+              <app-count-down [startDate]="trip.startDate"></app-count-down>
             </div>
           </div>
-          <div class="align-self-center col-2 offset-1">
-            <p class="card-text text-center h2">
-              <span class="badge bg-success"> {{ trip.price }} $ </span>
-            </p>
+        </div>
+        <div class="row">
+          <div class="d-flex">
+            <div class="d-flex flex-column col-9">
+              <h4 class="card-title">
+                {{ trip.title }}
+              </h4>
+              <small class="card-text">
+                {{ trip.startDate | date : "dd/MM/yyyy" }} -
+                {{ trip.endDate | date : "dd/MM/yyyy" }}
+              </small>
+              <div class="row mt-1">
+                <div class="col-12">
+                  <p>{{ trip.description }}</p>
+                </div>
+              </div>
+              <div class="row mt-1">
+                <div class="col-12">
+                  <ul>
+                    <div *ngFor="let req of trip.requirements">
+                      <li>{{ req }}</li>
+                    </div>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="align-self-center col-2 offset-1">
+              <p class="card-text text-center h2">
+                <span class="badge bg-success"> {{ trip.price }} $ </span>
+              </p>
+            </div>
           </div>
         </div>
       </div>
