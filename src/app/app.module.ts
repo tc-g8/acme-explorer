@@ -28,7 +28,7 @@ import { DeniedAccessComponent } from './components/shared/denied-access/denied-
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MessageComponent } from './components/master/message/message.component';
 import { I18nModule } from './i18n.module';
-
+import { CountDownComponent } from './components/trip/count-down/count-down.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +51,7 @@ import { I18nModule } from './i18n.module';
     DeniedAccessComponent,
     DashboardComponent,
     MessageComponent,
+    CountDownComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,10 +62,7 @@ import { I18nModule } from './i18n.module';
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
   ],
-  providers: [
-    I18nModule.setLocale(),
-    I18nModule.setLocaleId(),
-  ],
+  providers: [I18nModule.setLocale(), I18nModule.setLocaleId()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
