@@ -1,24 +1,48 @@
 <div class="row">
   <div class="col-md-4 text-center d-flex flex-column justify-content-center">
     <h1 class="pt-2">Hi, {{ actor.name }}!</h1>
-    <p class="lead">{{ actor.email }}</p>
+    <p class="lead">
+      <i class="fa-solid fa-envelope"></i>
+      {{ actor.email }}
+    </p>
   </div>
   <div class="col-md-8 p-md-4">
     <div class="card">
       <div class="card-body">
         <div class="row">
-          <div class="col">
+          <div class="col-9">
             <h4>{{ actor.name }} {{ actor.surname }}</h4>
             <p>
+              <span *ngIf="actor.address">
+                <i class="fa-regular fa-location-dot"></i>
+              </span>
               {{ actor.address }}<br />
+              <span *ngIf="actor.phone">
+                <i class="fa-regular fa-phone"></i>
+              </span>
               {{ actor.phone }}
             </p>
           </div>
-          <div class="col text-end">
+          <div class="col-3 text-end">
             <h4>
-              <span class="badge bg-success">{{
+              <span
+                *ngIf="actor.role[0] == 'EXPLORER'"
+                class="badge bg-success"
+                >{{ actor.role[0].toLocaleLowerCase() }}</span
+              >
+              <span
+                *ngIf="actor.role[0] == 'MANAGER'"
+                class="badge bg-warning"
+                >{{ actor.role[0].toLocaleLowerCase() }}</span
+              >
+              <span *ngIf="actor.role[0] == 'SPONSOR'" class="badge bg-info">{{
                 actor.role[0].toLocaleLowerCase()
               }}</span>
+              <span
+                *ngIf="actor.role[0] == 'ADMINISTRATOR'"
+                class="badge bg-primary"
+                >{{ actor.role[0].toLocaleLowerCase() }}</span
+              >
             </h4>
           </div>
         </div>
@@ -28,10 +52,10 @@
             role="group"
             aria-label="Basic outlined example"
           >
-            <button type="button" class="btn btn-outline-primary">
+            <button type="button" class="btn btn-outline-primary" disabled>
               Edit profile
             </button>
-            <button type="button" class="btn btn-outline-primary">
+            <button type="button" class="btn btn-outline-primary" disabled>
               Change password
             </button>
           </div>
