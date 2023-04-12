@@ -1,52 +1,77 @@
 <div class="row mt-3">
-    <div class="col col-md-6 offset-md-3">
-        <form [formGroup]="registrationForm" (ngSubmit)="onRegister()">
-            <fieldset>
-                <legend>Register new actor</legend>
+  <div class="col col-md-6 offset-md-3">
+    <form [formGroup]="registrationForm" (ngSubmit)="onRegister()">
+      <fieldset>
+        <h2>Signup</h2>
+        <legend>Register new explorer</legend>
 
-                <div class="form-group has-danger mb-3">
-                    <label for="name" class="form-label">Name:</label>
-                    <input id="name" class="form-control" type="text" formControlName="name" required />
-                </div>
+        <div class="form-group has-danger mb-3">
+          <label for="name" class="form-label">Name:</label>
+          <input
+            id="name"
+            class="form-control"
+            type="text"
+            formControlName="name"
+            required
+          />
+        </div>
 
-                <div class="form-group has-danger mb-3">
-                    <label for="surname" class="form-label">Surname:</label>
-                    <input id="surname" class="form-control" type="text" formControlName="surname" required />
-                </div>
+        <div class="form-group has-danger mb-3">
+          <label for="surname" class="form-label">Surname:</label>
+          <input
+            id="surname"
+            class="form-control"
+            type="text"
+            formControlName="surname"
+            required
+          />
+        </div>
 
-                <div class="form-group has-danger mb-3">
-                    <label for="email" class="form-label">Email:</label>
-                    <input id="email" class="form-control" type="text" formControlName="email" required />
-                </div>
+        <div class="form-group has-danger mb-3">
+          <label for="email" class="form-label">Email:</label>
+          <input
+            id="email"
+            class="form-control"
+            type="text"
+            formControlName="email"
+            required
+          />
+        </div>
 
-                <div class="form-group has-danger mb-3">
-                    <label for="password" class="form-label">Password:</label>
-                    <input id="password" class="form-control" type="password" formControlName="password" required />
-                </div>
+        <div class="form-group has-danger mb-3">
+          <label for="password" class="form-label">Password:</label>
+          <input
+            id="password"
+            class="form-control"
+            type="password"
+            formControlName="password"
+            required
+          />
+        </div>
 
-                <div class="form-group has-danger mb-3">
-                    <label for="phone" class="form-label">Phone:</label>
-                    <input id="phone" class="form-control" type="text" formControlName="phone" />
-                </div>
+        <div class="form-group has-danger mb-3">
+          <label for="phone" class="form-label">Phone:</label>
+          <input
+            id="phone"
+            class="form-control"
+            type="text"
+            formControlName="phone"
+          />
+        </div>
 
-                <div class="form-group has-danger mb-3">
-                    <label for="address" class="form-label">Address:</label>
-                    <input id="address" class="form-control" type="text" formControlName="address" />
-                </div>
+        <div class="form-group has-danger mb-3">
+          <label for="address" class="form-label">Address:</label>
+          <input
+            id="address"
+            class="form-control"
+            type="text"
+            formControlName="address"
+          />
+        </div>
 
-                <button type="submit" class="btn btn-primary mb-3">
-                    Register
-                </button>
-
-                <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
-                    {{errorMessage}}
-                </div>
-
-                <div *ngIf="successMessage" class="alert alert-success" role="alert">
-                    {{successMessage}}
-                </div>
-
-            </fieldset>
-        </form>
-    </div>
+        <button type="submit" class="btn btn-primary mb-3">Register</button>
+        <app-message></app-message>
+      </fieldset>
+    </form>
+  </div>
 </div>
