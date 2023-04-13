@@ -50,7 +50,7 @@ export class DashboardComponent implements OnInit {
         labels,
         datasets: [
           {
-            label: 'Ratio applications by status',
+            label: $localize`Ratio applications by status`,
             data,
             backgroundColor: [
               'rgba(112, 206, 174, 0.4)',
@@ -84,7 +84,7 @@ export class DashboardComponent implements OnInit {
         labels,
         datasets: [
           {
-            label: 'Number of searches',
+            label: $localize`Number of searches`,
             data,
             backgroundColor: ['rgba(29, 166, 188, 0.4)'],
             borderColor: ['rgba(29, 166, 188)'],

@@ -25,7 +25,7 @@
               </span>
             </p>
             <p class="card-title">
-              <strong>Landing page</strong>:
+              <strong i18n>Landing page</strong>:
               <a href="{{ sponsorship.landingPage }}">{{
                 sponsorship.landingPage
               }}</a>
@@ -39,7 +39,9 @@
           </div>
           <div class="align-self-center col-2 offset-1">
             <p class="card-text text-center h2">
-              <span class="badge bg-success"> {{ sponsorship.amount }} $ </span>
+              <span class="badge bg-success">
+                {{ sponsorship.amount | currency }}
+              </span>
             </p>
           </div>
         </div>

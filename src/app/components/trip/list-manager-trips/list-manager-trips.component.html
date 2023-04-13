@@ -8,13 +8,15 @@
               {{ trip.title }}
             </h4>
             <small class="card-text">
-              {{ trip.startDate | date : "dd/MM/yyyy" }} -
-              {{ trip.endDate | date : "dd/MM/yyyy" }}
+              {{ trip.startDate | date : "shortDate" }} -
+              {{ trip.endDate | date : "shortDate" }}
             </small>
           </div>
           <div class="align-self-center col-2 offset-1">
             <p class="card-text text-center h4">
-              <span class="badge bg-success"> {{ trip.price }} $ </span>
+              <span class="badge bg-success">
+                {{ trip.price | currency }}
+              </span>
             </p>
           </div>
         </div>

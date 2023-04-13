@@ -20,21 +20,21 @@
     <div class="collapse navbar-collapse flex-row-reverse" id="headerCollapse">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a i18n class="nav-link active" routerLink="/trips">
+          <a class="nav-link active" routerLink="/trips">
             <i class="fa-solid fa-plane"></i>
-            Trips
+            <ng-container>Trips</ng-container>
           </a>
         </li>
         <li class="nav-item" *ngIf="!currentActor">
-          <a i18n class="nav-link active" routerLink="/singin">
+          <a class="nav-link active" routerLink="/singin">
             <i class="fa fa-user-plus" aria-hidden="true"></i>
-            Register
+            <ng-container>Register</ng-container>
           </a>
         </li>
         <li class="nav-item" *ngIf="!currentActor">
-          <a i18n class="nav-link active" routerLink="/login">
+          <a class="nav-link active" routerLink="/login">
             <i class="fa fa-sign-in" aria-hidden="true"></i>
-            Login
+            <ng-container>Login</ng-container>
           </a>
         </li>
         <li
@@ -55,6 +55,7 @@
             </li>
             <li *ngIf="activeRole === 'manager'">
               <a
+                i18n
                 class="dropdown-item"
                 routerLink="/trips/manager/{{ currentActor._id }}"
                 >My Trips</a
@@ -78,6 +79,7 @@
             </li>
             <li *ngIf="activeRole === 'sponsor'">
               <a
+                i18n
                 class="dropdown-item"
                 routerLink="/sponsorships/sponsor/{{ currentActor._id }}"
                 >My Sponsorships</a
@@ -85,6 +87,7 @@
             </li>
             <li>
               <a
+                i18n
                 class="dropdown-item"
                 href="javascript:void(0)"
                 (click)="logout()"

@@ -12,13 +12,13 @@
           <h3 class="m-0">Acme Explorer</h3>
         </div>
         <p class="footer-links">
-          <a href="#">Terms and conditions</a>
+          <a i18n href="#">Terms and conditions</a>
         </p>
         <p class="footer-company-name">
           Acme-Explorer, Inc. &copy; {{ today | date : "medium" }}
         </p>
         <span class="text-muted">
-          <b>{{ "Visitors" }}</b>
+          <b i18n>Visitors</b>
           {{ visitorsNumber }}
         </span>
       </div>
@@ -48,8 +48,7 @@
     <div class="col-12 col-sm-6 col-lg-4 mb-4">
       <div class="footer-right">
         <p class="footer-company-about">
-          <span class="h5">{{ "About us" }}</span
-          ><br />
+          <span i18n class="h5">About us</span><br />
           {{
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras scelerisque euismod ex, " +
               "in luctus dolor viverra sit amet. In hac habitasse platea dictumst. " +

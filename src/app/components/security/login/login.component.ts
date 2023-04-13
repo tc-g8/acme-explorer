@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
       })
       .catch((error) => {
         this.messageService.notifyMessage(
-          `${error.status} Login Error`,
+          `${error.status} ` + $localize`Login Error`,
           'alert alert-danger'
         );
       });

@@ -17,7 +17,9 @@
         />
       </div>
       <div class="d-grid col-3 col-lg-1">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <button i18n class="btn btn-outline-success" type="submit">
+          Search
+        </button>
       </div>
     </div>
     <div class="row">
@@ -25,46 +27,46 @@
         *ngIf="activeRole === 'explorer'"
         class="col-6 col-md-3 col-lg-1 offset-lg-2"
       >
-        <label class="small">Min. Price</label>
+        <label i18n class="small">Min. Price</label>
         <input
           class="form-control"
           type="number"
           min="0"
-          placeholder="$"
+          i18n-placeholder="$"
           aria-label="Search"
           name="minPrice"
           ngModel
         />
       </div>
       <div *ngIf="activeRole === 'explorer'" class="col-6 col-md-3 col-lg-1">
-        <label class="small">Max. Price</label>
+        <label i18n class="small">Max. Price</label>
         <input
           class="form-control"
           type="number"
           min="0"
-          placeholder="$"
+          i18n-placeholder="$"
           aria-label="Search"
           name="maxPrice"
           ngModel
         />
       </div>
       <div *ngIf="activeRole === 'explorer'" class="col-6 col-md-3">
-        <label class="small">Minimum Date</label>
+        <label i18n class="small">Minimum Date</label>
         <input
           class="form-control"
           type="date"
-          placeholder="Minimum Date"
+          i18n-placeholder="Minimum Date"
           aria-label="Search"
           name="minDate"
           ngModel
         />
       </div>
       <div *ngIf="activeRole === 'explorer'" class="col-6 col-md-3">
-        <label class="small">Maximum Date</label>
+        <label i18n class="small">Maximum Date</label>
         <input
           class="form-control"
           type="date"
-          placeholder="Maximum Date"
+          i18n-placeholder="Maximum Date"
           aria-label="Search"
           name="maxDate"
           ngModel
@@ -103,12 +105,16 @@
                   {{ trip.endDate | date : "shortDate" }}
                 </small>
                 <p *ngIf="trip.isNext" class="card-text h5">
-                  <span class="badge bg-danger">Few days left to start it</span>
+                  <span i18n class="badge bg-danger"
+                    >Few days left to start it</span
+                  >
                 </p>
               </div>
               <div class="align-self-center col-2 offset-1">
                 <p class="card-text text-center h4">
-                  <span class="badge bg-success"> {{ trip.price }} $ </span>
+                  <span class="badge bg-success">
+                    {{ trip.price | currency }}
+                  </span>
                 </p>
               </div>
             </div>

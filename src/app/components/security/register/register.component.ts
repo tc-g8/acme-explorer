@@ -35,7 +35,7 @@ export class RegisterComponent implements OnInit {
     this.authService.registerUser(this.registrationForm.value).then(
       (res) => {
         this.errorMessage = '';
-        this.successMessage = 'Registration successful';
+        this.successMessage = $localize`Registration successful`;
         this.messageService.notifyMessage(
           this.successMessage,
           'alert alert-success'
@@ -43,12 +43,10 @@ export class RegisterComponent implements OnInit {
       },
       (err) => {
         if (err.status === 422) {
-          this.errorMessage = 'There are some errors in the data introduced';
-          console.log(this.errorMessage);
+          this.errorMessage = $localize`There are some errors in the data introduced`;
         } else {
           console.log(err);
-          this.errorMessage =
-            'There was an error during the registration process';
+          this.errorMessage = $localize`There was an error during the registration process`;
         }
         this.messageService.notifyMessage(
           this.errorMessage,
