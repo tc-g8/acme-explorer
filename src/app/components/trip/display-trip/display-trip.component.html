@@ -3,10 +3,10 @@
     <div class="row mb-2">
       <div class="col-md-6 offset-md-3 mb-2">
         <img
-          *ngIf="trip.sponsorships!.length > 0"
-          src="{{ trip.sponsorships?.[randomBanner]?.banner?.image }}"
+          *ngIf="acceptedSponsorships.length > 0"
+          src="{{ acceptedSponsorships[randomBanner].banner.image }}"
           class="img-fluid"
-          alt="{{ trip.sponsorships?.[randomBanner]?.landingPage }}"
+          alt="{{ acceptedSponsorships[randomBanner].landingPage }}"
         />
       </div>
       <div class="row">
