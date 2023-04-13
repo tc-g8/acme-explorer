@@ -15,7 +15,7 @@ export class Trip extends Entity {
   private _endDate!: Date;
   private _status!: TripStatus;
   private _stages?: Stage[] | undefined;
-  private _sponsorships?: Sponsorship | undefined;
+  private _sponsorships?: Sponsorship[] | undefined;
   private _manager_id!: string;
   private _imageCollection!: Image[];
   private _isNext?: boolean | undefined;
@@ -107,10 +107,11 @@ export class Trip extends Entity {
     return this._imageCollection;
   }
 
-  public get sponsorships(): Sponsorship | undefined {
+  public get sponsorships(): Sponsorship[] | undefined {
     return this._sponsorships;
   }
-  public set sponsorships(value: Sponsorship | undefined) {
+
+  public set sponsorships(value: Sponsorship[] | undefined) {
     this._sponsorships = value;
   }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Sponsorship } from 'src/app/models/sponsorship.model';
 import { Trip } from 'src/app/models/trip.model';
 import { TripService } from 'src/app/services/trip.service';
 
@@ -11,6 +12,8 @@ import { TripService } from 'src/app/services/trip.service';
 export class DisplayTripComponent implements OnInit {
   trip: Trip;
   id: string;
+  randomBanner: number;
+  acceptedSponsorships: Sponsorship[];
 
   constructor(
     private tripService: TripService,
@@ -19,12 +22,26 @@ export class DisplayTripComponent implements OnInit {
   ) {
     this.id = '0';
     this.trip = new Trip();
+    this.acceptedSponsorships = [];
+    this.randomBanner = 0;
   }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     this.tripService.getTrip(this.id).subscribe((trip) => {
       this.trip = trip;
+      if (this.trip.sponsorships!.length > 0) {
+        this.acceptedSponsorships = this.trip.sponsorships!.filter(
+          (sponsorship) => sponsorship.status === 'ACCEPTED'
+        );
+        this.randomBanner = this.getRandomBanner(
+          this.acceptedSponsorships.length
+        );
+      }
     });
+  }
+
+  private getRandomBanner(max: number): number {
+    return Math.floor(Math.random() * max);
   }
 }
