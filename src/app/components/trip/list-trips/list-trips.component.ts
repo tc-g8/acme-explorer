@@ -26,14 +26,33 @@ export class ListTripsComponent implements OnInit {
   ngOnInit(): void {
     const query = {};
     this.currentActor = this.authService.getCurrentActor();
-    if (this.currentActor){
+    if (this.currentActor) {
       this.activeRole = this.currentActor!.role.toString().toLowerCase();
     }
-    this.tripService.getTrips(query).subscribe((data: any) => (this.trips = data));
+    this.tripService.getTrips(query).subscribe((data: any) => {
+      this.trips = data;
+      this.trips.map((trip) => {
+        if (this.isNextTrip(trip.startDate)) {
+          trip.isNext = true;
+        }
+      });
+    });
   }
 
   search(form: NgForm) {
     const query = form.value;
-    this.tripService.getTrips(query).subscribe((data: any) => (this.trips = data));
+    this.tripService.getTrips(query).subscribe((data: any) => {
+      this.trips = data;
+      this.trips.map((trip) => {
+        if (this.isNextTrip(trip.startDate)) {
+          trip.isNext = true;
+        }
+      });
+    });
+  }
+
+  private isNextTrip(startDate: any) {
+    const timeDifference = new Date(startDate).getTime() - new Date().getTime();
+    return timeDifference <= 1000 * 7 * 24 * 60 * 60;
   }
 }

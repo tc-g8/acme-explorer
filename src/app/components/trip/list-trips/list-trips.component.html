@@ -102,6 +102,9 @@
                   {{ trip.startDate | date : "shortDate" }} -
                   {{ trip.endDate | date : "shortDate" }}
                 </small>
+                <p *ngIf="trip.isNext" class="card-text h5">
+                  <span class="badge bg-danger">Few days left to start it</span>
+                </p>
               </div>
               <div class="align-self-center col-2 offset-1">
                 <p class="card-text text-center h4">
