@@ -1,6 +1,12 @@
-<div class="badge bg-primary">
-  <span id="days"> {{ daysToDday }} </span>Días
-  <span id="hours"> {{ hoursToDday }} </span>Horas
-  <span id="minutes"> {{ minutesToDday }} </span>Minutos
-  <span id="seconds"> {{ secondsToDday }} </span>Segundos
+<div class="timer-card">
+  <div class="timer-icon">
+    <i class="far fa-clock"></i>
+  </div>
+  <div class="timer">
+    <span id="days"> {{ daysToDday }} </span
+    ><ng-container i18n>Days</ng-container>,
+    <span id="hours"> {{ hoursToDday }} </span>:
+    <span id="minutes"> {{ ("0" + minutesToDday).slice(-2) }} </span>:
+    <span id="seconds"> {{ ("0" + secondsToDday).slice(-2) }} </span>
+  </div>
 </div>
