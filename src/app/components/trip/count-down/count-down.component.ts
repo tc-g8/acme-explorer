@@ -12,9 +12,9 @@ export class CountDownComponent implements OnInit, OnDestroy {
   public dateNow = new Date();
   @Input() startDate!: Date;
   milliSecondsInASecond = 1000;
-  hoursInADay = 24;
-  minutesInAnHour = 60;
   SecondsInAMinute = 60;
+  minutesInAnHour = 60;
+  hoursInADay = 24;
 
   public timeDifference: number | undefined;
   public secondsToDday: number | undefined;
@@ -34,20 +34,20 @@ export class CountDownComponent implements OnInit, OnDestroy {
     );
     this.minutesToDday = Math.floor(
       (timeDifference / (this.milliSecondsInASecond * this.SecondsInAMinute)) %
-        this.SecondsInAMinute
+        this.minutesInAnHour
     );
     this.hoursToDday = Math.floor(
       (timeDifference /
         (this.milliSecondsInASecond *
           this.SecondsInAMinute *
-          this.minutesToDday)) %
+          this.minutesInAnHour)) %
         this.hoursInADay
     );
     this.daysToDday = Math.floor(
       timeDifference /
         (this.milliSecondsInASecond *
           this.SecondsInAMinute *
-          this.minutesToDday *
+          this.minutesInAnHour *
           this.hoursInADay)
     );
   }
