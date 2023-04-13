@@ -1,5 +1,20 @@
 <div class="row mt-4">
   <div class="col-8 offset-2">
+    <div class="row mb-2">
+      <div class="col-md-6 offset-md-3 mb-2">
+        <img
+          *ngIf="trip.sponsorships!.length > 0"
+          src="{{ trip.sponsorships?.[randomBanner]?.banner?.image }}"
+          class="img-fluid"
+          alt="{{ trip.sponsorships?.[randomBanner]?.landingPage }}"
+        />
+      </div>
+      <div class="row">
+        <div class="col-6 offset-3">
+          <app-count-down [startDate]="trip.startDate"></app-count-down>
+        </div>
+      </div>
+    </div>
     <div class="card">
       <div class="card-body">
         <div class="row">
@@ -9,40 +24,37 @@
                 <span class="badge bg-primary"> #{{ trip.status }} </span>
               </p>
             </div>
-            <div class="col-3">
-              <app-count-down [startDate]="trip.startDate"></app-count-down>
-            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="d-flex">
-            <div class="d-flex flex-column col-9">
-              <h4 class="card-title">
-                {{ trip.title }}
-              </h4>
-              <small class="card-text">
-                {{ trip.startDate | date : "dd/MM/yyyy" }} -
-                {{ trip.endDate | date : "dd/MM/yyyy" }}
-              </small>
-              <div class="row mt-1">
-                <div class="col-12">
-                  <p>{{ trip.description }}</p>
+          <div class="row">
+            <div class="d-flex">
+              <div class="d-flex flex-column col-9">
+                <h4 class="card-title">
+                  {{ trip.title }}
+                </h4>
+                <small class="card-text">
+                  {{ trip.startDate | date : "dd/MM/yyyy" }} -
+                  {{ trip.endDate | date : "dd/MM/yyyy" }}
+                </small>
+                <div class="row mt-1">
+                  <div class="col-12">
+                    <p>{{ trip.description }}</p>
+                  </div>
+                </div>
+                <div class="row mt-1">
+                  <div class="col-12">
+                    <ul>
+                      <div *ngFor="let req of trip.requirements">
+                        <li>{{ req }}</li>
+                      </div>
+                    </ul>
+                  </div>
                 </div>
               </div>
-              <div class="row mt-1">
-                <div class="col-12">
-                  <ul>
-                    <div *ngFor="let req of trip.requirements">
-                      <li>{{ req }}</li>
-                    </div>
-                  </ul>
-                </div>
+              <div class="align-self-center col-2 offset-1">
+                <p class="card-text text-center h2">
+                  <span class="badge bg-success"> {{ trip.price }} $ </span>
+                </p>
               </div>
-            </div>
-            <div class="align-self-center col-2 offset-1">
-              <p class="card-text text-center h2">
-                <span class="badge bg-success"> {{ trip.price }} $ </span>
-              </p>
             </div>
           </div>
         </div>

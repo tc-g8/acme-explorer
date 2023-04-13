@@ -11,6 +11,7 @@ import { TripService } from 'src/app/services/trip.service';
 export class DisplayTripComponent implements OnInit {
   trip: Trip;
   id: string;
+  randomBanner: number;
 
   constructor(
     private tripService: TripService,
@@ -19,12 +20,22 @@ export class DisplayTripComponent implements OnInit {
   ) {
     this.id = '0';
     this.trip = new Trip();
+    this.trip.sponsorships = [];
+    this.randomBanner = 0;
   }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     this.tripService.getTrip(this.id).subscribe((trip) => {
       this.trip = trip;
+      console.log(this.trip.sponsorships);
+      if (this.trip.sponsorships!.length > 0) {
+        this.randomBanner = this.getRandomInt(this.trip.sponsorships!.length);
+      }
     });
+  }
+
+  private getRandomInt(max: number): number {
+    return Math.floor(Math.random() * max);
   }
 }
