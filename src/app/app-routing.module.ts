@@ -70,7 +70,7 @@ const routes: Routes = [
         data: { expectedRole: 'manager' },
       },
       {
-        path: 'explorer/:id',
+        path: 'explorer/:explorerId',
         component: ListExplorerApplicationsComponent,
         canActivate: [ActorRoleGuard],
         data: { expectedRole: 'explorer' },
