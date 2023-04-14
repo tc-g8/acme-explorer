@@ -9,8 +9,7 @@ import { ProfileComponent } from './components/actor/profile/profile.component';
 import { ListSponsorshipsComponent } from './components/sponsorship/list-sponsorships/list-sponsorships.component';
 import { DisplayTripComponent } from './components/trip/display-trip/display-trip.component';
 import { ListManagerTripsComponent } from './components/trip/list-manager-trips/list-manager-trips.component';
-import { ListTripApplicationsComponent } from './components/application/list-trip-applications/list-trip-applications.component';
-import { ListExplorerApplicationsComponent } from './components/application/list-explorer-applications/list-explorer-applications.component';
+import { ListApplicationsComponent } from './components/application/list-applications/list-applications.component';
 import { DisplaySponsorshipComponent } from './components/sponsorship/display-sponsorship/display-sponsorship.component';
 import { MainComponent } from './components/master/main/main.component';
 import { ActorRoleGuard } from './guards/actor-role.guard';
@@ -64,14 +63,14 @@ const routes: Routes = [
     path: 'applications',
     children: [
       {
-        path: 'trip/:id',
-        component: ListTripApplicationsComponent,
+        path: 'trip/:tripId',
+        component: ListApplicationsComponent,
         canActivate: [ActorRoleGuard],
         data: { expectedRole: 'manager' },
       },
       {
-        path: 'explorer/:id',
-        component: ListExplorerApplicationsComponent,
+        path: 'explorer/:explorerId',
+        component: ListApplicationsComponent,
         canActivate: [ActorRoleGuard],
         data: { expectedRole: 'explorer' },
       },
