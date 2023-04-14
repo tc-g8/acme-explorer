@@ -77,6 +77,11 @@
                 >My Favourites</a
               >
             </li>
+            <li *ngIf="activeRole === 'administrator'">
+              <a i18n class="dropdown-item" routerLink="/dashboard"
+                >Dashboard</a
+              >
+            </li>
             <li *ngIf="activeRole === 'sponsor'">
               <a
                 i18n
