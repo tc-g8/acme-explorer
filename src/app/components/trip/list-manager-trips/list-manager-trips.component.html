@@ -1,23 +1,53 @@
 <div *ngIf="trips && trips.length > 0" class="row g-4 mt-2">
-  <div *ngFor="let trip of trips" class="col-12 col-md-6">
-    <div class="card" routerLink="/trips/{{ trip._id }}">
-      <div class="card-body row">
-        <div class="d-flex">
-          <div class="d-flex flex-column col-9">
-            <h4 class="card-title">
-              {{ trip.title }}
-            </h4>
-            <small class="card-text">
-              {{ trip.startDate | date : "shortDate" }} -
-              {{ trip.endDate | date : "shortDate" }}
-            </small>
-          </div>
-          <div class="align-self-center col-2 offset-1">
-            <p class="card-text text-center h4">
-              <span class="badge bg-success">
-                {{ trip.price | currency }}
-              </span>
-            </p>
+  <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
+    <div
+      *ngFor="let trip of trips"
+      [ngClass]="{ nextTrip: trip.isNext }"
+      class="card mb-3 shadow-sm cardTrip"
+      routerLink="/trips/{{ trip._id }}"
+    >
+      <div class="row g-0">
+        <div class="col-sm-3 d-none d-sm-block">
+          <img
+            *ngIf="trip.imageCollection[0]"
+            src="{{ trip.imageCollection[0].image }}"
+            class="card-img-top"
+            alt="{{ trip.imageCollection[0].alt }}"
+          />
+          <img
+            *ngIf="!trip.imageCollection[0]"
+            src="../../../../assets/images/trip-placeholder.png"
+            class="card-img-top"
+            alt="trip without image"
+          />
+        </div>
+        <div class="col-12 col-sm-9">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12 col-lg-8">
+                <h4 class="card-title">
+                  {{ trip.title }}
+                </h4>
+              </div>
+              <div class="col-12 col-lg-4">
+                <p class="card-text text-lg-end h4">
+                  <span class="badge bg-success shadow-price">
+                    {{ trip.price | currency }}
+                  </span>
+                </p>
+              </div>
+              <div class="row mt-2">
+                <small class="card-text">
+                  {{ trip.startDate | date : "shortDate" }} -
+                  {{ trip.endDate | date : "shortDate" }}
+                </small>
+              </div>
+              <p *ngIf="trip.isNext" class="card-text h5">
+                <span i18n class="badge bg-danger"
+                  >Few days left to start it</span
+                >
+              </p>
+            </div>
           </div>
         </div>
       </div>

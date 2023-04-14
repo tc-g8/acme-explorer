@@ -19,26 +19,26 @@
     </button>
     <div class="collapse navbar-collapse flex-row-reverse" id="headerCollapse">
       <ul class="navbar-nav">
-        <li class="nav-item">
+        <li class="nav-item me-2">
           <a class="nav-link active" routerLink="/trips">
-            <i class="fa-solid fa-plane"></i>
-            <ng-container>Trips</ng-container>
+            <i class="fa-solid fa-plane me-1"></i>
+            <ng-container i18n>Trips</ng-container>
           </a>
         </li>
-        <li class="nav-item" *ngIf="!currentActor">
+        <li class="nav-item me-2" *ngIf="!currentActor">
           <a class="nav-link active" routerLink="/singin">
-            <i class="fa fa-user-plus" aria-hidden="true"></i>
-            <ng-container>Register</ng-container>
+            <i class="fa fa-user-plus me-1" aria-hidden="true"></i>
+            <ng-container i18n>Register</ng-container>
           </a>
         </li>
-        <li class="nav-item" *ngIf="!currentActor">
+        <li class="nav-item me-2" *ngIf="!currentActor">
           <a class="nav-link active" routerLink="/login">
-            <i class="fa fa-sign-in" aria-hidden="true"></i>
-            <ng-container>Login</ng-container>
+            <i class="fa fa-sign-in me-1" aria-hidden="true"></i>
+            <ng-container i18n>Login</ng-container>
           </a>
         </li>
         <li
-          class="nav-item dropdown d-flex flex-column justify-content-center"
+          class="nav-item dropdown me-2 d-flex flex-column justify-content-center"
           *ngIf="currentActor"
         >
           <a

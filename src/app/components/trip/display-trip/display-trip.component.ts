@@ -22,6 +22,9 @@ export class DisplayTripComponent implements OnInit {
   ) {
     this.id = '0';
     this.trip = new Trip();
+    this.trip.stages = [];
+    this.trip.requirements = [];
+    this.trip.imageCollection = [];
     this.acceptedSponsorships = [];
     this.randomBanner = 0;
   }
