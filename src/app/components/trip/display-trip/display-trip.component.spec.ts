@@ -6,6 +6,7 @@ import { TripStatus } from 'src/app/enums/trip.enum';
 import { ActivatedRouteStub } from '../../shared/activatedroute-stub';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
+import { CountDownComponent } from '../count-down/count-down.component';
 
 describe('DisplayTripComponent', () => {
   let component: DisplayTripComponent;
@@ -31,12 +32,15 @@ describe('DisplayTripComponent', () => {
       'Nostrud id velit irure dolore officia adipisicing nulla.',
       'Esse dolor dolor officia nostrud ipsum dolore.',
     ];
+    testTrip.imageCollection = [];
+    testTrip.sponsorships = [];
+    testTrip.stages = [];
 
     let tripSpy = jasmine.createSpyObj('TripService', ['getTrip']);
     getTripSpy = tripSpy.getTrip.and.returnValue(of(testTrip));
 
     await TestBed.configureTestingModule({
-      declarations: [DisplayTripComponent],
+      declarations: [DisplayTripComponent, CountDownComponent],
       imports: [],
       providers: [
         { provide: TripService, useValue: tripSpy },
@@ -67,7 +71,7 @@ describe('DisplayTripComponent', () => {
   });
 
   it('should display correct title', () => {
-    let titleDiv = fixture.nativeElement.querySelector('h4.card-title');
+    let titleDiv = fixture.nativeElement.querySelector('h3.card-title');
     fixture.detectChanges();
     expect(titleDiv.textContent).toContain(testTrip.title);
   });
