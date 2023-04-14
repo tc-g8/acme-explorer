@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-list-applications',
   templateUrl: './list-applications.component.html',
-  styleUrls: ['./list-applications.component.css']
+  styleUrls: ['./list-applications.component.css'],
 })
 export class ListApplicationsComponent implements OnInit {
   applications: Application[];
@@ -34,19 +34,21 @@ export class ListApplicationsComponent implements OnInit {
     }
     this.explorerId = this.route.snapshot.params['explorerId'];
     if (this.explorerId) {
-      this.applicationService.getApplicationsByExplorer(this.explorerId).subscribe((data: any) => {
-        data.forEach((element: any) => {
-          this.applications = [...this.applications, ...element.applications]
+      this.applicationService
+        .getApplicationsByExplorer(this.explorerId)
+        .subscribe((data: any) => {
+          data.forEach((element: any) => {
+            this.applications = [...this.applications, ...element.applications];
+          });
         });
-      });
     }
     this.tripId = this.route.snapshot.params['tripId'];
     if (this.tripId) {
-      this.applicationService.getApplicationsByTripId(this.tripId).subscribe((data: any) => {
-        console.log(data);
-        this.applications = data
-      });
+      this.applicationService
+        .getApplicationsByTripId(this.tripId)
+        .subscribe((data: any) => {
+          this.applications = data;
+        });
     }
   }
-
 }
