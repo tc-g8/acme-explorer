@@ -20,8 +20,7 @@ import { ListFavouritesComponent } from './components/trip/list-favourites/list-
 import { ListSponsorshipsComponent } from './components/sponsorship/list-sponsorships/list-sponsorships.component';
 import { DisplayTripComponent } from './components/trip/display-trip/display-trip.component';
 import { ListManagerTripsComponent } from './components/trip/list-manager-trips/list-manager-trips.component';
-import { ListTripApplicationsComponent } from './components/application/list-trip-applications/list-trip-applications.component';
-import { ListExplorerApplicationsComponent } from './components/application/list-explorer-applications/list-explorer-applications.component';
+import { ListApplicationsComponent } from './components/application/list-applications/list-applications.component';
 import { DisplaySponsorshipComponent } from './components/sponsorship/display-sponsorship/display-sponsorship.component';
 import { MainComponent } from './components/master/main/main.component';
 import { DeniedAccessComponent } from './components/shared/denied-access/denied-access.component';
@@ -44,8 +43,7 @@ import { CountDownComponent } from './components/trip/count-down/count-down.comp
     FooterComponent,
     DisplayTripComponent,
     ListManagerTripsComponent,
-    ListTripApplicationsComponent,
-    ListExplorerApplicationsComponent,
+    ListApplicationsComponent,
     DisplaySponsorshipComponent,
     MainComponent,
     DeniedAccessComponent,

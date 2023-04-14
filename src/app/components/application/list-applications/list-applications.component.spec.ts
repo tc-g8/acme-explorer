@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListExplorerApplicationsComponent } from './list-explorer-applications.component';
+import { ListExplorerApplicationsComponent } from './list-applications.component';
 
 describe('ListExplorerApplicationsComponent', () => {
   let component: ListExplorerApplicationsComponent;
