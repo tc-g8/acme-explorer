@@ -15,5 +15,10 @@ export class ApplicationService {
     const url = `${this.applicationsUrl}/explorer/${explorerId}`;
     return this.http.get<Application[]>(url);
   }
+
+  getApplicationsByTripId(tripId: string) {
+    const url = `${this.applicationsUrl}/trip/${tripId}`;
+    return this.http.get<Application[]>(url);
+  }
   
 }

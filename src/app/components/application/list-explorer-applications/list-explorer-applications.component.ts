@@ -12,7 +12,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class ListExplorerApplicationsComponent implements OnInit {
   applications: Application[];
-  id: string;
+  explorerId: string;
+  tripId: string;
   protected currentActor: Actor | undefined;
   protected activeRole: string = 'anonymous';
 
@@ -22,7 +23,8 @@ export class ListExplorerApplicationsComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.applications = [];
-    this.id = '0';
+    this.explorerId = '0';
+    this.tripId = '0';
   }
 
   ngOnInit(): void {
@@ -30,12 +32,21 @@ export class ListExplorerApplicationsComponent implements OnInit {
     if (this.currentActor) {
       this.activeRole = this.currentActor!.role.toString().toLowerCase();
     }
-    this.id = this.route.snapshot.params['explorerId'];
-    this.applicationService.getApplicationsByExplorer(this.id).subscribe((data: any) => {
-      data.forEach((element: any) => {
-        this.applications = [...this.applications, ...element.applications]
+    this.explorerId = this.route.snapshot.params['explorerId'];
+    if (this.explorerId) {
+      this.applicationService.getApplicationsByExplorer(this.explorerId).subscribe((data: any) => {
+        data.forEach((element: any) => {
+          this.applications = [...this.applications, ...element.applications]
+        });
       });
-    });
+    }
+    this.tripId = this.route.snapshot.params['tripId'];
+    if (this.tripId) {
+      this.applicationService.getApplicationsByTripId(this.tripId).subscribe((data: any) => {
+        console.log(data);
+        this.applications = data
+      });
+    }
   }
 
 }

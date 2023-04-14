@@ -64,8 +64,8 @@ const routes: Routes = [
     path: 'applications',
     children: [
       {
-        path: 'trip/:id',
-        component: ListTripApplicationsComponent,
+        path: 'trip/:tripId',
+        component: ListExplorerApplicationsComponent,
         canActivate: [ActorRoleGuard],
         data: { expectedRole: 'manager' },
       },

@@ -1,7 +1,8 @@
 <div *ngIf="applications && applications.length > 0" class="row g-4 mt-2">
     <div class="row mt-2">
         <div class="col-12 col-md-6 offset-md-3">
-            <h1 i18n>My Applications</h1>
+            <h1 i18n *ngIf="activeRole === 'explorer'">My Applications</h1>
+            <h1 i18n *ngIf="activeRole === 'manager'">Trip Applications</h1>
         </div>
     </div>
     <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
