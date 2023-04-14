@@ -6,11 +6,11 @@ import { ApplicationService } from 'src/app/services/application.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-list-explorer-applications',
-  templateUrl: './list-explorer-applications.component.html',
-  styleUrls: ['./list-explorer-applications.component.css']
+  selector: 'app-list-applications',
+  templateUrl: './list-applications.component.html',
+  styleUrls: ['./list-applications.component.css']
 })
-export class ListExplorerApplicationsComponent implements OnInit {
+export class ListApplicationsComponent implements OnInit {
   applications: Application[];
   explorerId: string;
   tripId: string;
