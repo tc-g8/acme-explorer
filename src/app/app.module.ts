@@ -28,6 +28,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MessageComponent } from './components/master/message/message.component';
 import { I18nModule } from './i18n.module';
 import { CountDownComponent } from './components/trip/count-down/count-down.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,7 @@ import { CountDownComponent } from './components/trip/count-down/count-down.comp
     DashboardComponent,
     MessageComponent,
     CountDownComponent,
+    CheckoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,6 +62,7 @@ import { CountDownComponent } from './components/trip/count-down/count-down.comp
     ReactiveFormsModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    NgxPayPalModule,
   ],
   providers: [I18nModule.setLocale(), I18nModule.setLocaleId()],
   bootstrap: [AppComponent],
