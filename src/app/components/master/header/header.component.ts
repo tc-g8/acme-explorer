@@ -17,7 +17,9 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+    this.currentActor = this.authService.getCurrentActor();
+  }
 
   ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
