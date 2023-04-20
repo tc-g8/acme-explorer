@@ -30,6 +30,8 @@ import { I18nModule } from './i18n.module';
 import { CountDownComponent } from './components/trip/count-down/count-down.component';
 import { ProfileEditComponent } from './components/actor/profile-edit/profile-edit.component';
 import { ProfilePasswordEditComponent } from './components/actor/profile-password-edit/profile-password-edit.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,7 @@ import { ProfilePasswordEditComponent } from './components/actor/profile-passwor
     CountDownComponent,
     ProfileEditComponent,
     ProfilePasswordEditComponent,
+    CheckoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +66,7 @@ import { ProfilePasswordEditComponent } from './components/actor/profile-passwor
     ReactiveFormsModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    NgxPayPalModule,
   ],
   providers: [I18nModule.setLocale(), I18nModule.setLocaleId()],
   bootstrap: [AppComponent],
