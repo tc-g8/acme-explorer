@@ -1,19 +1,10 @@
 <div class="row mt-4">
   <div class="col-12">
     <div class="row mb-2">
-      <div
-        *ngIf="acceptedSponsorships.length > 0"
-        class="col-md-6 offset-md-3 mb-2 d-flex justify-content-center"
-      >
-        <a
-          href="{{ acceptedSponsorships[randomBanner].landingPage }}"
-          target="_blank"
-        >
-          <img
-            src="{{ acceptedSponsorships[randomBanner].banner.image }}"
-            class="img-fluid"
-            alt="{{ acceptedSponsorships[randomBanner].landingPage }}"
-          />
+      <div *ngIf="acceptedSponsorships.length > 0" class="col-md-6 offset-md-3 mb-2 d-flex justify-content-center">
+        <a href="{{ acceptedSponsorships[randomBanner].landingPage }}" target="_blank">
+          <img src="{{ acceptedSponsorships[randomBanner].banner.image }}" class="img-fluid"
+            alt="{{ acceptedSponsorships[randomBanner].landingPage }}" />
         </a>
       </div>
     </div>
@@ -28,10 +19,16 @@
           <div class="card-body">
             <div class="row">
               <div class="d-flex">
-                <div class="d-flex flex-column col-9">
+                <div class="d-flex flex-column col-8">
                   <p class="h5">
                     <span class="badge bg-primary"> #{{ trip.status }} </span>
                   </p>
+                </div>
+                <div *ngIf="activeRole === 'explorer'" class="d-flex flex-column col-4 col-md-2 offset-md-2">
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    Apply
+                  </button>
+                  <app-create-application [tripId]="trip._id"></app-create-application>
                 </div>
               </div>
             </div>
@@ -78,22 +75,14 @@
                 <div class="accordion" id="stagesAccordion">
                   <div *ngFor="let stage of trip.stages" class="accordion-item">
                     <h2 class="accordion-header">
-                      <button
-                        class="accordion-button collapsed"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        [attr.data-bs-target]="'#collapse' + stage._id"
-                        aria-expanded="false"
-                        [attr.aria-controls]="'collapse' + stage._id"
-                      >
+                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        [attr.data-bs-target]="'#collapse' + stage._id" aria-expanded="false"
+                        [attr.aria-controls]="'collapse' + stage._id">
                         {{ stage.title }}
                       </button>
                     </h2>
-                    <div
-                      id="{{ 'collapse' + stage._id }}"
-                      class="accordion-collapse collapse"
-                      data-bs-parent="#stagesAccordion"
-                    >
+                    <div id="{{ 'collapse' + stage._id }}" class="accordion-collapse collapse"
+                      data-bs-parent="#stagesAccordion">
                       <div class="accordion-body">
                         <div class="row">
                           <div class="col">{{ stage.description }}</div>
@@ -104,45 +93,21 @@
                   </div>
                 </div>
               </div>
-              <div
-                *ngIf="trip.imageCollection.length > 0"
-                class="col-12 col-md-4 mt-4"
-              >
+              <div *ngIf="trip.imageCollection.length > 0" class="col-12 col-md-4 mt-4">
                 <div id="carouselImages" class="carousel slide mt-3">
                   <div class="carousel-inner">
-                    <div
-                      *ngFor="let img of trip.imageCollection"
-                      class="carousel-item active"
-                    >
-                      <img
-                        src="{{ img.image }}"
-                        class="d-block w-100"
-                        alt="{{ img.alt }}"
-                      />
+                    <div *ngFor="let img of trip.imageCollection" class="carousel-item active">
+                      <img src="{{ img.image }}" class="d-block w-100" alt="{{ img.alt }}" />
                     </div>
                   </div>
-                  <button
-                    class="carousel-control-prev"
-                    type="button"
-                    data-bs-target="#carouselImages"
-                    data-bs-slide="prev"
-                  >
-                    <span
-                      class="carousel-control-prev-icon"
-                      aria-hidden="true"
-                    ></span>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselImages"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span i18n class="visually-hidden">Previous</span>
                   </button>
-                  <button
-                    class="carousel-control-next"
-                    type="button"
-                    data-bs-target="#carouselImages"
-                    data-bs-slide="next"
-                  >
-                    <span
-                      class="carousel-control-next-icon"
-                      aria-hidden="true"
-                    ></span>
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselImages"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span i18n class="visually-hidden">Next</span>
                   </button>
                 </div>

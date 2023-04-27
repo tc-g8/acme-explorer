@@ -3,6 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Sponsorship } from 'src/app/models/sponsorship.model';
 import { Trip } from 'src/app/models/trip.model';
 import { TripService } from 'src/app/services/trip.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { Actor } from 'src/app/models/actor.model';
+
 
 @Component({
   selector: 'app-display-trip',
@@ -14,9 +17,12 @@ export class DisplayTripComponent implements OnInit {
   id: string;
   randomBanner: number;
   acceptedSponsorships: Sponsorship[];
+  protected currentActor: Actor | undefined;
+  protected activeRole: string = 'anonymous';
 
   constructor(
     private tripService: TripService,
+    private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -31,6 +37,10 @@ export class DisplayTripComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
+    this.currentActor = this.authService.getCurrentActor();
+    if (this.currentActor) {
+      this.activeRole = this.currentActor!.role.toString().toLowerCase();
+    }
     this.tripService.getTrip(this.id).subscribe((trip) => {
       this.trip = trip;
       if (this.trip.sponsorships!.length > 0) {
@@ -47,4 +57,5 @@ export class DisplayTripComponent implements OnInit {
   private getRandomBanner(max: number): number {
     return Math.floor(Math.random() * max);
   }
+
 }
