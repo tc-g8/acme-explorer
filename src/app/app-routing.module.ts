@@ -16,6 +16,7 @@ import { ActorRoleGuard } from './guards/actor-role.guard';
 import { DeniedAccessComponent } from './components/shared/denied-access/denied-access.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { FormTripComponent } from './components/trip/form-trip/form-trip.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
@@ -42,6 +43,14 @@ const routes: Routes = [
         canActivate: [ActorRoleGuard],
         data: {
           expectedRole: 'anonymous|explorer|manager|sponsor|administrator',
+        },
+      },
+      {
+        path: 'form/add',
+        component: FormTripComponent,
+        canActivate: [ActorRoleGuard],
+        data: {
+          expectedRole: 'manager',
         },
       },
       {

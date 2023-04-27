@@ -1,0 +1,59 @@
+<div class="row">
+  <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
+    <h2 i18n>Add New Trip</h2>
+    <form>
+      <div class="form-group">
+        <div class="row">
+          <div class="col">
+            <label class="center-block" i18n>Title:</label>
+            <input type="text" class="form-control" formControlName="title" />
+            <label class="center-block" i18n>Description:</label>
+            <textarea
+              class="form-control"
+              formControlName="description"
+            ></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label class="center-block" i18n>Start date:</label>
+            <input
+              type="date"
+              class="form-control"
+              formControlName="startDate"
+            />
+          </div>
+          <div class="col">
+            <label class="center-block" i18n>End date:</label>
+            <input type="date" class="form-control" formControlName="endDate" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label class="center-block" i18n>Requirements:</label>
+            <textarea
+              class="form-control"
+              formControlName="requirements"
+            ></textarea>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label class="center-block" i18n>Status:</label>
+            <select class="form-select">
+              <option selected>Open this select menu</option>
+              <option value="DRAFT">One</option>
+              <option value="PUBLISHED">Two</option>
+              <option value="3">Three</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label class="center-block" i18n>Images:</label>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -32,6 +32,7 @@ import { ProfileEditComponent } from './components/actor/profile-edit/profile-ed
 import { ProfilePasswordEditComponent } from './components/actor/profile-password-edit/profile-password-edit.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { FormTripComponent } from './components/trip/form-trip/form-trip.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { NgxPayPalModule } from 'ngx-paypal';
     ProfileEditComponent,
     ProfilePasswordEditComponent,
     CheckoutComponent,
+    FormTripComponent,
   ],
   imports: [
     BrowserModule,
