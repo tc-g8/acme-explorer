@@ -1,0 +1,36 @@
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Payment info</h4>
+    <div class="row">
+      <div class="col-12 col-lg-8">
+        <h5 class="card-title">
+          {{ trip.title }}
+        </h5>
+      </div>
+      <div class="col-12 col-lg-4">
+        <p class="card-text text-lg-end h4">
+          <span class="badge bg-success shadow-price">
+            {{ trip.price | currency }}
+          </span>
+        </p>
+      </div>
+      <div class="row mt-2">
+        <small class="card-text">
+          {{ trip.startDate | date : "shortDate" }} -
+          {{ trip.endDate | date : "shortDate" }}
+        </small>
+        <div class="col text-end">
+          <p>
+            <a
+              class="btn btn-primary"
+              [routerLink]="['/checkout']"
+              [queryParams]="{ price: trip.price }"
+            >
+              Pay</a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

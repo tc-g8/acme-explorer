@@ -17,6 +17,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   private initConfig(): void {
+    const price = this.route.snapshot.queryParams['price'];
     this.payPalConfig = {
       currency: 'EUR',
       clientId:
@@ -28,7 +29,7 @@ export class CheckoutComponent implements OnInit {
             {
               amount: {
                 currency_code: 'EUR',
-                value: '9,99',
+                value: price,
               },
             },
           ],

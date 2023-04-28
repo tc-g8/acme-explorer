@@ -28,10 +28,11 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MessageComponent } from './components/master/message/message.component';
 import { I18nModule } from './i18n.module';
 import { CountDownComponent } from './components/trip/count-down/count-down.component';
+import { CheckoutComponent } from './components/payment/checkout/checkout.component';
 import { ProfileEditComponent } from './components/actor/profile-edit/profile-edit.component';
 import { ProfilePasswordEditComponent } from './components/actor/profile-password-edit/profile-password-edit.component';
-import { CheckoutComponent } from './components/checkout/checkout.component';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { PaymentInfoComponent } from './components/payment/payment-info/payment-info.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { NgxPayPalModule } from 'ngx-paypal';
     ProfileEditComponent,
     ProfilePasswordEditComponent,
     CheckoutComponent,
+    PaymentInfoComponent,
   ],
   imports: [
     BrowserModule,
