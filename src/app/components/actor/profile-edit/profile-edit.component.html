@@ -1,0 +1,61 @@
+<div
+  class="modal fade"
+  id="profileEditModal"
+  tabindex="-1"
+  aria-labelledby="profileEditModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 i18n class="modal-title fs-5" id="profileEditModalLabel">
+          Profile edition
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+          <div class="form-group has-danger">
+            <input type="hidden" class="form-control" formControlName="_id" />
+            <input type="hidden" class="form-control" formControlName="role" />
+            <label class="center-block" i18n>Name:</label>
+            <input type="text" class="form-control" formControlName="name" />
+            <br />
+            <label class="center-block" i18n>Surname:</label>
+            <input type="text" class="form-control" formControlName="surname" />
+            <br />
+            <label class="center-block" i18n>Phone:</label>
+            <input type="text" class="form-control" formControlName="phone" />
+            <br />
+            <label class="center-block" i18n>Address:</label>
+            <input type="text" class="form-control" formControlName="address" />
+            <br />
+            <div class="btn-group">
+              <button
+                i18n
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                i18n
+                type="submit"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+              >
+                Save changes
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

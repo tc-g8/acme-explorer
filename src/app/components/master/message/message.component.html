@@ -1,7 +1,13 @@
 <div
-  class="{{ cssClass }}"
+  class="{{ cssClass }} alert-dismissible fade show mt-2"
   role="alert"
   *ngIf="infoMessage != null && infoMessage.length > 0 && showMessage"
 >
-  {{ infoMessage }}<br />
+  {{ infoMessage }}
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
 </div>
