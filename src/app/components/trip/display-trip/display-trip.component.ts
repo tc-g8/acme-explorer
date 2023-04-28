@@ -5,6 +5,7 @@ import { Trip } from 'src/app/models/trip.model';
 import { TripService } from 'src/app/services/trip.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Actor } from 'src/app/models/actor.model';
+import { ApplicationService } from 'src/app/services/application.service';
 
 
 @Component({
@@ -19,10 +20,12 @@ export class DisplayTripComponent implements OnInit {
   acceptedSponsorships: Sponsorship[];
   protected currentActor: Actor | undefined;
   protected activeRole: string = 'anonymous';
+  protected hasApplication: boolean = false;
 
   constructor(
     private tripService: TripService,
     private authService: AuthService,
+    private applicationService: ApplicationService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -43,15 +46,28 @@ export class DisplayTripComponent implements OnInit {
     }
     this.tripService.getTrip(this.id).subscribe((trip) => {
       this.trip = trip;
-      if (this.trip.sponsorships!.length > 0) {
-        this.acceptedSponsorships = this.trip.sponsorships!.filter(
-          (sponsorship) => sponsorship.status === 'ACCEPTED'
-        );
-        this.randomBanner = this.getRandomBanner(
-          this.acceptedSponsorships.length
-        );
+      if (this.activeRole === 'explorer') {
+        this.applicationService.getApplicationsByExplorer(this.currentActor!._id).subscribe((applications) => {
+          if (applications.length > 0) {
+            applications.forEach((element: any) => {
+              element.applications.forEach((application: any) => {
+                if (application.trip_id === this.trip._id) {
+                  this.hasApplication = true;
+                }
+              });
+            });
+          }
+        });
       }
     });
+    if (this.trip.sponsorships!.length > 0) {
+      this.acceptedSponsorships = this.trip.sponsorships!.filter(
+        (sponsorship) => sponsorship.status === 'ACCEPTED'
+      );
+      this.randomBanner = this.getRandomBanner(
+        this.acceptedSponsorships.length
+      );
+    }
   }
 
   private getRandomBanner(max: number): number {

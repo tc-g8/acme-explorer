@@ -1,5 +1,5 @@
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="createApplication" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="createApplicationLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,8 +11,6 @@
             <div class="modal-body">
                 <form (ngSubmit)="addApplication(params)" #params="ngForm">
                     <div class="form-group has-danger">
-                        <!-- <input type="hidden" class="form-control" id="explorer_id" name="id" ngModel [value]="id" />
-                        <input type="hidden" class="form-control" id="trip_id" name="id" ngModel [value]="trip._id" /> -->
                         <div class="mb-3">
                             <label for="message-text" class="col-form-label">Comment:</label>
                             <textarea class="form-control" id="comment" name="comment" ngModel></textarea>

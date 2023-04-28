@@ -24,8 +24,13 @@
                     <span class="badge bg-primary"> #{{ trip.status }} </span>
                   </p>
                 </div>
-                <div *ngIf="activeRole === 'explorer'" class="d-flex flex-column col-4 col-md-2 offset-md-2">
-                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <div *ngIf="activeRole === 'explorer' && hasApplication"
+                  class="d-flex flex-column col-4 text-end">
+                  <p><a i18n routerLink="/applications/explorer/{{ currentActor!._id }}"> Go to my applications</a></p>
+                </div>
+                <div *ngIf="activeRole === 'explorer' && !hasApplication"
+                  class="d-flex flex-column col-4 col-md-2 offset-md-2">
+                  <button i18n type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createApplication">
                     Apply
                   </button>
                   <app-create-application [tripId]="trip._id"></app-create-application>

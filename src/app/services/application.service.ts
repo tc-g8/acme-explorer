@@ -15,13 +15,16 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class ApplicationService {
-  private applicationsUrl = environment.backendApiBaseURL + '/api/v1/applications';
+  private applicationsUrl = environment.backendApiBaseURL + '/api/v2/applications';
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   getApplicationsByExplorer(explorerId: string) {
     const url = `${this.applicationsUrl}/explorer/${explorerId}`;
-    return this.http.get<Application[]>(url);
+    httpOptions.headers = httpOptions.headers.set(
+      'idToken', this.authService.getCurrentActor()!.idToken!
+    );
+    return this.http.get<Application[]>(url, httpOptions);
   }
 
   getApplicationsByTripId(tripId: string) {
@@ -31,12 +34,12 @@ export class ApplicationService {
 
   createApplication(comment: string, explorerId: string, tripId: string) {
     const url = `${this.applicationsUrl}`;
-    httpOptions.headers.set(
-      'Authorization',
-      this.authService.getCurrentActor()!.customToken!
+
+    // const explorer_id = new ObjectId(explorerId);
+    // const trip_id = new ObjectId(tripId);
+    httpOptions.headers = httpOptions.headers.set(
+      'idToken', this.authService.getCurrentActor()!.idToken!
     );
-    console.log('ex', explorerId);
-    console.log('trip', tripId);
     return this.http.post(url, { comment, explorerId, tripId }, httpOptions)
       .pipe(retry(3), catchError(this.handleError));
   }
