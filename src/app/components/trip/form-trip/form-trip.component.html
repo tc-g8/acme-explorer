@@ -1,7 +1,8 @@
-<div class="row">
+<div class="row mt-3">
   <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
     <h2 i18n>Add New Trip</h2>
-    <form>
+    <form [formGroup]="tripForm">
+      <input type="hidden" class="form-control" formControlName="manager_id" />
       <div class="form-group">
         <div class="row">
           <div class="col">
@@ -34,23 +35,51 @@
             <textarea
               class="form-control"
               formControlName="requirements"
+              i18n-placeholder="
+                Enter the requirements separated by dashes as in the following
+                example: - Passport - Tickets for the event - Etc
+              "
+              rows="8"
             ></textarea>
           </div>
         </div>
         <div class="row">
           <div class="col">
-            <label class="center-block" i18n>Status:</label>
-            <select class="form-select">
-              <option selected>Open this select menu</option>
-              <option value="DRAFT">One</option>
-              <option value="PUBLISHED">Two</option>
-              <option value="3">Three</option>
-            </select>
+            <label class="center-block" i18n>Images:</label>
+            <input
+              class="form-control file-input"
+              id="inputImageFile"
+              type="file"
+              (change)="onFileSelected($event)"
+              #fileUpload
+            />
+            <div class="file-upload">
+              <button
+                mat-mini-fab
+                color="primary"
+                class="btn btn-success upload-btn"
+                (click)="fileUpload.click()"
+              >
+                <i class="fa-solid fa-plus"></i>
+                &nbsp;<i class="fa-regular fa-image"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div
+            *ngFor="let image of imagesCollection"
+            class="col-6 col-sm-4 col-md-3 mb-3"
+          >
+            <div class="remove-img" (click)="removeImage(image)">
+              <i class="fa-solid fa-x"></i>
+            </div>
+            <img [src]="image" class="img-fluid" />
           </div>
         </div>
         <div class="row">
           <div class="col">
-            <label class="center-block" i18n>Images:</label>
+            <label class="center-block" i18n>Stages:</label>
           </div>
         </div>
       </div>

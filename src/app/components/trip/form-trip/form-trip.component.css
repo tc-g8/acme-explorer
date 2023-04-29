@@ -1,0 +1,12 @@
+.file-input {
+  display: none;
+}
+.remove-img {
+  display: inline-block;
+  position: relative;
+  border-radius: 3px;
+  top: 30px;
+  left: 4px;
+  padding: 1px 5px;
+  background-color: white;
+}
