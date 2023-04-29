@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { Stage } from 'src/app/models/stage.model';
 
 @Component({
@@ -20,7 +20,6 @@ export class FormTripComponent implements OnInit {
       startDate: [''],
       endDate: [''],
       requirements: [''],
-      images: [''],
     });
 
     this.stagesCollection = [];
@@ -32,6 +31,16 @@ export class FormTripComponent implements OnInit {
   }
 
   initializeForm(): void {}
+
+  onSubmit() {
+    const formModel = this.tripForm.value;
+    const newTrip = {
+      ...formModel,
+      imageColletion: this.imagesCollection,
+      stages: this.stagesCollection,
+    };
+    console.log(newTrip);
+  }
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
@@ -45,6 +54,30 @@ export class FormTripComponent implements OnInit {
   removeImage(image: string) {
     this.imagesCollection = this.imagesCollection.filter(
       (i: string) => i != image
+    );
+  }
+
+  onAddStage(form: NgForm) {
+    const stageTitle = form.value.stageTitle;
+    const stageDescription = form.value.stageDescription;
+    const stagePrice = form.value.stagePrice;
+
+    const newStage = new Stage();
+    newStage.title = stageTitle;
+    newStage.description = stageDescription;
+    newStage.price = stagePrice;
+
+    if (this.stagesCollection.length > 0) {
+      const lastStage = this.stagesCollection[this.stagesCollection.length - 1];
+      newStage._id = String(Number(lastStage._id) + 1);
+    }
+
+    this.stagesCollection.push(newStage);
+  }
+
+  removeStage(stage: Stage) {
+    this.stagesCollection = this.stagesCollection.filter(
+      (s: Stage) => s._id != stage._id
     );
   }
 

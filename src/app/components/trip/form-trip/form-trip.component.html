@@ -1,7 +1,7 @@
 <div class="row mt-3">
   <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
     <h2 i18n>Add New Trip</h2>
-    <form [formGroup]="tripForm">
+    <form [formGroup]="tripForm" (ngSubmit)="onSubmit()">
       <input type="hidden" class="form-control" formControlName="manager_id" />
       <div class="form-group">
         <div class="row">
@@ -55,8 +55,7 @@
             />
             <div class="file-upload">
               <button
-                mat-mini-fab
-                color="primary"
+                type="button"
                 class="btn btn-success upload-btn"
                 (click)="fileUpload.click()"
               >
@@ -80,9 +79,119 @@
         <div class="row">
           <div class="col">
             <label class="center-block" i18n>Stages:</label>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#newStageModal"
+            >
+              <i class="fa-solid fa-plus"></i><span i18n>Add stage</span>
+            </button>
+            <table *ngIf="stagesCollection.length > 0" class="table">
+              <thead>
+                <tr>
+                  <th scope="col" i18n>Title</th>
+                  <th scope="col" i18n>Description</th>
+                  <th scope="col" i18n>Price</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let stage of stagesCollection">
+                  <td>{{ stage.title }}</td>
+                  <td>{{ stage.description }}</td>
+                  <td>{{ stage.price }}</td>
+                  <td>
+                    <span style="text-align: end" (click)="removeStage(stage)"
+                      ><i class="fa-solid fa-x"></i
+                    ></span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
+      <div class="btn-group">
+        <button
+          i18n
+          type="submit"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+        >
+          Save
+        </button>
+      </div>
     </form>
+  </div>
+</div>
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="newStageModal"
+  tabindex="-1"
+  aria-labelledby="newStageModal"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 i18n class="modal-title" id="newStageModalLabel">New Stage</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="onAddStage(f)" #f="ngForm">
+          <div class="form-group">
+            <label i18n for="stageTitle">Title:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="stageTitle"
+              name="stageTitle"
+              ngModel
+            />
+            <label i18n for="stageDescription">Description:</label>
+            <textarea
+              class="form-control"
+              name="stageDescription"
+              id="stageDescription"
+              ngModel
+            ></textarea>
+            <label i18n for="stagePrice">Price:</label>
+            <input
+              type="number"
+              class="form-control"
+              id="stagePrice"
+              name="stagePrice"
+              ngModel
+            />
+          </div>
+          <br />
+          <div class="btn-group">
+            <button
+              i18n
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              i18n
+              type="submit"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
