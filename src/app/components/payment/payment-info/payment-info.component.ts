@@ -10,6 +10,7 @@ import { TripService } from 'src/app/services/trip.service';
 export class PaymentInfoComponent implements OnInit {
   @Input() tripId!: string;
   trip: Trip;
+  @Input() applicationId!: string;
 
   constructor(private tripService: TripService) {
     this.trip = new Trip();

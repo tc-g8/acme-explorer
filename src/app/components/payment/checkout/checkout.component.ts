@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
+import { ApplicationService } from 'src/app/services/application.service';
 
 @Component({
   selector: 'app-checkout',
@@ -9,8 +10,13 @@ import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 })
 export class CheckoutComponent implements OnInit {
   protected payPalConfig?: IPayPalConfig;
+  applicationId = this.route.snapshot.queryParams['applicationId'];
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private applicationService: ApplicationService
+  ) {}
 
   ngOnInit(): void {
     this.initConfig();
@@ -55,10 +61,7 @@ export class CheckoutComponent implements OnInit {
         });
       },
       onClientAuthorization: (data) => {
-        console.log(
-          'onClientAuthorization - you should probably inform your server about completed transaction at this point',
-          data
-        );
+        this.applicationService.payApplication(this.applicationId);
         let message = $localize`Paid has been done. Thank you.`;
         alert(message);
         this.router.navigateByUrl('/trips');
