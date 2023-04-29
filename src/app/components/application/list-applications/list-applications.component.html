@@ -92,6 +92,7 @@
             <div *ngIf="application.status != 'CANCELLED' && application.status != 'ACCEPTED'" class="text-end">
               <button i18n type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
               data-bs-target="#cancellationModal">Cancel</button>
+              <app-cancellation [applicationId]="application._id"></app-cancellation>
             </div>
           </div>
         </div>
@@ -99,4 +100,3 @@
     </div>
   </div>
 </div>
-<app-cancellation></app-cancellation>

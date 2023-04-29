@@ -39,7 +39,7 @@ export class ApplicationService {
     httpOptions.headers = httpOptions.headers.set(
       'idToken', this.authService.getCurrentActor()!.idToken!
     );
-    return this.http.put(url, { status }, httpOptions);
+    return this.http.patch(url, { status }, httpOptions);
   }
   
 }
