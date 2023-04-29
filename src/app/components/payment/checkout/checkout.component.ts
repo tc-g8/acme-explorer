@@ -67,10 +67,14 @@ export class CheckoutComponent implements OnInit {
         this.router.navigateByUrl('/trips');
       },
       onCancel: (data, actions) => {
-        console.log('OnCancel', data, actions);
+        let message = $localize`Paid has been cancelled. Try again.`;
+        alert(message);
+        this.router.navigateByUrl('/trips');
       },
       onError: (err) => {
-        console.log('OnError', err);
+        let message = $localize`Something went wrong. The payment has not been made. Please try again.`;
+        alert(message);
+        this.router.navigateByUrl('/trips');
       },
       onClick: (data, actions) => {
         console.log('onClick', data, actions);
