@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ApplicationStatus } from 'src/app/enums/application.enum';
 import { ApplicationService } from 'src/app/services/application.service';
 import { MessageService } from 'src/app/services/message.service';
@@ -11,6 +11,7 @@ import { MessageService } from 'src/app/services/message.service';
 export class CancellationComponent implements OnInit {
 
   @Input() applicationId!: string;
+  @Output() applicationCancelledEvent = new EventEmitter<string>();
 
   constructor(
     private applicationService: ApplicationService,
@@ -25,6 +26,7 @@ export class CancellationComponent implements OnInit {
     if (this.applicationId) {
       this.applicationService.updateApplicationStatus(this.applicationId, ApplicationStatus.CANCELLED)
         .subscribe((res) => {
+          this.applicationCancelledEvent.emit(this.applicationId);
           this.messageService.notifyMessage(
             $localize`Application cancelled`,
             'alert alert-success'
