@@ -36,7 +36,6 @@
                   <button i18n type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#createApplication">
                     <i class="fa-solid fa-plus fa-lg"></i>
                   </button>
-                  <app-create-application [tripId]="trip._id"></app-create-application>
                 </div>
               </div>
             </div>
@@ -127,3 +126,4 @@
     </div>
   </div>
 </div>
+<app-create-application (applicationCreatedEvent)="handleCreatedApplication($event)" [tripId]="trip._id"></app-create-application>

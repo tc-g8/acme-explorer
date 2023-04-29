@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Actor } from 'src/app/models/actor.model';
 import { Trip } from 'src/app/models/trip.model';
@@ -17,6 +17,7 @@ export class CreateApplicationComponent implements OnInit {
   @Input() tripId!: string;
   protected currentActor: Actor | undefined;
   protected activeRole: string = 'anonymous';
+  @Output() applicationCreatedEvent = new EventEmitter<boolean>();
 
   constructor(
     private messageService: MessageService,
@@ -39,6 +40,7 @@ export class CreateApplicationComponent implements OnInit {
         $localize`Application sent`,
         'alert alert-success'
       );
+      this.applicationCreatedEvent.emit(true);
     });
   }
 }

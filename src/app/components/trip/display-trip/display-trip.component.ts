@@ -80,4 +80,8 @@ export class DisplayTripComponent implements OnInit {
     return Math.floor(Math.random() * max);
   }
 
+  handleCreatedApplication(event: boolean) {  
+    this.hasApplication = event;
+  }
+
 }
