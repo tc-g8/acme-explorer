@@ -45,13 +45,15 @@ export class FormTripComponent implements OnInit {
     const formModel = this.tripForm.value;
     const newTrip = {
       ...formModel,
-      imageColletion: this.imagesCollection,
+      imageCollection: this.imagesCollection,
       stages: this.stagesCollection,
     };
     newTrip.requirements = this.splitRequirement(newTrip.requirements);
+    newTrip.stages.forEach((stage: any) => delete stage._id);
 
     const trip: Trip = newTrip as Trip;
     trip.manager_id = this.authService.getCurrentActor()!._id;
+
     console.log(trip);
     this.tripService.createTrip(trip).subscribe((res) => {
       console.log('Trip created');
@@ -78,10 +80,11 @@ export class FormTripComponent implements OnInit {
     const stageDescription = form.value.stageDescription;
     const stagePrice = form.value.stagePrice;
 
-    const newStage = new Stage();
-    newStage.title = stageTitle;
-    newStage.description = stageDescription;
-    newStage.price = stagePrice;
+    const newStage: Stage = {
+      title: stageTitle,
+      description: stageDescription,
+      price: stagePrice,
+    } as Stage;
 
     if (this.stagesCollection.length > 0) {
       const lastStage = this.stagesCollection[this.stagesCollection.length - 1];

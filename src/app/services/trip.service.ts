@@ -47,7 +47,7 @@ export class TripService {
 
   getTripsByManager(managerId: string) {
     const url = `${this.tripsUrl}/manager/${managerId}`;
-    httpOptions.headers.set(
+    httpOptions.headers = httpOptions.headers.set(
       'idToken',
       this.authService.getCurrentActor()!.idToken!
     );
@@ -66,12 +66,13 @@ export class TripService {
 
   createTrip(trip: Trip) {
     const url = `${this.tripsUrl}`;
-    httpOptions.headers.set(
+    httpOptions.headers = httpOptions.headers.set(
       'idToken',
       this.authService.getCurrentActor()!.idToken!
     );
 
     const body = JSON.stringify(trip);
+
     return this.http.post(url, body, httpOptions);
   }
 }
