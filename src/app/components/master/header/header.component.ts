@@ -19,7 +19,9 @@ export class HeaderComponent implements OnInit {
     private router: Router
   ) {
     this.currentActor = this.authService.getCurrentActor();
-    this.activeRole = this.currentActor!.role.toString().toLowerCase();
+    if(this.currentActor){
+      this.activeRole = this.currentActor!.role.toString().toLowerCase();
+    }
   }
 
   ngOnInit(): void {
