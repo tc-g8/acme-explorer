@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Actor } from 'src/app/models/actor.model';
 import { Trip } from 'src/app/models/trip.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { TripService } from 'src/app/services/trip.service';
+import { isPastDate } from 'src/app/utils/dates';
 
 @Component({
   selector: 'app-list-trips',
@@ -34,6 +34,18 @@ export class ListTripsComponent implements OnInit {
       this.trips.map((trip) => {
         if (this.isNextTrip(trip.startDate)) {
           trip.isNext = true;
+          trip.isStarted = false;
+          trip.isOver = false;
+        }
+        if (isPastDate(trip.startDate)) {
+          trip.isStarted = true;
+          trip.isNext = false;
+          trip.isOver = false;
+        }
+        if (isPastDate(trip.endDate)) {
+          trip.isOver = true;
+          trip.isNext = false;
+          trip.isStarted = false;
         }
       });
     });
@@ -46,6 +58,18 @@ export class ListTripsComponent implements OnInit {
       this.trips.map((trip) => {
         if (this.isNextTrip(trip.startDate)) {
           trip.isNext = true;
+          trip.isStarted = false;
+          trip.isOver = false;
+        }
+        if (isPastDate(trip.startDate)) {
+          trip.isStarted = true;
+          trip.isNext = false;
+          trip.isOver = false;
+        }
+        if (isPastDate(trip.endDate)) {
+          trip.isOver = true;
+          trip.isNext = false;
+          trip.isStarted = false;
         }
       });
     });
