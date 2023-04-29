@@ -21,6 +21,7 @@ import { ListSponsorshipsComponent } from './components/sponsorship/list-sponsor
 import { DisplayTripComponent } from './components/trip/display-trip/display-trip.component';
 import { ListManagerTripsComponent } from './components/trip/list-manager-trips/list-manager-trips.component';
 import { ListApplicationsComponent } from './components/application/list-applications/list-applications.component';
+import { CreateApplicationComponent } from './components/application/create-application/create-application.component';
 import { DisplaySponsorshipComponent } from './components/sponsorship/display-sponsorship/display-sponsorship.component';
 import { MainComponent } from './components/master/main/main.component';
 import { DeniedAccessComponent } from './components/shared/denied-access/denied-access.component';
@@ -49,6 +50,7 @@ import { PaymentInfoComponent } from './components/payment/payment-info/payment-
     DisplayTripComponent,
     ListManagerTripsComponent,
     ListApplicationsComponent,
+    CreateApplicationComponent,
     DisplaySponsorshipComponent,
     MainComponent,
     DeniedAccessComponent,
