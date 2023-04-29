@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ApplicationStatus } from 'src/app/enums/application.enum';
 import { Actor } from 'src/app/models/actor.model';
 import { Application } from 'src/app/models/application.model';
 import { ApplicationService } from 'src/app/services/application.service';
@@ -50,5 +51,11 @@ export class ListApplicationsComponent implements OnInit {
           this.applications = data;
         });
     }
+  }
+
+  handleCanceledApplication(applicationId: string) {
+      const application = this.applications.filter(
+        (app) => app._id == applicationId);
+      application[0].status = ApplicationStatus.CANCELLED;
   }
 }

@@ -35,6 +35,14 @@ export class ApplicationService {
     return this.http.get<Application[]>(url, httpOptions);
   }
 
+  updateApplicationStatus(applicationId: string, status: string) {
+    const url = `${this.applicationsUrl}/${applicationId}/change-status`;
+    httpOptions.headers = httpOptions.headers.set(
+      'idToken', this.authService.getCurrentActor()!.idToken!
+    );
+    return this.http.patch(url, { status }, httpOptions);
+  }
+
   createApplication(comment: string, explorer_id: string, trip_id: string) {
     const url = `${this.applicationsUrl}`;
     httpOptions.headers = httpOptions.headers.set(
