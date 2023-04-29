@@ -29,18 +29,18 @@ export class ApplicationService {
 
   getApplicationsByTripId(tripId: string) {
     const url = `${this.applicationsUrl}/trip/${tripId}`;
-    return this.http.get<Application[]>(url);
-  }
-
-  createApplication(comment: string, explorerId: string, tripId: string) {
-    const url = `${this.applicationsUrl}`;
-
-    // const explorer_id = new ObjectId(explorerId);
-    // const trip_id = new ObjectId(tripId);
     httpOptions.headers = httpOptions.headers.set(
       'idToken', this.authService.getCurrentActor()!.idToken!
     );
-    return this.http.post(url, { comment, explorerId, tripId }, httpOptions)
+    return this.http.get<Application[]>(url, httpOptions);
+  }
+
+  createApplication(comment: string, explorer_id: string, trip_id: string) {
+    const url = `${this.applicationsUrl}`;
+    httpOptions.headers = httpOptions.headers.set(
+      'idToken', this.authService.getCurrentActor()!.idToken!
+    );
+    return this.http.post(url, { comment, explorer_id, trip_id }, httpOptions)
       .pipe(retry(3), catchError(this.handleError));
   }
 
