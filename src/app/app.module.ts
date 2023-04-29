@@ -25,6 +25,7 @@ import { DisplaySponsorshipComponent } from './components/sponsorship/display-sp
 import { MainComponent } from './components/master/main/main.component';
 import { DeniedAccessComponent } from './components/shared/denied-access/denied-access.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { CancellationComponent } from './components/master/cancellation/cancellation.component';
 import { MessageComponent } from './components/master/message/message.component';
 import { I18nModule } from './i18n.module';
 import { CountDownComponent } from './components/trip/count-down/count-down.component';
@@ -53,6 +54,7 @@ import { PaymentInfoComponent } from './components/payment/payment-info/payment-
     MainComponent,
     DeniedAccessComponent,
     DashboardComponent,
+    CancellationComponent,
     MessageComponent,
     CountDownComponent,
     ProfileEditComponent,

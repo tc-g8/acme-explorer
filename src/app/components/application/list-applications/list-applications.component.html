@@ -74,6 +74,7 @@
             <p><strong i18n>Comments:</strong> {{ application.comment }}</p>
             <div
               *ngIf="application.status == 'DUE' && activeRole == 'explorer'"
+              class="mb-3"
             >
               <app-payment-info
                 [tripId]="application.trip_id"
@@ -81,12 +82,16 @@
             </div>
             <div
               *ngIf="application.status == 'REJECTED'"
-              class="card text-bg-warning"
+              class="card text-bg-warning mb-3"
             >
               <div class="card-body">
                 <h5 i18n class="card-title">Rejected reason:</h5>
                 <p class="card-text">{{ application.rejectedReason }}</p>
               </div>
+            </div>
+            <div *ngIf="application.status != 'CANCELLED' && application.status != 'ACCEPTED'" class="text-end">
+              <button i18n type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+              data-bs-target="#cancellationModal">Cancel</button>
             </div>
           </div>
         </div>
@@ -94,3 +99,4 @@
     </div>
   </div>
 </div>
+<app-cancellation></app-cancellation>
