@@ -6,7 +6,7 @@ import { TripService } from 'src/app/services/trip.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Actor } from 'src/app/models/actor.model';
 import { ApplicationService } from 'src/app/services/application.service';
-
+import { isPastDate } from 'src/app/utils/dates';
 
 @Component({
   selector: 'app-display-trip',
@@ -21,6 +21,7 @@ export class DisplayTripComponent implements OnInit {
   protected currentActor: Actor | undefined;
   protected activeRole: string = 'anonymous';
   protected hasApplication: boolean = false;
+  showCounter: boolean;
 
   constructor(
     private tripService: TripService,
@@ -36,6 +37,7 @@ export class DisplayTripComponent implements OnInit {
     this.trip.imageCollection = [];
     this.acceptedSponsorships = [];
     this.randomBanner = 0;
+    this.showCounter = true;
   }
 
   ngOnInit(): void {
@@ -58,6 +60,10 @@ export class DisplayTripComponent implements OnInit {
             });
           }
         });
+      }
+      if (isPastDate(this.trip.endDate)) {
+        this.showCounter = false;
+        this.trip.isOver = true;
       }
     });
     if (this.trip.sponsorships!.length > 0) {

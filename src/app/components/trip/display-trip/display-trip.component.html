@@ -9,8 +9,11 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12 d-flex justify-content-center">
+      <div *ngIf="showCounter" class="col-12 d-flex justify-content-center">
         <app-count-down [startDate]="trip.startDate"></app-count-down>
+      </div>
+      <div *ngIf="trip.isOver" class="col-12 d-flex justify-content-center">
+        <h5 i18n class="text-danger">This trip is over</h5>
       </div>
     </div>
     <div class="row">
