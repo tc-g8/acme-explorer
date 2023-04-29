@@ -15,7 +15,7 @@ import { MainComponent } from './components/master/main/main.component';
 import { ActorRoleGuard } from './guards/actor-role.guard';
 import { DeniedAccessComponent } from './components/shared/denied-access/denied-access.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { CheckoutComponent } from './components/checkout/checkout.component';
+import { CheckoutComponent } from './components/payment/checkout/checkout.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
