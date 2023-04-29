@@ -4,20 +4,25 @@
     <form [formGroup]="tripForm" (ngSubmit)="onSubmit()">
       <input type="hidden" class="form-control" formControlName="manager_id" />
       <div class="form-group">
-        <div class="row">
+        <div class="row mb-2">
           <div class="col">
-            <label class="center-block" i18n>Title:</label>
+            <label class="center-block fw-bold" i18n>Title:</label>
             <input type="text" class="form-control" formControlName="title" />
-            <label class="center-block" i18n>Description:</label>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col">
+            <label class="center-block fw-bold" i18n>Description:</label>
             <textarea
               class="form-control"
               formControlName="description"
+              rows="4"
             ></textarea>
           </div>
         </div>
-        <div class="row">
+        <div class="row mb-2">
           <div class="col">
-            <label class="center-block" i18n>Start date:</label>
+            <label class="center-block fw-bold" i18n>Start date:</label>
             <input
               type="date"
               class="form-control"
@@ -25,13 +30,13 @@
             />
           </div>
           <div class="col">
-            <label class="center-block" i18n>End date:</label>
+            <label class="center-block fw-bold" i18n>End date:</label>
             <input type="date" class="form-control" formControlName="endDate" />
           </div>
         </div>
-        <div class="row">
+        <div class="row mb-3">
           <div class="col">
-            <label class="center-block" i18n>Requirements:</label>
+            <label class="center-block fw-bold" i18n>Requirements:</label>
             <textarea
               class="form-control"
               formControlName="requirements"
@@ -39,33 +44,35 @@
                 Enter the requirements separated by dashes as in the following
                 example: - Passport - Tickets for the event - Etc
               "
-              rows="8"
+              rows="6"
             ></textarea>
           </div>
         </div>
-        <div class="row">
+        <div class="row mb-2">
           <div class="col">
-            <label class="center-block" i18n>Images:</label>
-            <input
-              class="form-control file-input"
-              id="inputImageFile"
-              type="file"
-              (change)="onFileSelected($event)"
-              #fileUpload
-            />
-            <div class="file-upload">
-              <button
-                type="button"
-                class="btn btn-success upload-btn"
-                (click)="fileUpload.click()"
-              >
-                <i class="fa-solid fa-plus"></i>
-                &nbsp;<i class="fa-regular fa-image"></i>
-              </button>
+            <div class="d-flex justify-content-between">
+              <label class="center-block fw-bold" i18n>Images:</label>
+              <input
+                class="form-control file-input"
+                id="inputImageFile"
+                type="file"
+                (change)="onFileSelected($event)"
+                #fileUpload
+              />
+              <div class="file-upload">
+                <button
+                  type="button"
+                  class="btn btn-primary upload-btn"
+                  (click)="fileUpload.click()"
+                >
+                  <i class="fa-solid fa-plus"></i>
+                  &nbsp;<i class="fa-regular fa-image"></i>
+                </button>
+              </div>
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row mb-2">
           <div
             *ngFor="let image of imagesCollection"
             class="col-6 col-sm-4 col-md-3 mb-3"
@@ -76,17 +83,20 @@
             <img [src]="image" class="img-fluid" />
           </div>
         </div>
-        <div class="row">
+        <div class="row mb-2">
           <div class="col">
-            <label class="center-block" i18n>Stages:</label>
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#newStageModal"
-            >
-              <i class="fa-solid fa-plus"></i><span i18n>Add stage</span>
-            </button>
+            <div class="d-flex justify-content-between mb-1">
+              <label class="center-block fw-bold" i18n>Stages:</label>
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#newStageModal"
+              >
+                <i class="fa-solid fa-plus"></i
+                ><span i18n>&nbsp;Add stage</span>
+              </button>
+            </div>
             <table *ngIf="stagesCollection.length > 0" class="table">
               <thead>
                 <tr>
@@ -112,14 +122,14 @@
           </div>
         </div>
       </div>
-      <div class="btn-group">
+      <div class="d-grid">
         <button
           i18n
           type="submit"
-          class="btn btn-primary"
+          class="btn btn-success"
           data-bs-dismiss="modal"
         >
-          Save
+          Save draft trip
         </button>
       </div>
     </form>

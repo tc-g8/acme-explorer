@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { Stage } from 'src/app/models/stage.model';
+import { Trip } from 'src/app/models/trip.model';
+import { AuthService } from 'src/app/services/auth.service';
+import { TripService } from 'src/app/services/trip.service';
 
 @Component({
   selector: 'app-form-trip',
@@ -11,8 +14,13 @@ export class FormTripComponent implements OnInit {
   tripForm: FormGroup;
   imagesCollection: string[];
   stagesCollection: Stage[];
+  price: number;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private tripService: TripService,
+    private authService: AuthService
+  ) {
     this.tripForm = this.fb.group({
       manager_id: [''],
       title: [''],
@@ -22,6 +30,7 @@ export class FormTripComponent implements OnInit {
       requirements: [''],
     });
 
+    this.price = 0;
     this.stagesCollection = [];
     this.imagesCollection = [];
   }
@@ -39,7 +48,14 @@ export class FormTripComponent implements OnInit {
       imageColletion: this.imagesCollection,
       stages: this.stagesCollection,
     };
-    console.log(newTrip);
+    newTrip.requirements = this.splitRequirement(newTrip.requirements);
+
+    const trip: Trip = newTrip as Trip;
+    trip.manager_id = this.authService.getCurrentActor()!._id;
+    console.log(trip);
+    this.tripService.createTrip(trip).subscribe((res) => {
+      console.log('Trip created');
+    });
   }
 
   onFileSelected(event: any) {
@@ -94,5 +110,12 @@ export class FormTripComponent implements OnInit {
         reject(error);
       };
     });
+  }
+
+  private splitRequirement(requirements: string): string[] {
+    return requirements
+      .split('-')
+      .map((req) => req.trim())
+      .filter((req) => req.length > 0);
   }
 }
