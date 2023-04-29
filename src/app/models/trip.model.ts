@@ -19,6 +19,8 @@ export class Trip extends Entity {
   private _manager_id!: string;
   private _imageCollection!: Image[];
   private _isNext?: boolean | undefined;
+  private _isStarted?: boolean | undefined;
+  private _isOver?: boolean | undefined;
 
   constructor() {
     super();
@@ -131,5 +133,19 @@ export class Trip extends Entity {
   }
   public set isNext(value: boolean | undefined) {
     this._isNext = value;
+  }
+
+  public get isStarted(): boolean | undefined {
+    return this._isStarted;
+  }
+  public set isStarted(value: boolean | undefined) {
+    this._isStarted = value;
+  }
+
+  public get isOver(): boolean | undefined {
+    return this._isOver;
+  }
+  public set isOver(value: boolean | undefined) {
+    this._isOver = value;
   }
 }

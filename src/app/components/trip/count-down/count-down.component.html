@@ -1,4 +1,4 @@
-<div class="timer-card">
+<div class="timer-card" *ngIf="showCounter; else tripStarted">
   <div class="timer-icon">
     <i class="far fa-clock"></i>
   </div>
@@ -10,3 +10,7 @@
     <span id="seconds"> {{ ("0" + secondsToDday).slice(-2) }} </span>
   </div>
 </div>
+
+<ng-template #tripStarted>
+  <h5 i18n class="text-danger">This trip already started</h5>
+</ng-template>

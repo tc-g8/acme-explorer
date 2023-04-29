@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Sponsorship } from 'src/app/models/sponsorship.model';
 import { Trip } from 'src/app/models/trip.model';
 import { TripService } from 'src/app/services/trip.service';
+import { isPastDate } from 'src/app/utils/dates';
 
 @Component({
   selector: 'app-display-trip',
@@ -14,6 +15,7 @@ export class DisplayTripComponent implements OnInit {
   id: string;
   randomBanner: number;
   acceptedSponsorships: Sponsorship[];
+  showCounter: boolean;
 
   constructor(
     private tripService: TripService,
@@ -27,6 +29,7 @@ export class DisplayTripComponent implements OnInit {
     this.trip.imageCollection = [];
     this.acceptedSponsorships = [];
     this.randomBanner = 0;
+    this.showCounter = true;
   }
 
   ngOnInit(): void {
@@ -40,6 +43,10 @@ export class DisplayTripComponent implements OnInit {
         this.randomBanner = this.getRandomBanner(
           this.acceptedSponsorships.length
         );
+      }
+      if (isPastDate(this.trip.endDate)) {
+        this.showCounter = false;
+        this.trip.isOver = true;
       }
     });
   }
