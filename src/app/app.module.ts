@@ -34,6 +34,7 @@ import { CheckoutComponent } from './components/payment/checkout/checkout.compon
 import { ProfileEditComponent } from './components/actor/profile-edit/profile-edit.component';
 import { ProfilePasswordEditComponent } from './components/actor/profile-password-edit/profile-password-edit.component';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { FormTripComponent } from './components/trip/form-trip/form-trip.component';
 import { PaymentInfoComponent } from './components/payment/payment-info/payment-info.component';
 import { RejectApplicationComponent } from './components/application/reject-application/reject-application.component';
 import { DueApplicationComponent } from './components/application/due-application/due-application.component';
@@ -64,6 +65,7 @@ import { DueApplicationComponent } from './components/application/due-applicatio
     ProfileEditComponent,
     ProfilePasswordEditComponent,
     CheckoutComponent,
+    FormTripComponent,
     PaymentInfoComponent,
     RejectApplicationComponent,
     DueApplicationComponent,

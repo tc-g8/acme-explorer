@@ -1,8 +1,15 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Sponsorship } from '../models/sponsorship.model';
 import { Trip } from '../models/trip.model';
+import { AuthService } from './auth.service';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json; charset=utf-8',
+  }),
+};
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +17,7 @@ import { Trip } from '../models/trip.model';
 export class TripService {
   private tripsUrl = environment.backendApiBaseURL + '/api/v1/trips';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   getTrips(query: any) {
     let finder = {};
@@ -40,7 +47,11 @@ export class TripService {
 
   getTripsByManager(managerId: string) {
     const url = `${this.tripsUrl}/manager/${managerId}`;
-    return this.http.get<Trip[]>(url);
+    httpOptions.headers = httpOptions.headers.set(
+      'idToken',
+      this.authService.getCurrentActor()!.idToken!
+    );
+    return this.http.get<Trip[]>(url, httpOptions);
   }
 
   getSponsorshipsBySponsorId(sponsorId: string) {
@@ -53,4 +64,15 @@ export class TripService {
     return this.http.get<Sponsorship>(url);
   }
 
+  createTrip(trip: any) {
+    const url = `${this.tripsUrl}`;
+    httpOptions.headers = httpOptions.headers.set(
+      'idToken',
+      this.authService.getCurrentActor()!.idToken!
+    );
+
+    const body = JSON.stringify(trip);
+
+    return this.http.post<any>(url, body, httpOptions);
+  }
 }
