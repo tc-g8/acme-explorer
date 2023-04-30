@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,6 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { TripService } from 'src/app/services/trip.service';
 import { validatePresentDate } from 'src/app/utils/dates';
 import { convertBase64 } from 'src/app/utils/images';
+import { listRequirement, splitRequirement } from 'src/app/utils/trips';
 
 @Component({
   selector: 'app-edit-trip',
@@ -16,6 +18,7 @@ import { convertBase64 } from 'src/app/utils/images';
 export class EditTripComponent implements OnInit {
   tripId: string;
   tripForm: FormGroup;
+  trip: Trip;
   imagesCollection: Image[];
 
   constructor(
@@ -33,6 +36,7 @@ export class EditTripComponent implements OnInit {
       requirements: ['', Validators.required],
     });
 
+    this.trip = new Trip();
     this.imagesCollection = [];
     this.tripId = '';
   }
@@ -57,21 +61,42 @@ export class EditTripComponent implements OnInit {
     this.tripId = this.route.snapshot.params['id'];
     if (this.tripId) {
       this.tripService.getTrip(this.tripId).subscribe((data: any) => {
-        const trip: Trip = data as Trip;
-        if (trip) {
-          this.imagesCollection = trip.imageCollection;
-          this.tripForm.controls['title'].setValue(trip.title);
-          this.tripForm.controls['description'].setValue(trip.description);
-          this.tripForm.controls['startDate'].setValue(trip.startDate);
-          this.tripForm.controls['endDate'].setValue(trip.endDate);
-          this.tripForm.controls['requirements'].setValue(trip.requirements);
+        this.trip = data as Trip;
+        if (this.trip) {
+          this.imagesCollection = this.trip.imageCollection;
+          this.tripForm.controls['title'].setValue(this.trip.title);
+          this.tripForm.controls['description'].setValue(this.trip.description);
+          this.tripForm.controls['startDate'].setValue(this.trip.startDate);
+          this.tripForm.controls['endDate'].setValue(this.trip.endDate);
+          this.tripForm.controls['requirements'].setValue(
+            listRequirement(this.trip.requirements)
+          );
         }
       });
     }
   }
 
   onSubmit(): void {
-    console.log('Sending data...');
+    const formModel = this.tripForm.value;
+    const tripToUpdate = {
+      ...formModel,
+      _id: this.tripId,
+      imageCollection: this.imagesCollection,
+    };
+    tripToUpdate.requirements = splitRequirement(tripToUpdate.requirements);
+    tripToUpdate.startDate = formatDate(
+      tripToUpdate.startDate,
+      'yyyy-MM-dd',
+      'en'
+    );
+    tripToUpdate.endDate = formatDate(tripToUpdate.endDate, 'yyyy-MM-dd', 'en');
+
+    this.tripService.updateTrip(tripToUpdate).subscribe({
+      next: (_) =>
+        this.router.navigate([`/trips/manager/${this.trip.manager_id}`]),
+      error: (e) => console.error(e),
+      complete: () => console.info('PUT Completed'),
+    });
   }
 
   onFileSelected(event: any) {

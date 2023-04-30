@@ -15,7 +15,8 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class TripService {
-  private tripsUrl = environment.backendApiBaseURL + '/api/v1/trips';
+  private tripsUrlV1 = environment.backendApiBaseURL + '/api/v1/trips';
+  private tripsUrlV2 = environment.backendApiBaseURL + '/api/v2/trips';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -36,17 +37,17 @@ export class TripService {
     if (query.maxDate) {
       finder = { ...finder, maxDate: query.maxDate };
     }
-    const url = `${this.tripsUrl}`;
+    const url = `${this.tripsUrlV1}`;
     return this.http.get<Trip[]>(url, { params: finder });
   }
 
   getTrip(id: string) {
-    const url = `${this.tripsUrl}/${id}`;
-    return this.http.get<Trip>(url);
+    const url = `${this.tripsUrlV1}/${id}`;
+    return this.http.get<Trip>(url, httpOptions);
   }
 
   getTripsByManager(managerId: string) {
-    const url = `${this.tripsUrl}/manager/${managerId}`;
+    const url = `${this.tripsUrlV2}/manager/${managerId}`;
     httpOptions.headers = httpOptions.headers.set(
       'idToken',
       this.authService.getCurrentActor()!.idToken!
@@ -55,17 +56,25 @@ export class TripService {
   }
 
   getSponsorshipsBySponsorId(sponsorId: string) {
-    const url = `${this.tripsUrl}/sponsorships/sponsor/${sponsorId}`;
+    httpOptions.headers = httpOptions.headers.set(
+      'idToken',
+      this.authService.getCurrentActor()!.idToken!
+    );
+    const url = `${this.tripsUrlV2}/sponsorships/sponsor/${sponsorId}`;
     return this.http.get<Sponsorship[]>(url);
   }
 
   getTripSponsorshipById(id: string) {
-    const url = `${this.tripsUrl}/sponsorships/${id}`;
+    httpOptions.headers = httpOptions.headers.set(
+      'idToken',
+      this.authService.getCurrentActor()!.idToken!
+    );
+    const url = `${this.tripsUrlV2}/sponsorships/${id}`;
     return this.http.get<Sponsorship>(url);
   }
 
   createTrip(trip: any) {
-    const url = `${this.tripsUrl}`;
+    const url = `${this.tripsUrlV2}`;
     httpOptions.headers = httpOptions.headers.set(
       'idToken',
       this.authService.getCurrentActor()!.idToken!
@@ -74,5 +83,17 @@ export class TripService {
     const body = JSON.stringify(trip);
 
     return this.http.post<any>(url, body, httpOptions);
+  }
+
+  updateTrip(trip: any) {
+    const url = `${this.tripsUrlV2}/${trip._id}`;
+    httpOptions.headers = httpOptions.headers.set(
+      'idToken',
+      this.authService.getCurrentActor()!.idToken!
+    );
+
+    const body = JSON.stringify(trip);
+
+    return this.http.put<any>(url, body, httpOptions);
   }
 }

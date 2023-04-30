@@ -2,7 +2,6 @@
   <div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2">
     <h2 i18n>Edit Trip</h2>
     <form [formGroup]="tripForm" (ngSubmit)="onSubmit()">
-      <input type="hidden" class="form-control" formControlName="manager_id" />
       <div class="form-group">
         <div class="row mb-2">
           <div class="col">
@@ -42,6 +41,7 @@
               type="date"
               class="form-control"
               formControlName="startDate"
+              value="{{ trip.startDate | date : 'yyyy-MM-dd' }}"
               required
             />
             <div
@@ -57,6 +57,7 @@
               type="date"
               class="form-control"
               formControlName="endDate"
+              value="{{ trip.endDate | date : 'yyyy-MM-dd' }}"
               required
             />
             <div
