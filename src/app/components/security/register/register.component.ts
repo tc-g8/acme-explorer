@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { Actor } from 'src/app/models/actor.model';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { MessageService } from 'src/app/services/message.service';
@@ -13,6 +14,8 @@ export class RegisterComponent implements OnInit {
   registrationForm: FormGroup;
   errorMessage: string = '';
   successMessage: string = '';
+  protected currentActor: Actor | undefined;
+  protected activeRole: string = 'anonymous';
 
   constructor(
     private authService: AuthService,
@@ -26,12 +29,21 @@ export class RegisterComponent implements OnInit {
       phone: [''],
       address: [''],
       password: [''],
+      role: ['']
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.currentActor = this.authService.getCurrentActor();
+    if (this.currentActor) {
+      this.activeRole = this.currentActor!.role.toString().toLowerCase();
+    }
+  }
 
   onRegister() {
+    if (this.activeRole === 'administrator') {
+      this.registrationForm.value.role = [this.registrationForm.value.role]
+    }
     this.authService.registerUser(this.registrationForm.value).then(
       (res) => {
         this.errorMessage = '';

@@ -23,8 +23,12 @@ export class AuthService {
 
   registerUser(actor: Actor) {
     return new Promise<any>((resolve, reject) => {
-      const headers = new HttpHeaders();
-      headers.append('Content-Type', 'application/json');
+      if (this.getCurrentActor()){
+        httpOptions.headers = httpOptions.headers.set(
+          'idToken', this.getCurrentActor()!.idToken!
+        );
+      }
+      console.log(httpOptions)
       const url = `${environment.backendApiBaseURL + '/api/v2/actors'}`;
       const body = JSON.stringify(actor);
       let result: Actor;

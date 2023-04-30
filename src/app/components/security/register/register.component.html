@@ -3,7 +3,21 @@
     <form [formGroup]="registrationForm" (ngSubmit)="onRegister()">
       <fieldset>
         <h2 i18n>Signup</h2>
-        <legend i18n>Register new explorer</legend>
+        <legend *ngIf="activeRole === 'anonymous'" i18n>Register new explorer</legend>
+        <legend *ngIf="activeRole === 'administrator'" i18n>Register new manager or sponsor</legend>
+        
+        <div *ngIf="activeRole === 'administrator'" class="form-group has-danger mb-3">
+          <label i18n for="role" class="form-label">Select role:</label>
+          <select 
+          formControlName="role"
+          id="role" 
+          class="form-select" 
+          aria-label="select role">
+            <option i18n value="">Roles</option>
+            <option i18n value="MANAGER">Manager</option>
+            <option i18n value="SPONSOR">Sponsor</option>
+          </select>
+        </div>
 
         <div class="form-group has-danger mb-3">
           <label i18n for="name" class="form-label">Name:</label>
