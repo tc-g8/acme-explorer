@@ -79,18 +79,16 @@
     >
       <div class="row g-0">
         <div class="col-sm-3 d-none d-sm-block">
-          <img
-            *ngIf="trip.imageCollection[0]"
-            src="{{ trip.imageCollection[0].image }}"
-            class="card-img-top"
-            alt="{{ trip.imageCollection[0].alt }}"
-          />
-          <img
-            *ngIf="!trip.imageCollection[0]"
-            src="../../../../assets/images/trip-placeholder.png"
-            class="card-img-top"
-            alt="trip without image"
-          />
+          <div
+            *ngIf="trip.imageCollection[0]; else stdImage"
+            class="bg-image"
+            [ngStyle]="{
+              'background-image': 'url(' + trip.imageCollection[0].image + ')'
+            }"
+          ></div>
+          <ng-template #stdImage>
+            <div class="bg-std-image"></div>
+          </ng-template>
         </div>
         <div class="col-12 col-sm-9">
           <div class="card-body">

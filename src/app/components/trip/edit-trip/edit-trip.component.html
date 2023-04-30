@@ -1,0 +1,186 @@
+<div class="row mt-3">
+  <div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2">
+    <h2 i18n>Edit Trip</h2>
+    <form [formGroup]="tripForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <div class="row mb-2">
+          <div class="col">
+            <label class="center-block fw-bold" i18n>Title:</label>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="title"
+              required
+            />
+            <div *ngIf="title?.invalid && title?.dirty" class="validation-msg">
+              <span i18n>Title field is required</span>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col">
+            <label class="center-block fw-bold" i18n>Description:</label>
+            <textarea
+              class="form-control"
+              formControlName="description"
+              rows="4"
+              required
+            ></textarea>
+            <div
+              *ngIf="description?.invalid && description?.dirty"
+              class="validation-msg"
+            >
+              <span i18n>Description field is required</span>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col">
+            <label class="center-block fw-bold" i18n>Start date:</label>
+            <input
+              type="date"
+              class="form-control"
+              formControlName="startDate"
+              value="{{ trip.startDate | date : 'yyyy-MM-dd' }}"
+              required
+            />
+            <div
+              *ngIf="startDate!.errors?.['validPresentDate']"
+              class="validation-msg"
+            >
+              <span i18n>Start date must be in the future</span>
+            </div>
+          </div>
+          <div class="col">
+            <label class="center-block fw-bold" i18n>End date:</label>
+            <input
+              type="date"
+              class="form-control"
+              formControlName="endDate"
+              value="{{ trip.endDate | date : 'yyyy-MM-dd' }}"
+              required
+            />
+            <div
+              *ngIf="endDate!.errors?.['validPresentDate']"
+              class="validation-msg"
+            >
+              <span i18n>End date must be in the future</span>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <label class="center-block fw-bold" i18n>Requirements:</label>
+            <textarea
+              class="form-control"
+              formControlName="requirements"
+              placeholder="Please, enter the requirements separated by dashes as in the following example:
+
+- Passport
+- Tickets for the event
+- Etc
+              "
+              i18n-placeholder
+              rows="6"
+              required
+            ></textarea>
+            <div
+              *ngIf="requirements?.invalid && requirements?.dirty"
+              class="validation-msg"
+            >
+              <span i18n>Requirements field is required</span>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col">
+            <div class="d-flex justify-content-between">
+              <label class="center-block fw-bold" i18n>Images:</label>
+              <input
+                class="form-control file-input"
+                id="inputImageFile"
+                type="file"
+                accept="image/*"
+                (change)="onFileSelected($event)"
+                #fileUpload
+              />
+              <div class="file-upload">
+                <button
+                  type="button"
+                  class="btn btn-primary upload-btn"
+                  (click)="fileUpload.click()"
+                  [disabled]="imagesCollection.length == 4"
+                >
+                  <i class="fa-solid fa-plus"></i>
+                  &nbsp;<i class="fa-regular fa-image"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div
+            *ngFor="let image of imagesCollection"
+            class="col-6 col-md-3 mb-3"
+          >
+            <div class="remove-img" (click)="removeImage(image.image)">
+              <i class="fa-solid fa-x"></i>
+            </div>
+            <img [src]="image.image" class="img-fluid" />
+          </div>
+        </div>
+      </div>
+      <div class="d-grid">
+        <button
+          i18n
+          type="button"
+          class="btn btn-success"
+          data-bs-toggle="modal"
+          data-bs-target="#confirmationModal"
+          [disabled]="tripForm.invalid"
+        >
+          <i class="fa-regular fa-bookmark"></i>&nbsp;Save draft trip
+        </button>
+      </div>
+      <!-- Confirmation modal -->
+      <div class="modal fade" id="confirmationModal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" i18n>Confirm</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <p i18n>Are you sure you want to save the trip?</p>
+            </div>
+            <div class="modal-footer">
+              <button
+                i18n
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Decline
+              </button>
+              <button
+                i18n
+                type="button"
+                class="btn btn-primary"
+                type="submit"
+                data-bs-dismiss="modal"
+              >
+                Accept
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /Confirmation modal -->
+    </form>
+  </div>
+</div>

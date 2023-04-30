@@ -16,18 +16,16 @@
     >
       <div class="row g-0">
         <div class="col-sm-3 d-none d-sm-block">
-          <img
-            *ngIf="trip.imageCollection[0]"
-            src="{{ trip.imageCollection[0].image }}"
-            class="card-img-top"
-            alt="{{ trip.imageCollection[0].alt }}"
-          />
-          <img
-            *ngIf="!trip.imageCollection[0]"
-            src="../../../../assets/images/trip-placeholder.png"
-            class="card-img-top"
-            alt="trip without image"
-          />
+          <div
+            *ngIf="trip.imageCollection[0]; else stdImage"
+            class="bg-image"
+            [ngStyle]="{
+              'background-image': 'url(' + trip.imageCollection[0].image + ')'
+            }"
+          ></div>
+          <ng-template #stdImage>
+            <div class="bg-std-image"></div>
+          </ng-template>
         </div>
         <div class="col-12 col-sm-9">
           <div class="card-body">
@@ -56,13 +54,27 @@
                 >
               </p>
               <div class="text-end">
-                <a
-                  i18n
-                  class="btn btn-primary"
-                  routerLink="/applications/trip/{{ trip._id }}"
-                  role="button"
-                  >Applications</a
+                <div
+                  *ngIf="trip.status == 'DRAFT'; else publishedTrip"
+                  class="btn-group"
                 >
+                  <button
+                    class="btn btn-primary"
+                    routerLink="/trips/form/edit/{{ trip._id }}"
+                  >
+                    Edit
+                  </button>
+                  <button class="btn btn-danger" disabled>Cancel</button>
+                </div>
+                <ng-template #publishedTrip>
+                  <a
+                    i18n
+                    class="btn btn-primary"
+                    routerLink="/applications/trip/{{ trip._id }}"
+                    role="button"
+                    >Applications</a
+                  >
+                </ng-template>
               </div>
             </div>
           </div>

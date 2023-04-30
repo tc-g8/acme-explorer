@@ -38,6 +38,7 @@ import { FormTripComponent } from './components/trip/form-trip/form-trip.compone
 import { PaymentInfoComponent } from './components/payment/payment-info/payment-info.component';
 import { RejectApplicationComponent } from './components/application/reject-application/reject-application.component';
 import { DueApplicationComponent } from './components/application/due-application/due-application.component';
+import { EditTripComponent } from './components/trip/edit-trip/edit-trip.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { DueApplicationComponent } from './components/application/due-applicatio
     PaymentInfoComponent,
     RejectApplicationComponent,
     DueApplicationComponent,
+    EditTripComponent,
   ],
   imports: [
     BrowserModule,
