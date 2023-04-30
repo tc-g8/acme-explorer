@@ -14,7 +14,7 @@
                         <div class="mb-3">
                             <label i18n for="message-text" class="col-form-label">Reason:</label>
                             <textarea class="form-control" id="reason" name="reason" #reason="ngModel" required ngModel></textarea>
-                            <div *ngIf="reason.invalid" class="validation-msg">
+                            <div *ngIf="reason.invalid && reason.dirty" class="validation-msg">
                                 <span i18n>Reason field is required</span>
                             </div>
                         </div>

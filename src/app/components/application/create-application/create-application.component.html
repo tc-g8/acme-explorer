@@ -15,7 +15,7 @@
                             <label i18n for="message-text" class="col-form-label">Comment:</label>
                             <textarea class="form-control" id="comment" name="comment" #comment="ngModel" required
                                 ngModel></textarea>
-                            <div *ngIf="comment.invalid" class="validation-msg">
+                            <div *ngIf="comment.invalid && comment.dirty" class="validation-msg">
                                 <span i18n>Comment field is required</span>
                             </div>
                         </div>
