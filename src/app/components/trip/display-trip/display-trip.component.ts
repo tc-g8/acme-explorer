@@ -8,6 +8,7 @@ import { Actor } from 'src/app/models/actor.model';
 import { ApplicationService } from 'src/app/services/application.service';
 import { isPastDate, isAWeekBeforeDate } from 'src/app/utils/dates';
 import { ApplicationStatus } from 'src/app/enums/application.enum';
+import { TripStatus } from 'src/app/enums/trip.enum';
 
 @Component({
   selector: 'app-display-trip',
@@ -100,4 +101,8 @@ export class DisplayTripComponent implements OnInit {
     this.hasApplication = event;
   }
 
+  handleCanceledTrip(cancelationReason: string) {
+    this.trip.cancelationReason = cancelationReason;
+    this.trip.status = TripStatus.CANCELLED;    
+  }
 }
