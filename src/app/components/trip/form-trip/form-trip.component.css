@@ -10,3 +10,7 @@
   padding: 1px 5px;
   background-color: white;
 }
+.validation-msg {
+  color: rgb(183, 1, 1);
+  margin-top: 1px;
+}

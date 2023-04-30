@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Image } from 'src/app/models/image.model';
 import { Stage } from 'src/app/models/stage.model';
 import { Trip } from 'src/app/models/trip.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { TripService } from 'src/app/services/trip.service';
+import { validatePresentDate } from 'src/app/utils/dates';
 
 @Component({
   selector: 'app-form-trip',
@@ -15,32 +17,30 @@ export class FormTripComponent implements OnInit {
   tripForm: FormGroup;
   imagesCollection: Image[];
   stagesCollection: Stage[];
-  price: number;
+  tripPrice: number;
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private tripService: TripService,
     private authService: AuthService
   ) {
     this.tripForm = this.fb.group({
       manager_id: [''],
-      title: [''],
-      description: [''],
-      startDate: [''],
-      endDate: [''],
-      requirements: [''],
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      startDate: ['', [Validators.required, validatePresentDate]],
+      endDate: ['', [Validators.required, validatePresentDate]],
+      requirements: ['', Validators.required],
+      stages: ['', Validators.required],
     });
 
-    this.price = 0;
+    this.tripPrice = 0;
     this.stagesCollection = [];
     this.imagesCollection = [];
   }
 
-  ngOnInit(): void {
-    this.initializeForm();
-  }
-
-  initializeForm(): void {}
+  ngOnInit(): void {}
 
   onSubmit() {
     const formModel = this.tripForm.value;
@@ -56,7 +56,7 @@ export class FormTripComponent implements OnInit {
     trip.manager_id = this.authService.getCurrentActor()!._id;
 
     this.tripService.createTrip(trip).subscribe({
-      next: (res) => console.log('Trip created'),
+      next: (_) => this.router.navigate([`/trips/manager/${trip.manager_id}`]),
       error: (e) => console.error(e),
       complete: () => console.info('POST Completed'),
     });
@@ -95,13 +95,25 @@ export class FormTripComponent implements OnInit {
       newStage._id = String(Number(lastStage._id) + 1);
     }
 
+    this.tripPrice += stagePrice;
     this.stagesCollection.push(newStage);
+    this.tripForm.controls['stages'].setValue(this.stagesCollection);
+    form.resetForm();
   }
 
   removeStage(stage: Stage) {
     this.stagesCollection = this.stagesCollection.filter(
       (s: Stage) => s._id != stage._id
     );
+
+    if (this.stagesCollection.length > 0) {
+      this.tripPrice = this.stagesCollection
+        .map((stage) => stage.price)
+        .reduce((abs, price) => abs + price);
+    } else {
+      this.tripPrice = 0;
+      this.tripForm.controls['stages'].setValue(this.stagesCollection);
+    }
   }
 
   private convertBase64(file: File) {
@@ -124,5 +136,24 @@ export class FormTripComponent implements OnInit {
       .split('-')
       .map((req) => req.trim())
       .filter((req) => req.length > 0);
+  }
+
+  get title() {
+    return this.tripForm.get('title');
+  }
+  get description() {
+    return this.tripForm.get('description');
+  }
+  get startDate() {
+    return this.tripForm.get('startDate');
+  }
+  get endDate() {
+    return this.tripForm.get('endDate');
+  }
+  get requirements() {
+    return this.tripForm.get('requirements');
+  }
+  get stages() {
+    return this.tripForm.get('stages');
   }
 }
