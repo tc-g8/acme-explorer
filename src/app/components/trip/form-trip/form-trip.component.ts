@@ -7,6 +7,7 @@ import { Trip } from 'src/app/models/trip.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { TripService } from 'src/app/services/trip.service';
 import { validatePresentDate } from 'src/app/utils/dates';
+import { convertBase64 } from 'src/app/utils/images';
 
 @Component({
   selector: 'app-form-trip',
@@ -65,7 +66,7 @@ export class FormTripComponent implements OnInit {
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {
-      this.convertBase64(file).then((encodedImage) => {
+      convertBase64(file).then((encodedImage) => {
         const image = encodedImage as string;
         const alt = file.name;
         this.imagesCollection.push({ image, alt } as Image);
@@ -114,21 +115,6 @@ export class FormTripComponent implements OnInit {
       this.tripPrice = 0;
       this.tripForm.controls['stages'].setValue(this.stagesCollection);
     }
-  }
-
-  private convertBase64(file: File) {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
   }
 
   private splitRequirement(requirements: string): string[] {
