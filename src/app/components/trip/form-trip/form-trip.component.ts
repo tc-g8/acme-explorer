@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import { Image } from 'src/app/models/image.model';
 import { Stage } from 'src/app/models/stage.model';
 import { Trip } from 'src/app/models/trip.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -12,7 +13,7 @@ import { TripService } from 'src/app/services/trip.service';
 })
 export class FormTripComponent implements OnInit {
   tripForm: FormGroup;
-  imagesCollection: string[];
+  imagesCollection: Image[];
   stagesCollection: Stage[];
   price: number;
 
@@ -54,9 +55,10 @@ export class FormTripComponent implements OnInit {
     const trip: Trip = newTrip as Trip;
     trip.manager_id = this.authService.getCurrentActor()!._id;
 
-    console.log(trip);
-    this.tripService.createTrip(trip).subscribe((res) => {
-      console.log('Trip created');
+    this.tripService.createTrip(trip).subscribe({
+      next: (res) => console.log('Trip created'),
+      error: (e) => console.error(e),
+      complete: () => console.info('POST Completed'),
     });
   }
 
@@ -64,14 +66,16 @@ export class FormTripComponent implements OnInit {
     const file: File = event.target.files[0];
     if (file) {
       this.convertBase64(file).then((encodedImage) => {
-        this.imagesCollection.push(encodedImage as string);
+        const image = encodedImage as string;
+        const alt = file.name;
+        this.imagesCollection.push({ image, alt } as Image);
       });
     }
   }
 
   removeImage(image: string) {
     this.imagesCollection = this.imagesCollection.filter(
-      (i: string) => i != image
+      (i: Image) => i.image != image
     );
   }
 

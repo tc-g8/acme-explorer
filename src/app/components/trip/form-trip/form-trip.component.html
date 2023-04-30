@@ -77,10 +77,10 @@
             *ngFor="let image of imagesCollection"
             class="col-6 col-sm-4 col-md-3 mb-3"
           >
-            <div class="remove-img" (click)="removeImage(image)">
+            <div class="remove-img" (click)="removeImage(image.image)">
               <i class="fa-solid fa-x"></i>
             </div>
-            <img [src]="image" class="img-fluid" />
+            <img [src]="image.image" class="img-fluid" />
           </div>
         </div>
         <div class="row mb-2">
@@ -111,8 +111,8 @@
                   <td>{{ stage.title }}</td>
                   <td>{{ stage.description }}</td>
                   <td>{{ stage.price }}</td>
-                  <td>
-                    <span style="text-align: end" (click)="removeStage(stage)"
+                  <td style="text-align: end">
+                    <span (click)="removeStage(stage)"
                       ><i class="fa-solid fa-x"></i
                     ></span>
                   </td>

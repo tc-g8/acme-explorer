@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type': 'applications/json',
+    'Content-Type': 'application/json; charset=utf-8',
   }),
 };
 
@@ -64,7 +64,7 @@ export class TripService {
     return this.http.get<Sponsorship>(url);
   }
 
-  createTrip(trip: Trip) {
+  createTrip(trip: any) {
     const url = `${this.tripsUrl}`;
     httpOptions.headers = httpOptions.headers.set(
       'idToken',
@@ -73,6 +73,6 @@ export class TripService {
 
     const body = JSON.stringify(trip);
 
-    return this.http.post(url, body, httpOptions);
+    return this.http.post<any>(url, body, httpOptions);
   }
 }
