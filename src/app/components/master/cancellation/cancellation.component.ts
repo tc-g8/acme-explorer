@@ -22,7 +22,6 @@ export class CancellationComponent implements OnInit {
   }
 
   cancel() {
-    console.log("Cancel application with id: " + this.applicationId);
     if (this.applicationId) {
       this.applicationService.updateApplicationStatus(this.applicationId, ApplicationStatus.CANCELLED)
         .subscribe((res) => {
@@ -31,8 +30,7 @@ export class CancellationComponent implements OnInit {
             $localize`Application cancelled`,
             'alert alert-success'
           );
-        }
-        );
+        });
     }
   }
 

@@ -36,6 +36,7 @@ import { ProfilePasswordEditComponent } from './components/actor/profile-passwor
 import { NgxPayPalModule } from 'ngx-paypal';
 import { PaymentInfoComponent } from './components/payment/payment-info/payment-info.component';
 import { RejectApplicationComponent } from './components/application/reject-application/reject-application.component';
+import { DueApplicationComponent } from './components/application/due-application/due-application.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { RejectApplicationComponent } from './components/application/reject-appl
     CheckoutComponent,
     PaymentInfoComponent,
     RejectApplicationComponent,
+    DueApplicationComponent,
   ],
   imports: [
     BrowserModule,

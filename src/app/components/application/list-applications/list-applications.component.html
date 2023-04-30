@@ -61,7 +61,7 @@
               <button i18n type="button" class="btn btn-outline-danger me-2" data-bs-toggle="modal"
                 [attr.data-bs-target]="'#rejectApplicationModal' + application._id">Reject</button>
               <button i18n type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                [attr.data-bs-target]="'#acceptanceModal' + application._id">Due</button>
+                [attr.data-bs-target]="'#dueApplicationModal' + application._id">Due</button>
             </div>
             <div
               *ngIf="activeRole === 'explorer' && application.status != 'CANCELLED' && application.status != 'ACCEPTED'"
@@ -73,6 +73,8 @@
               [applicationId]="application._id"></app-cancellation>
             <app-reject-application (applicationRejectedEvent)="handleRejectedApplication($event)"
               [applicationId]="application._id"></app-reject-application>
+            <app-due-application (applicationDueEvent)="handleDueApplication($event)"
+              [applicationId]="application._id"></app-due-application>
           </div>
         </div>
       </div>

@@ -22,7 +22,6 @@ export class RejectApplicationComponent implements OnInit {
   }
 
   rejectApplication(form: NgForm) {
-    console.log(form.value);
     const rejectedReason = form.value.reason;
     this.applicationService.rejectApplication(this.applicationId, rejectedReason)
       .subscribe((res) => {

@@ -54,9 +54,9 @@ export class ListApplicationsComponent implements OnInit {
   }
 
   handleCanceledApplication(applicationId: string) {
-      const application = this.applications.filter(
-        (app) => app._id == applicationId);
-      application[0].status = ApplicationStatus.CANCELLED;
+    const application = this.applications.filter(
+      (app) => app._id == applicationId);
+    application[0].status = ApplicationStatus.CANCELLED;
   }
 
   handleRejectedApplication(result: any) {
@@ -64,5 +64,12 @@ export class ListApplicationsComponent implements OnInit {
       (app) => app._id == result.applicationId);
     application[0].status = ApplicationStatus.REJECTED;
     application[0].rejectedReason = result.rejectedReason;
-}
+  }
+
+  handleDueApplication(applicationId: string) {
+    const application = this.applications.filter(
+      (app) => app._id == applicationId);
+    application[0].status = ApplicationStatus.DUE;
+  }
+
 }
