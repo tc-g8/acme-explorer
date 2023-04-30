@@ -27,13 +27,20 @@
                     <span class="badge bg-primary"> #{{ trip.status }} </span>
                   </p>
                 </div>
-                <div *ngIf="activeRole === 'explorer' && hasApplication "
-                  class="d-flex flex-column col-4 text-end">
+                <div *ngIf="activeRole === 'manager' && trip.status != 'CANCELLED' && !hasApplicationsPaid && !tripStartSoon"
+                  class="d-flex flex-column col-2 offset-2 col-md-1 offset-md-3">
+                  <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                    data-bs-target="#">
+                    <i class="fa-solid fa-ban fa-lg"></i>                  
+                  </button>
+                </div>
+                <div *ngIf="activeRole === 'explorer' && hasApplication " class="d-flex flex-column col-4 text-end">
                   <p><a i18n routerLink="/applications/explorer/{{ currentActor!._id }}"> Go to my applications</a></p>
                 </div>
-                <div *ngIf="activeRole === 'explorer' && !hasApplication && !trip.isOver"
+                <div *ngIf="activeRole === 'explorer' && trip.status === 'PUBLISHED' && !hasApplication && !trip.isOver"
                   class="d-flex flex-column col-2 offset-2 col-md-1 offset-md-3">
-                  <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#createApplication">
+                  <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                    data-bs-target="#createApplication">
                     <i class="fa-solid fa-plus fa-lg"></i>
                   </button>
                 </div>
@@ -126,4 +133,5 @@
     </div>
   </div>
 </div>
-<app-create-application (applicationCreatedEvent)="handleCreatedApplication($event)" [tripId]="trip._id"></app-create-application>
+<app-create-application (applicationCreatedEvent)="handleCreatedApplication($event)"
+  [tripId]="trip._id"></app-create-application>
