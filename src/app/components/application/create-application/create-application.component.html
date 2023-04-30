@@ -1,5 +1,5 @@
-<div class="modal fade" id="createApplication" tabindex="-1"
-    aria-labelledby="createApplicationLabel" aria-hidden="true">
+<div class="modal fade" id="createApplication" tabindex="-1" aria-labelledby="createApplicationLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -13,13 +13,18 @@
                     <div class="form-group has-danger">
                         <div class="mb-3">
                             <label i18n for="message-text" class="col-form-label">Comment:</label>
-                            <textarea class="form-control" id="comment" name="comment" ngModel></textarea>
+                            <textarea class="form-control" id="comment" name="comment" #comment="ngModel" required
+                                ngModel></textarea>
+                            <div *ngIf="comment.invalid" class="validation-msg">
+                                <span i18n>Comment field is required</span>
+                            </div>
                         </div>
                         <div class="btn-group">
                             <button i18n type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                 Close
                             </button>
-                            <button i18n type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+                            <button i18n type="submit" class="btn btn-primary" data-bs-dismiss="modal"
+                                [disabled]="comment.invalid">
                                 Save changes
                             </button>
                         </div>

@@ -46,13 +46,18 @@
                             <p i18n>You are going to cancel this trip. Are you sure?</p>
                             <div class="mb-3">
                                 <label i18n for="message-text" class="col-form-label">Send your reason:</label>
-                                <textarea class="form-control" id="reason" name="reason" required ngModel></textarea>
+                                <textarea class="form-control" id="reason" name="reason" #reason="ngModel" required
+                                    ngModel></textarea>
+                                <div *ngIf="reason.invalid" class="validation-msg">
+                                    <span i18n>Reason field is required</span>
+                                </div>
                             </div>
                             <div class="btn-group">
                                 <button i18n type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                     Close
                                 </button>
-                                <button i18n type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+                                <button i18n type="submit" class="btn btn-primary" data-bs-dismiss="modal"
+                                    [disabled]="reason.invalid">
                                     Cancel
                                 </button>
                             </div>
