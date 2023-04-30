@@ -57,12 +57,22 @@
                 <p class="card-text">{{ application.rejectedReason }}</p>
               </div>
             </div>
-            <div *ngIf="application.status != 'CANCELLED' && application.status != 'ACCEPTED'" class="text-end">
+            <div *ngIf="activeRole === 'manager' && application.status == 'PENDING'" class="text-end">
+              <button i18n type="button" class="btn btn-outline-danger me-2" data-bs-toggle="modal"
+                [attr.data-bs-target]="'#rejectApplicationModal' + application._id">Reject</button>
+              <button i18n type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                [attr.data-bs-target]="'#acceptanceModal' + application._id">Due</button>
+            </div>
+            <div
+              *ngIf="activeRole === 'explorer' && application.status != 'CANCELLED' && application.status != 'ACCEPTED'"
+              class="text-end">
               <button i18n type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                 [attr.data-bs-target]="'#cancellationModal' + application._id">Cancel</button>
             </div>
             <app-cancellation (applicationCancelledEvent)="handleCanceledApplication($event)"
-                [applicationId]="application._id"></app-cancellation>
+              [applicationId]="application._id"></app-cancellation>
+            <app-reject-application (applicationRejectedEvent)="handleRejectedApplication($event)"
+              [applicationId]="application._id"></app-reject-application>
           </div>
         </div>
       </div>

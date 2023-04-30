@@ -43,6 +43,14 @@ export class ApplicationService {
     return this.http.patch(url, { status }, httpOptions);
   }
 
+  rejectApplication(applicationId: string, rejectedReason: string) {
+    const url = `${this.applicationsUrl}/${applicationId}/reject`;
+    httpOptions.headers = httpOptions.headers.set(
+      'idToken', this.authService.getCurrentActor()!.idToken!
+    );
+    return this.http.patch(url, { rejectedReason }, httpOptions);
+  }
+
   createApplication(comment: string, explorer_id: string, trip_id: string) {
     const url = `${this.applicationsUrl}`;
     httpOptions.headers = httpOptions.headers.set(
