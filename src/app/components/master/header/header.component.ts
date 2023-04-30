@@ -19,12 +19,15 @@ export class HeaderComponent implements OnInit {
     private router: Router
   ) {
     this.currentActor = this.authService.getCurrentActor();
-    if(this.currentActor){
+    if (this.currentActor) {
       this.activeRole = this.currentActor!.role.toString().toLowerCase();
     }
   }
 
   ngOnInit(): void {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    document.body.classList.toggle('dark-theme', prefersDark.matches);
+
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.authService.getStatus().subscribe((loggedIn) => {
       if (loggedIn) {
@@ -40,6 +43,10 @@ export class HeaderComponent implements OnInit {
   changeLanguage(language: string) {
     localStorage.setItem('locale', language);
     location.reload();
+  }
+
+  changeTheme() {
+    document.body.classList.toggle('dark-theme');
   }
 
   logout() {

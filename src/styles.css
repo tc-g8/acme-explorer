@@ -1,4 +1,92 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* -- Theme light/dark -- */
+
+body {
+  --text-color: #3b3b3b;
+  --bkg-color: #fff;
+  --bkg-sec-color: #f8f9fa;
+  --bkg-input-color: #fff;
+  --footer-box-shadow: 0 1px 40px 5px rgba(0, 0, 0, 0.15);
+  --footer-a-color: rgba(0, 0, 0, 0.28);
+  --bt-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  --placeholder-color: rgba(0, 0, 0, 0.5);
+}
+
+body.dark-theme {
+  --text-color: #eee;
+  --bkg-color: #695a83;
+  --bkg-sec-color: #483d5b;
+  --bkg-input-color: #80729a;
+  --footer-box-shadow: 0 1px 40px 5px rgba(217, 217, 217, 0.15);
+  --footer-a-color: rgba(160, 152, 152, 0.852);
+  --bt-shadow: 0 0.3rem 1rem rgba(227, 195, 224, 0.603);
+  --placeholder-color: rgba(255, 255, 255, 0.8);
+}
+
+body {
+  background: var(--bkg-color);
+}
+body.dark-theme nav,
+body.dark-theme a,
+body.dark-theme i,
+body.dark-theme .dropdown-toggle::after,
+body.dark-theme ul {
+  background: #483d5b !important;
+  color: white !important;
+}
+.footer-distributed,
+.card,
+.timer-card {
+  background: var(--bkg-sec-color) !important;
+}
+.footer-distributed {
+  box-shadow: var(--footer-box-shadow) !important;
+}
+.footer-distributed a {
+  color: var(--footer-a-color) !important;
+}
+.shadow {
+  box-shadow: var(--bt-shadow) !important;
+}
+.display-1 {
+  color: var(--text-color) !important;
+}
+input,
+textarea {
+  background: var(--bkg-input-color) !important;
+  color: var(--text-color) !important;
+}
+body.dark-theme .btn-outline-success,
+body.dark-theme .btn-outline-primary {
+  background-color: white;
+  color: #80729a;
+  border-color: #453b58;
+}
+body.dark-theme .btn-outline-success:hover,
+body.dark-theme .btn-outline-primary:hover {
+  background-color: #453b58;
+  color: white;
+  border-color: #e2cadd;
+}
+::placeholder {
+  color: var(--placeholder-color) !important;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+label,
+small,
+.timer {
+  color: var(--text-color) !important;
+}
+
+/* -- Common styles -- */
+
 .file-input {
   display: none;
 }
