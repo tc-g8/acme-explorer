@@ -1,13 +1,33 @@
 <div *ngIf="trips && trips.length > 0" class="row g-4 mt-2">
   <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
-    <div *ngFor="let trip of trips" [ngClass]="{ nextTrip: trip.isNext }" class="card mb-3 shadow-sm cardTrip"
-      routerLink="/trips/{{ trip._id }}">
+    <div class="d-flex justify-content-between mb-3">
+      <h2 i18n>My Trips</h2>
+      <div>
+        <button i18n class="btn btn-success" routerLink="/trips/form/add">
+          Create Trip
+        </button>
+      </div>
+    </div>
+    <div
+      *ngFor="let trip of trips"
+      [ngClass]="{ nextTrip: trip.isNext }"
+      class="card mb-3 shadow-sm cardTrip"
+      routerLink="/trips/{{ trip._id }}"
+    >
       <div class="row g-0">
         <div class="col-sm-3 d-none d-sm-block">
-          <img *ngIf="trip.imageCollection[0]" src="{{ trip.imageCollection[0].image }}" class="card-img-top"
-            alt="{{ trip.imageCollection[0].alt }}" />
-          <img *ngIf="!trip.imageCollection[0]" src="../../../../assets/images/trip-placeholder.png"
-            class="card-img-top" alt="trip without image" />
+          <img
+            *ngIf="trip.imageCollection[0]"
+            src="{{ trip.imageCollection[0].image }}"
+            class="card-img-top"
+            alt="{{ trip.imageCollection[0].alt }}"
+          />
+          <img
+            *ngIf="!trip.imageCollection[0]"
+            src="../../../../assets/images/trip-placeholder.png"
+            class="card-img-top"
+            alt="trip without image"
+          />
         </div>
         <div class="col-12 col-sm-9">
           <div class="card-body">
@@ -31,10 +51,18 @@
                 </small>
               </div>
               <p *ngIf="trip.isNext" class="card-text h5">
-                <span i18n class="badge bg-danger">Few days left to start it</span>
+                <span i18n class="badge bg-danger"
+                  >Few days left to start it</span
+                >
               </p>
               <div class="text-end">
-                <a i18n class="btn btn-primary" routerLink="/applications/trip/{{ trip._id }}" role="button">Applications</a>
+                <a
+                  i18n
+                  class="btn btn-primary"
+                  routerLink="/applications/trip/{{ trip._id }}"
+                  role="button"
+                  >Applications</a
+                >
               </div>
             </div>
           </div>
