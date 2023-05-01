@@ -28,7 +28,6 @@ export class AuthService {
           'idToken', this.getCurrentActor()!.idToken!
         );
       }
-      console.log(httpOptions)
       const url = `${environment.backendApiBaseURL + '/api/v2/actors'}`;
       const body = JSON.stringify(actor);
       let result: Actor;

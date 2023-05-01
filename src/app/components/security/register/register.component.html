@@ -28,6 +28,9 @@
             formControlName="name"
             required
           />
+          <div *ngIf="name?.invalid && name?.dirty" class="validation-msg">
+            <span i18n>Name field is required</span>
+          </div>
         </div>
 
         <div class="form-group has-danger mb-3">
@@ -39,6 +42,9 @@
             formControlName="surname"
             required
           />
+          <div *ngIf="surname?.invalid && surname?.dirty" class="validation-msg">
+            <span i18n>Surname field is required</span>
+          </div>
         </div>
 
         <div class="form-group has-danger mb-3">
@@ -50,6 +56,9 @@
             formControlName="email"
             required
           />
+          <div *ngIf="email?.invalid && email?.dirty" class="validation-msg">
+            <span i18n>Email field is required</span>
+          </div>
         </div>
 
         <div class="form-group has-danger mb-3">
@@ -61,6 +70,9 @@
             formControlName="password"
             required
           />
+          <div *ngIf="password?.invalid && password?.dirty" class="validation-msg">
+            <span i18n>Password field is required</span>
+          </div>
         </div>
 
         <div class="form-group has-danger mb-3">
@@ -83,7 +95,10 @@
           />
         </div>
 
-        <button i18n type="submit" class="btn btn-primary mb-3 shadow-sm">
+        <button i18n 
+        type="submit" 
+        class="btn btn-primary mb-3 shadow-sm" 
+        [disabled]="registrationForm.invalid">
           Register
         </button>
         <app-message></app-message>
