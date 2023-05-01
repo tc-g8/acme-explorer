@@ -28,7 +28,7 @@ export class ApplicationService {
   }
 
   payApplication(applicationId: string) {
-    const url = `${this.applicationsUrl}/trip/${applicationId}/pay`;
+    const url = `${this.applicationsUrl}/${applicationId}/pay`;
     httpOptions.headers = httpOptions.headers.set(
       'idToken',
       this.authService.getCurrentActor()!.idToken!
