@@ -105,4 +105,18 @@ export class TripService {
 
     return this.http.put<any>(url, body, httpOptions);
   }
+
+  createSponsorship(sponsorship: any, tripId: string) {
+    const url = `${this.tripsUrlV2}/${tripId}/sponsorships`;
+    httpOptions.headers = httpOptions.headers.set(
+      'idToken',
+      this.authService.getCurrentActor()!.idToken!
+    );
+
+    const body = JSON.stringify(sponsorship);
+    console.log(body);
+    console.log(url);
+
+    return this.http.put<any>(url, body, httpOptions);
+  }
 }

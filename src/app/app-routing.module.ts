@@ -18,6 +18,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { FormTripComponent } from './components/trip/form-trip/form-trip.component';
 import { CheckoutComponent } from './components/payment/checkout/checkout.component';
 import { EditTripComponent } from './components/trip/edit-trip/edit-trip.component';
+import { CreateSponsorshipComponent } from './components/sponsorship/create-sponsorship/create-sponsorship.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
@@ -115,6 +116,12 @@ const routes: Routes = [
         component: DisplaySponsorshipComponent,
         canActivate: [ActorRoleGuard],
         data: { expectedRole: 'sponsor' },
+      },
+      {
+        path: 'form/add',
+        component: CreateSponsorshipComponent,
+        canActivate: [ActorRoleGuard],
+        data: { expectedRole: 'sponsorship' },
       },
     ],
   },
