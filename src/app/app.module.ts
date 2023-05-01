@@ -39,6 +39,7 @@ import { PaymentInfoComponent } from './components/payment/payment-info/payment-
 import { RejectApplicationComponent } from './components/application/reject-application/reject-application.component';
 import { DueApplicationComponent } from './components/application/due-application/due-application.component';
 import { EditTripComponent } from './components/trip/edit-trip/edit-trip.component';
+import { CreateSponsorshipComponent } from './components/sponsorship/create-sponsorship/create-sponsorship.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { EditTripComponent } from './components/trip/edit-trip/edit-trip.compone
     RejectApplicationComponent,
     DueApplicationComponent,
     EditTripComponent,
+    CreateSponsorshipComponent,
   ],
   imports: [
     BrowserModule,
