@@ -57,7 +57,7 @@
                 <div
                   *ngIf="trip.status == 'DRAFT'; else publishedTrip"
                   class="btn-group"
-                >
+                  >
                   <button
                     class="btn btn-primary"
                     routerLink="/trips/form/edit/{{ trip._id }}"

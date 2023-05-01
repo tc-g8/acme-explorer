@@ -73,6 +73,15 @@ export class TripService {
     return this.http.get<Sponsorship>(url);
   }
 
+  cancelTrip(tripId: string, cancelationReason: string) {
+    const url = `${this.tripsUrl}/${tripId}/cancel`;
+    httpOptions.headers = httpOptions.headers.set(
+      'idToken',
+      this.authService.getCurrentActor()!.idToken!
+    );
+    return this.http.patch<any>(url, { cancelationReason }, httpOptions);
+  }
+
   createTrip(trip: any) {
     const url = `${this.tripsUrlV2}`;
     httpOptions.headers = httpOptions.headers.set(
