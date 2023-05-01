@@ -2,7 +2,7 @@
   <div class="col col-md-6 offset-md-3">
     <form [formGroup]="registrationForm" (ngSubmit)="onRegister()">
       <fieldset>
-        <h2 i18n>Signup</h2>
+        <h2 *ngIf="activeRole === 'anonymous'" i18n>Signup</h2>
         <legend *ngIf="activeRole === 'anonymous'" i18n>Register new explorer</legend>
         <legend *ngIf="activeRole === 'administrator'" i18n>Register new manager or sponsor</legend>
         
