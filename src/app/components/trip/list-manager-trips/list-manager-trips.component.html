@@ -18,7 +18,7 @@
         <div class="col-sm-3 d-none d-sm-block">
           <div
             *ngIf="trip.imageCollection[0]; else stdImage"
-            class="bg-image"
+            class="bg-image card-img"
             [ngStyle]="{
               'background-image': 'url(' + trip.imageCollection[0].image + ')'
             }"
@@ -57,7 +57,7 @@
                 <div
                   *ngIf="trip.status == 'DRAFT'; else publishedTrip"
                   class="btn-group"
-                >
+                  >
                   <button
                     class="btn btn-primary"
                     routerLink="/trips/form/edit/{{ trip._id }}"

@@ -6,7 +6,9 @@ import { TripService } from 'src/app/services/trip.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Actor } from 'src/app/models/actor.model';
 import { ApplicationService } from 'src/app/services/application.service';
-import { isPastDate } from 'src/app/utils/dates';
+import { isPastDate, isAWeekBeforeDate } from 'src/app/utils/dates';
+import { ApplicationStatus } from 'src/app/enums/application.enum';
+import { TripStatus } from 'src/app/enums/trip.enum';
 
 @Component({
   selector: 'app-display-trip',
@@ -21,6 +23,8 @@ export class DisplayTripComponent implements OnInit {
   protected currentActor: Actor | undefined;
   protected activeRole: string = 'anonymous';
   protected hasApplication: boolean = false;
+  protected hasApplicationsPaid: boolean = false;
+  protected tripStartSoon: boolean = false;
   showCounter: boolean;
 
   constructor(
@@ -65,6 +69,19 @@ export class DisplayTripComponent implements OnInit {
         this.showCounter = false;
         this.trip.isOver = true;
       }
+      if (this.activeRole === 'manager') {
+        this.applicationService.getApplicationsByTripId(trip._id)
+          .subscribe((applications) => {
+            applications.find((application) => {
+              if (application.status === ApplicationStatus.ACCEPTED) {
+                this.hasApplicationsPaid = true;
+              }
+            });
+          });
+        if (isAWeekBeforeDate(this.trip.startDate)) {
+          this.tripStartSoon = true;
+        }
+      }
     });
     if (this.trip.sponsorships!.length > 0) {
       this.acceptedSponsorships = this.trip.sponsorships!.filter(
@@ -80,8 +97,12 @@ export class DisplayTripComponent implements OnInit {
     return Math.floor(Math.random() * max);
   }
 
-  handleCreatedApplication(event: boolean) {  
+  handleCreatedApplication(event: boolean) {
     this.hasApplication = event;
   }
 
+  handleCanceledTrip(cancelationReason: string) {
+    this.trip.cancelationReason = cancelationReason;
+    this.trip.status = TripStatus.CANCELLED;    
+  }
 }

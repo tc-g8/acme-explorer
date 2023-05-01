@@ -13,13 +13,17 @@
                     <div class="form-group has-danger">
                         <div class="mb-3">
                             <label i18n for="message-text" class="col-form-label">Reason:</label>
-                            <textarea class="form-control" id="reason" name="reason" ngModel></textarea>
+                            <textarea class="form-control" id="reason" name="reason" #reason="ngModel" required ngModel></textarea>
+                            <div *ngIf="reason.invalid && reason.dirty" class="validation-msg">
+                                <span i18n>Reason field is required</span>
+                            </div>
                         </div>
                         <div class="btn-group">
                             <button i18n type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                 Close
                             </button>
-                            <button i18n type="submit" class="btn btn-primary" data-bs-dismiss="modal">
+                            <button i18n type="submit" class="btn btn-primary" data-bs-dismiss="modal"
+                            [disabled]="reason.invalid">
                                 Reject
                             </button>
                         </div>
