@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
+import { Actor } from 'src/app/models/actor.model';
+import { ApplicationService } from 'src/app/services/application.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-checkout',
@@ -9,11 +12,19 @@ import { IPayPalConfig, ICreateOrderRequest } from 'ngx-paypal';
 })
 export class CheckoutComponent implements OnInit {
   protected payPalConfig?: IPayPalConfig;
+  protected currentActor: Actor | undefined;
+  applicationId = this.route.snapshot.queryParams['applicationId'];
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private applicationService: ApplicationService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.initConfig();
+    this.currentActor = this.authService.getCurrentActor();
   }
 
   private initConfig(): void {
@@ -55,19 +66,21 @@ export class CheckoutComponent implements OnInit {
         });
       },
       onClientAuthorization: (data) => {
-        console.log(
-          'onClientAuthorization - you should probably inform your server about completed transaction at this point',
-          data
-        );
+        console.log(this.route.snapshot.queryParams['applicationId']);
+        this.applicationService.payApplication(this.applicationId).subscribe();
         let message = $localize`Paid has been done. Thank you.`;
         alert(message);
-        this.router.navigateByUrl('/trips');
+        this.router.navigateByUrl(`applications/explorer/${this.currentActor!._id}`);
       },
       onCancel: (data, actions) => {
-        console.log('OnCancel', data, actions);
+        let message = $localize`Paid has been cancelled. Try again.`;
+        alert(message);
+        this.router.navigateByUrl(`applications/explorer/${this.currentActor!._id}`);
       },
       onError: (err) => {
-        console.log('OnError', err);
+        let message = $localize`Something went wrong. The payment has not been made. Please try again.`;
+        alert(message);
+        this.router.navigateByUrl(`applications/explorer/${this.currentActor!._id}`);
       },
       onClick: (data, actions) => {
         console.log('onClick', data, actions);

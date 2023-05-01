@@ -12,7 +12,7 @@ const httpOptions = {
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApplicationService {
   private applicationsUrl = environment.backendApiBaseURL + '/api/v2/applications';
@@ -51,6 +51,14 @@ export class ApplicationService {
     return this.http.patch(url, { rejectedReason }, httpOptions);
   }
 
+  payApplication(applicationId: string) {
+    const url = `${this.applicationsUrl}/${applicationId}/pay`;
+    httpOptions.headers = httpOptions.headers.set(
+      'idToken', this.authService.getCurrentActor()!.idToken!
+    );
+    return this.http.post<Application[]>(url, {}, httpOptions);
+  }
+
   createApplication(comment: string, explorer_id: string, trip_id: string) {
     const url = `${this.applicationsUrl}`;
     httpOptions.headers = httpOptions.headers.set(
@@ -74,5 +82,4 @@ export class ApplicationService {
       () => new Error('Something bad happened; please try again later.')
     );
   }
-  
 }

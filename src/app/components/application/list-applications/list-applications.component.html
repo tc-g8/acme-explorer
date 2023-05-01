@@ -49,8 +49,13 @@
               </div>
             </div>
             <p><strong i18n>Comments:</strong> {{ application.comment }}</p>
-            <div *ngIf="application.status == 'DUE' && activeRole == 'explorer'" class="mb-3">
-              <app-payment-info [tripId]="application.trip_id"></app-payment-info>
+            <div
+              *ngIf="application.status == 'DUE' && activeRole == 'explorer'" class="mb-3"
+            >
+              <app-payment-info
+                [tripId]="application.trip_id"
+                [applicationId]="application._id"
+              ></app-payment-info>
             </div>
             <div *ngIf="application.status == 'REJECTED'" class="card text-bg-warning mb-3">
               <div class="card-body">

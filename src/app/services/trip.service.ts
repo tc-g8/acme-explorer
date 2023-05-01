@@ -74,7 +74,7 @@ export class TripService {
   }
 
   cancelTrip(tripId: string, cancelationReason: string) {
-    const url = `${this.tripsUrl}/${tripId}/cancel`;
+    const url = `${this.tripsUrlV2}/${tripId}/cancel`;
     httpOptions.headers = httpOptions.headers.set(
       'idToken',
       this.authService.getCurrentActor()!.idToken!
