@@ -160,9 +160,9 @@
                 <tr *ngFor="let stage of stagesCollection">
                   <td>{{ stage.title }}</td>
                   <td>{{ stage.description }}</td>
-                  <td>{{ stage.price }}</td>
+                  <td>{{ stage.price | currency }}</td>
                   <td style="text-align: end">
-                    <span (click)="removeStage(stage)"
+                    <span (click)="removeStage(stage)" role="button"
                       ><i class="fa-solid fa-x"></i
                     ></span>
                   </td>
