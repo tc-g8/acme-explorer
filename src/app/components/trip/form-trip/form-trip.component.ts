@@ -7,6 +7,8 @@ import { Trip } from 'src/app/models/trip.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { TripService } from 'src/app/services/trip.service';
 import { validatePresentDate } from 'src/app/utils/dates';
+import { convertBase64 } from 'src/app/utils/images';
+import { splitRequirement } from 'src/app/utils/trips';
 
 @Component({
   selector: 'app-form-trip',
@@ -49,7 +51,7 @@ export class FormTripComponent implements OnInit {
       imageCollection: this.imagesCollection,
       stages: this.stagesCollection,
     };
-    newTrip.requirements = this.splitRequirement(newTrip.requirements);
+    newTrip.requirements = splitRequirement(newTrip.requirements);
     newTrip.stages.forEach((stage: any) => delete stage._id);
 
     const trip: Trip = newTrip as Trip;
@@ -65,7 +67,7 @@ export class FormTripComponent implements OnInit {
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {
-      this.convertBase64(file).then((encodedImage) => {
+      convertBase64(file).then((encodedImage) => {
         const image = encodedImage as string;
         const alt = file.name;
         this.imagesCollection.push({ image, alt } as Image);
@@ -114,28 +116,6 @@ export class FormTripComponent implements OnInit {
       this.tripPrice = 0;
       this.tripForm.controls['stages'].setValue(this.stagesCollection);
     }
-  }
-
-  private convertBase64(file: File) {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  }
-
-  private splitRequirement(requirements: string): string[] {
-    return requirements
-      .split('-')
-      .map((req) => req.trim())
-      .filter((req) => req.length > 0);
   }
 
   get title() {

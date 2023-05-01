@@ -1,1 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+.file-input {
+  display: none;
+}
+.remove-img {
+  display: inline-block;
+  position: relative;
+  border-radius: 3px;
+  top: 30px;
+  left: 4px;
+  padding: 1px 5px;
+  background-color: white;
+}
+.validation-msg {
+  color: rgb(183, 1, 1);
+  margin-top: 1px;
+}
+.bg-image,
+.bg-std-image {
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.bg-std-image {
+  background-image: url("./assets/images/trip-placeholder.png");
+}
