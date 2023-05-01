@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit {
   private returnUrl!: string;
   protected currentActor: Actor | undefined;
   protected activeRole: string = 'anonymous';
+  private cssTheme = localStorage.getItem('cssTheme');
 
   constructor(
     private authService: AuthService,
@@ -19,10 +20,19 @@ export class HeaderComponent implements OnInit {
     private router: Router
   ) {
     this.currentActor = this.authService.getCurrentActor();
-    this.activeRole = this.currentActor!.role.toString().toLowerCase();
+    if (this.currentActor) {
+      this.activeRole = this.currentActor!.role.toString().toLowerCase();
+    }
   }
 
   ngOnInit(): void {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    document.body.classList.toggle('dark-theme', prefersDark.matches);
+
+    if (this.cssTheme == 'dark') {
+      document.body.classList.add('dark-theme');
+    }
+
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.authService.getStatus().subscribe((loggedIn) => {
       if (loggedIn) {
@@ -38,6 +48,14 @@ export class HeaderComponent implements OnInit {
   changeLanguage(language: string) {
     localStorage.setItem('locale', language);
     location.reload();
+  }
+
+  changeTheme() {
+    document.body.classList.toggle('dark-theme');
+    this.cssTheme == 'dark'
+      ? (this.cssTheme = 'ligth')
+      : (this.cssTheme = 'dark');
+    localStorage.setItem('cssTheme', this.cssTheme);
   }
 
   logout() {

@@ -14,22 +14,22 @@
           </span>
         </p>
       </div>
-      <div class="row mt-2">
+      <div class="mt-2">
         <small class="card-text">
           {{ trip.startDate | date : "shortDate" }} -
           {{ trip.endDate | date : "shortDate" }}
         </small>
-        <div class="col text-end">
+        <div class="text-end">
           <p>
             <a
-              class="btn btn-primary"
+              class="btn btn-outline-primary"
               [routerLink]="['/checkout']"
               [queryParams]="{
                 price: trip.price,
                 applicationId: applicationId
               }"
             >
-              Pay</a
+              Pay application</a
             >
           </p>
         </div>

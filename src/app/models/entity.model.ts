@@ -14,4 +14,8 @@ export class Entity {
   public get version(): number {
     return this._version;
   }
+
+  public set _id(value: string) {
+    this.__id = value;
+  }
 }
