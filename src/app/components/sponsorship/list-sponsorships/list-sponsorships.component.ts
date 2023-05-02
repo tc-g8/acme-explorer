@@ -7,10 +7,9 @@ import { TripService } from 'src/app/services/trip.service';
 @Component({
   selector: 'app-list-sponsorships',
   templateUrl: './list-sponsorships.component.html',
-  styleUrls: ['./list-sponsorships.component.css']
+  styleUrls: ['./list-sponsorships.component.css'],
 })
 export class ListSponsorshipsComponent implements OnInit {
-
   sponsorships: Sponsorship[];
   id: string;
   protected currentActor: Actor | undefined;
@@ -21,7 +20,7 @@ export class ListSponsorshipsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['sponsorId'];
+    this.id = this.route.snapshot.params['id'];
     this.tripService
       .getSponsorshipsBySponsorId(this.id)
       .subscribe((data: any) => (this.sponsorships = data));

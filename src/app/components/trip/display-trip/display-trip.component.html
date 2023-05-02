@@ -1,4 +1,4 @@
-<div class="row mt-4">
+<div *ngIf="!loading; else spinner" class="row mt-4">
   <div class="col-12">
     <div class="row mb-2">
       <div
@@ -96,14 +96,14 @@
                   *ngIf="activeRole === 'sponsor' && !trip.isOver"
                   class="d-flex flex-column col-3 offset-1 col-md-2 offset-md-2"
                 >
-                  <a
+                  <button
                     class="btn btn-outline-primary"
                     [routerLink]="['/sponsorships/form/add']"
                     [queryParams]="{ tripId: trip._id }"
                     i18n
                   >
-                    Sponsor</a
-                  >
+                    Sponsor
+                  </button>
                 </div>
               </div>
             </div>
@@ -138,6 +138,7 @@
                   <p class="card-text">
                     {{ trip.startDate | date : "shortDate" }} -
                     {{ trip.endDate | date : "shortDate" }}
+                    <br /><small class="mt-1">Ticker: {{ trip.ticker }}</small>
                   </p>
                   <div class="row mt-1">
                     <div class="col-12">
@@ -239,6 +240,9 @@
     </div>
   </div>
 </div>
+<ng-template #spinner>
+  <app-loading-spinner></app-loading-spinner>
+</ng-template>
 <app-create-application
   (applicationCreatedEvent)="handleCreatedApplication($event)"
   [tripId]="trip._id"

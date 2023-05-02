@@ -13,6 +13,7 @@ export class ListManagerTripsComponent implements OnInit {
   trips: Trip[];
   id: string;
   protected currentActor: Actor | undefined;
+  loading: boolean = true;
 
   constructor(private tripService: TripService, private route: ActivatedRoute) {
     this.trips = [];
@@ -20,9 +21,10 @@ export class ListManagerTripsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.params['managerId'];
-    this.tripService
-      .getTripsByManager(this.id)
-      .subscribe((data: any) => (this.trips = data));
+    this.id = this.route.snapshot.params['id'];
+    this.tripService.getTripsByManager(this.id).subscribe((data: any) => {
+      this.trips = data;
+      this.loading = false;
+    });
   }
 }
