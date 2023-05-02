@@ -71,7 +71,8 @@ body.dark-theme .modal-content {
 body.dark-theme a,
 body.dark-theme footer a,
 body.dark-theme .footer-icons i,
-body.dark-theme .footer-distributed i {
+body.dark-theme .footer-distributed i,
+body.dark-theme .spinner-border.text-secondary.custom {
   color: white !important;
 }
 body.dark-theme .navbar-toggler {

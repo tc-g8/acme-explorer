@@ -2,6 +2,7 @@ import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TripStatus } from 'src/app/enums/trip.enum';
 import { Image } from 'src/app/models/image.model';
 import { Trip } from 'src/app/models/trip.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -58,10 +59,17 @@ export class EditTripComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const actorId = this.authService.getCurrentActor()?._id;
     this.tripId = this.route.snapshot.params['id'];
     if (this.tripId) {
       this.tripService.getTrip(this.tripId).subscribe((data: any) => {
         this.trip = data as Trip;
+        if (this.trip.status != TripStatus.DRAFT) {
+          this.router.navigate([`trips/manager/${actorId}`]);
+        }
+        if (this.trip.manager_id != actorId) {
+          this.router.navigate(['denied-access']);
+        }
         if (this.trip) {
           this.imagesCollection = this.trip.imageCollection;
           this.tripForm.controls['title'].setValue(this.trip.title);

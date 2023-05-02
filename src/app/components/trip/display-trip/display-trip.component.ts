@@ -26,6 +26,7 @@ export class DisplayTripComponent implements OnInit {
   protected hasApplicationsPaid: boolean = false;
   protected tripStartSoon: boolean = false;
   showCounter: boolean;
+  loading: boolean = true;
 
   constructor(
     private tripService: TripService,
@@ -93,6 +94,7 @@ export class DisplayTripComponent implements OnInit {
           this.acceptedSponsorships.length
         );
       }
+      this.loading = false;
     });
   }
 

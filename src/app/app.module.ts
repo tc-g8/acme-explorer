@@ -40,6 +40,7 @@ import { RejectApplicationComponent } from './components/application/reject-appl
 import { DueApplicationComponent } from './components/application/due-application/due-application.component';
 import { EditTripComponent } from './components/trip/edit-trip/edit-trip.component';
 import { CreateSponsorshipComponent } from './components/sponsorship/create-sponsorship/create-sponsorship.component';
+import { LoadingSpinnerComponent } from './components/master/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +74,7 @@ import { CreateSponsorshipComponent } from './components/sponsorship/create-spon
     DueApplicationComponent,
     EditTripComponent,
     CreateSponsorshipComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [
     BrowserModule,

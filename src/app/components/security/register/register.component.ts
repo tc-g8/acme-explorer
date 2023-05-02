@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
       phone: [''],
       address: [''],
       password: ['', Validators.required],
-      role: ['']
+      role: [''],
     });
   }
 
@@ -41,9 +41,8 @@ export class RegisterComponent implements OnInit {
   }
 
   onRegister() {
-    console.log(this.registrationForm.value)
     if (this.activeRole === 'administrator') {
-      this.registrationForm.value.role = [this.registrationForm.value.role]
+      this.registrationForm.value.role = [this.registrationForm.value.role];
     }
     this.authService.registerUser(this.registrationForm.value).then(
       (res) => {
@@ -61,7 +60,7 @@ export class RegisterComponent implements OnInit {
           ${err.error.errors.map((error: any) => error.param).join(', ')}`;
         } else {
           console.log(err);
-          if(err.error.err.code == 11000) {
+          if (err.error.err.code == 11000) {
             this.errorMessage = $localize`The email introduced is already registered`;
           } else if (err.error.err.errors.email) {
             this.errorMessage = $localize`The email introduced is invalid`;
