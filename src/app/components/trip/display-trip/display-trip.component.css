@@ -1,0 +1,15 @@
+.banner-link {
+  width: 100%;
+  min-height: 140px;
+}
+.ads {
+  position: relative;
+  top: 5px;
+  left: 40px;
+}
+.ads small {
+  background-color: white;
+  padding: 3px 5px;
+  border-radius: 2px;
+  color: black !important;
+}
