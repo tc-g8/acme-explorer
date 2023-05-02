@@ -60,7 +60,7 @@ export class TripService {
       'idToken',
       this.authService.getCurrentActor()!.idToken!
     );
-    const url = `${this.tripsUrlV2}/sponsorships/sponsor/${sponsorId}`;
+    const url = `${this.tripsUrlV1}/sponsorships/sponsor/${sponsorId}`;
     return this.http.get<Sponsorship[]>(url);
   }
 
@@ -69,7 +69,7 @@ export class TripService {
       'idToken',
       this.authService.getCurrentActor()!.idToken!
     );
-    const url = `${this.tripsUrlV2}/sponsorships/${id}`;
+    const url = `${this.tripsUrlV1}/sponsorships/${id}`;
     return this.http.get<Sponsorship>(url);
   }
 
@@ -114,8 +114,6 @@ export class TripService {
     );
 
     const body = JSON.stringify(sponsorship);
-    console.log(body);
-    console.log(url);
 
     return this.http.put<any>(url, body, httpOptions);
   }

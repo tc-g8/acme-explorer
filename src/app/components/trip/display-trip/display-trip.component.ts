@@ -53,24 +53,27 @@ export class DisplayTripComponent implements OnInit {
     this.tripService.getTrip(this.id).subscribe((trip) => {
       this.trip = trip;
       if (this.activeRole === 'explorer') {
-        this.applicationService.getApplicationsByExplorer(this.currentActor!._id).subscribe((applications) => {
-          if (applications.length > 0) {
-            applications.forEach((element: any) => {
-              element.applications.forEach((application: any) => {
-                if (application.trip_id === this.trip._id) {
-                  this.hasApplication = true;
-                }
+        this.applicationService
+          .getApplicationsByExplorer(this.currentActor!._id)
+          .subscribe((applications) => {
+            if (applications.length > 0) {
+              applications.forEach((element: any) => {
+                element.applications.forEach((application: any) => {
+                  if (application.trip_id === this.trip._id) {
+                    this.hasApplication = true;
+                  }
+                });
               });
-            });
-          }
-        });
+            }
+          });
       }
       if (isPastDate(this.trip.endDate)) {
         this.showCounter = false;
         this.trip.isOver = true;
       }
       if (this.activeRole === 'manager') {
-        this.applicationService.getApplicationsByTripId(trip._id)
+        this.applicationService
+          .getApplicationsByTripId(trip._id)
           .subscribe((applications) => {
             applications.find((application) => {
               if (application.status === ApplicationStatus.ACCEPTED) {
@@ -82,15 +85,15 @@ export class DisplayTripComponent implements OnInit {
           this.tripStartSoon = true;
         }
       }
+      if (this.trip.sponsorships!.length > 0) {
+        this.acceptedSponsorships = this.trip.sponsorships!.filter(
+          (sponsorship) => sponsorship.status === 'ACCEPTED'
+        );
+        this.randomBanner = this.getRandomBanner(
+          this.acceptedSponsorships.length
+        );
+      }
     });
-    if (this.trip.sponsorships!.length > 0) {
-      this.acceptedSponsorships = this.trip.sponsorships!.filter(
-        (sponsorship) => sponsorship.status === 'ACCEPTED'
-      );
-      this.randomBanner = this.getRandomBanner(
-        this.acceptedSponsorships.length
-      );
-    }
   }
 
   private getRandomBanner(max: number): number {
@@ -103,6 +106,6 @@ export class DisplayTripComponent implements OnInit {
 
   handleCanceledTrip(cancelationReason: string) {
     this.trip.cancelationReason = cancelationReason;
-    this.trip.status = TripStatus.CANCELLED;    
+    this.trip.status = TripStatus.CANCELLED;
   }
 }

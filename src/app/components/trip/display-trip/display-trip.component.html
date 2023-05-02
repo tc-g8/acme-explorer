@@ -5,15 +5,19 @@
         *ngIf="acceptedSponsorships.length > 0"
         class="col-md-6 offset-md-3 mb-2 d-flex justify-content-center"
       >
+        <div class="ads"><small i18n>ads</small></div>
         <a
+          class="banner-link"
           href="{{ acceptedSponsorships[randomBanner].landingPage }}"
           target="_blank"
         >
-          <img
-            src="{{ acceptedSponsorships[randomBanner].banner.image }}"
-            class="img-fluid"
-            alt="{{ acceptedSponsorships[randomBanner].landingPage }}"
-          />
+          <div
+            class="bg-image"
+            [ngStyle]="{
+              'background-image':
+                'url(' + acceptedSponsorships[randomBanner].banner.image + ')'
+            }"
+          ></div>
         </a>
       </div>
     </div>
