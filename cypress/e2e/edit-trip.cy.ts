@@ -17,11 +17,11 @@ describe('Edit trip', () => {
 
     headerPage.navigateToTrips();
 
-    // tripListPage.navigateToEditTrip();
+    tripListPage.navigateToEditTrip();
 
-    // editTripPage.fillInEditTripForm();
+    editTripPage.fillInEditTripForm();
 
-    // tripListPage.getPageTitke().should('include.text', 'My trips');
+    tripListPage.getPageTitke().should('include.text', 'My trips');
 
   });
 });
