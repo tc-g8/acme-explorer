@@ -41,6 +41,7 @@ import { DueApplicationComponent } from './components/application/due-applicatio
 import { EditTripComponent } from './components/trip/edit-trip/edit-trip.component';
 import { CreateSponsorshipComponent } from './components/sponsorship/create-sponsorship/create-sponsorship.component';
 import { LoadingSpinnerComponent } from './components/master/loading-spinner/loading-spinner.component';
+import { PublishTripComponent } from './components/trip/publish-trip/publish-trip.component';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { LoadingSpinnerComponent } from './components/master/loading-spinner/loa
     EditTripComponent,
     CreateSponsorshipComponent,
     LoadingSpinnerComponent,
+    PublishTripComponent,
   ],
   imports: [
     BrowserModule,

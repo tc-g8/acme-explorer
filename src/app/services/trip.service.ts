@@ -82,6 +82,14 @@ export class TripService {
     return this.http.patch<any>(url, { cancelationReason }, httpOptions);
   }
 
+  publishTrip(tripId: string) {
+    const url = `${this.tripsUrlV2}/${tripId}/publish`;
+    httpOptions.headers = httpOptions.headers.set(
+      'idToken', this.authService.getCurrentActor()!.idToken!
+    );
+    return this.http.patch<any>(url, {}, httpOptions);
+  }
+
   createTrip(trip: any) {
     const url = `${this.tripsUrlV2}`;
     httpOptions.headers = httpOptions.headers.set(

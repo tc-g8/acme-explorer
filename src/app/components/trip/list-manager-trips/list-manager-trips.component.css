@@ -7,3 +7,6 @@
 .shadow-price {
   box-shadow: 0px 1px 3px rgb(2, 78, 2);
 }
+.publish-btn {
+  z-index: 10;
+}
