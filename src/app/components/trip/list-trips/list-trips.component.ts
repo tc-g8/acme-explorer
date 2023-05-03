@@ -53,26 +53,43 @@ export class ListTripsComponent implements OnInit {
 
   search(form: NgForm) {
     const query = form.value;
-    this.tripService.getTrips(query).subscribe((data: any) => {
-      this.trips = data;
-      this.trips.map((trip) => {
-        if (this.isNextTrip(trip.startDate)) {
-          trip.isNext = true;
-          trip.isStarted = false;
-          trip.isOver = false;
-        }
-        if (isPastDate(trip.startDate)) {
-          trip.isStarted = true;
-          trip.isNext = false;
-          trip.isOver = false;
-        }
-        if (isPastDate(trip.endDate)) {
-          trip.isOver = true;
-          trip.isNext = false;
-          trip.isStarted = false;
-        }
+    const cacheTime = form.value.cacheTime
+      ? form.value.cacheTime > 0 && form.value.cacheTime <= 24
+        ? form.value.cacheTime
+        : 1
+      : 1;
+    const cacheTimeInMs = cacheTime * 60 * 60 * 1000;
+
+    const cachedTrips = this.tripService.getCachedTrips(query, cacheTimeInMs);
+    if (cachedTrips) {
+      console.log('Cached search');
+      this.trips = cachedTrips;
+      this.tripService.saveTripsInCache(query, cachedTrips, Date.now());
+      return;
+    } else {
+      this.tripService.getTrips(query).subscribe((data: any) => {
+        this.trips = data;
+        this.trips.map((trip) => {
+          if (this.isNextTrip(trip.startDate)) {
+            trip.isNext = true;
+            trip.isStarted = false;
+            trip.isOver = false;
+          }
+          if (isPastDate(trip.startDate)) {
+            trip.isStarted = true;
+            trip.isNext = false;
+            trip.isOver = false;
+          }
+          if (isPastDate(trip.endDate)) {
+            trip.isOver = true;
+            trip.isNext = false;
+            trip.isStarted = false;
+          }
+        });
+        console.log('New search');
+        this.tripService.saveTripsInCache(query, this.trips, Date.now());
       });
-    });
+    }
   }
 
   private isNextTrip(startDate: any) {

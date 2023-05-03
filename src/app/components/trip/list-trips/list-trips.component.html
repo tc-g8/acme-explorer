@@ -64,6 +64,21 @@
       />
     </div>
   </div>
+  <div class="row">
+    <div class="col-9 col-md-2 offset-md-2 col-lg-2 offset-lg-3">
+      <label i18n class="small">Cache Time</label>
+      <input
+        type="number"
+        class="form-control shadow-sm"
+        min="1"
+        max="24"
+        placeholder="hours"
+        i18n-placeholder
+        name="cacheTime"
+        ngModel
+      />
+    </div>
+  </div>
 </form>
 <div *ngIf="trips && trips.length > 0" class="row g-4 mt-2">
   <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">

@@ -117,4 +117,36 @@ export class TripService {
 
     return this.http.put<any>(url, body, httpOptions);
   }
+
+  getCachedTrips(query: any, cacheTimeInMs: number): Trip[] | undefined {
+    const cachedTrips = localStorage.getItem('cachedTrips');
+    if (cachedTrips) {
+      const cachedTripsParsed = JSON.parse(cachedTrips);
+      const cachedTripsDate = new Date(cachedTripsParsed.date);
+      const currentDate = new Date();
+      const diff = currentDate.getTime() - cachedTripsDate.getTime();
+      if (diff < cacheTimeInMs) {
+        const cachedQuery = cachedTripsParsed.query;
+        if (
+          cachedQuery.keyword === query.keyword &&
+          cachedQuery.minPrice === query.minPrice &&
+          cachedQuery.maxPrice === query.maxPrice &&
+          cachedQuery.minDate === query.minDate &&
+          cachedQuery.maxDate === query.maxDate
+        ) {
+          return cachedTripsParsed.trips;
+        }
+      }
+    }
+    return undefined;
+  }
+
+  saveTripsInCache(query: any, trips: Trip[], cacheTime: any) {
+    const cachedTrips = {
+      query,
+      trips,
+      date: new Date(),
+    };
+    localStorage.setItem('cachedTrips', JSON.stringify(cachedTrips));
+  }
 }
