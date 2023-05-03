@@ -15,6 +15,7 @@ export class CountDownComponent implements OnInit, OnDestroy {
   SecondsInAMinute = 60;
   minutesInAnHour = 60;
   hoursInADay = 24;
+  showCounter: Boolean = true;
 
   public timeDifference: number | undefined;
   public secondsToDday: number | undefined;
@@ -26,6 +27,9 @@ export class CountDownComponent implements OnInit, OnDestroy {
     this.timeDifference =
       new Date(this.startDate).getTime() - new Date().getTime();
     this.allocateTimeUnits(this.timeDifference);
+    if (this.timeDifference <= 0) {
+      this.showCounter = false;
+    }
   }
 
   private allocateTimeUnits(timeDifference: number) {
@@ -53,6 +57,7 @@ export class CountDownComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.getTimeDifference();
     this.subscription = interval(1000).subscribe((x) => {
       this.getTimeDifference();
     });

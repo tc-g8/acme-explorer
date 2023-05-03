@@ -1,45 +1,98 @@
-<div *ngIf="trips && trips.length > 0" class="row g-4 mt-2">
+<div class="row g-4 mt-2">
   <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
-    <div *ngFor="let trip of trips" [ngClass]="{ nextTrip: trip.isNext }" class="card mb-3 shadow-sm cardTrip"
-      routerLink="/trips/{{ trip._id }}">
-      <div class="row g-0">
-        <div class="col-sm-3 d-none d-sm-block">
-          <img *ngIf="trip.imageCollection[0]" src="{{ trip.imageCollection[0].image }}" class="card-img-top"
-            alt="{{ trip.imageCollection[0].alt }}" />
-          <img *ngIf="!trip.imageCollection[0]" src="../../../../assets/images/trip-placeholder.png"
-            class="card-img-top" alt="trip without image" />
-        </div>
-        <div class="col-12 col-sm-9">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-12 col-lg-8">
-                <h4 class="card-title">
-                  {{ trip.title }}
-                </h4>
-              </div>
-              <div class="col-12 col-lg-4">
-                <p class="card-text text-lg-end h4">
-                  <span class="badge bg-success shadow-price">
-                    {{ trip.price | currency }}
-                  </span>
-                </p>
-              </div>
-              <div class="row mt-2">
-                <small class="card-text">
-                  {{ trip.startDate | date : "shortDate" }} -
-                  {{ trip.endDate | date : "shortDate" }}
-                </small>
-              </div>
-              <p *ngIf="trip.isNext" class="card-text h5">
-                <span i18n class="badge bg-danger">Few days left to start it</span>
-              </p>
-              <div class="text-end">
-                <a i18n class="btn btn-primary" routerLink="/applications/trip/{{ trip._id }}" role="button">Applications</a>
+    <div class="d-flex justify-content-between mb-3">
+      <h2 i18n>My Trips</h2>
+      <div>
+        <button i18n class="btn btn-success" routerLink="/trips/form/add">
+          Create Trip
+        </button>
+      </div>
+    </div>
+    <div *ngIf="!loading && trips; else spinner">
+      <div *ngIf="trips && trips.length > 0; else noTrips">
+        <div
+          *ngFor="let trip of trips"
+          [ngClass]="{ nextTrip: trip.isNext }"
+          class="card mb-3 shadow-sm cardTrip"
+          routerLink="/trips/{{ trip._id }}"
+        >
+          <div class="row g-0">
+            <div class="col-sm-3 d-none d-sm-block">
+              <div
+                *ngIf="trip.imageCollection[0]; else stdImage"
+                class="bg-image card-img"
+                [ngStyle]="{
+                  'background-image':
+                    'url(' + trip.imageCollection[0].image + ')'
+                }"
+              ></div>
+              <ng-template #stdImage>
+                <div class="bg-std-image"></div>
+              </ng-template>
+            </div>
+            <div class="col-12 col-sm-9">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12 col-lg-8">
+                    <h4 class="card-title">
+                      {{ trip.title }}
+                    </h4>
+                  </div>
+                  <div class="col-12 col-lg-4">
+                    <p class="card-text text-lg-end h4">
+                      <span class="badge bg-success shadow-price">
+                        {{ trip.price | currency }}
+                      </span>
+                    </p>
+                  </div>
+                  <div class="row mt-2">
+                    <small class="card-text">
+                      {{ trip.startDate | date : "shortDate" }} -
+                      {{ trip.endDate | date : "shortDate" }}
+                    </small>
+                  </div>
+                  <p *ngIf="trip.isNext" class="card-text h5">
+                    <span i18n class="badge bg-danger"
+                      >Few days left to start it</span
+                    >
+                  </p>
+                  <small class="mt-2">Ticker: {{ trip.ticker }}</small>
+                  <div class="text-end">
+                    <div
+                      *ngIf="trip.status == 'DRAFT'; else publishedTrip"
+                      class="btn-group"
+                    >
+                      <button
+                        class="btn btn-primary"
+                        routerLink="/trips/form/edit/{{ trip._id }}"
+                      >
+                        Edit
+                      </button>
+                      <button class="btn btn-danger" disabled>Cancel</button>
+                    </div>
+                    <ng-template #publishedTrip>
+                      <button
+                        i18n
+                        class="btn btn-primary"
+                        routerLink="/applications/trip/{{ trip._id }}"
+                        role="button"
+                      >
+                        Applications
+                      </button>
+                    </ng-template>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <ng-template #spinner>
+      <app-loading-spinner></app-loading-spinner>
+    </ng-template>
+    <ng-template #noTrips>
+      <p i18n>You have no trips yet</p>
+    </ng-template>
   </div>
 </div>

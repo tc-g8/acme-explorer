@@ -107,7 +107,9 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item dropdown d-flex flex-column justify-content-center">
+        <li
+          class="nav-item me-2 dropdown d-flex flex-column justify-content-center"
+        >
           <a
             href="javascript:void(0)"
             class="nav-link link-dark text-decoration-none dropdown-toggle show"
@@ -137,6 +139,11 @@
               >
             </li>
           </ul>
+        </li>
+        <li class="nav-item d-flex flex-column justify-content-center">
+          <span role="button" style="padding: 3px 5px" (click)="changeTheme()"
+            ><i class="fa-sharp fa-regular fa-circle-half-stroke fa-lg"></i
+          ></span>
         </li>
       </ul>
     </div>

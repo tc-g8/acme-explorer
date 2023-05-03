@@ -27,23 +27,19 @@
           </div>
           <div class="col-3 text-end">
             <h4>
-              <span
-                *ngIf="actor.role[0] == 'EXPLORER'"
-                class="badge bg-success"
-                >{{ actor.role[0].toLocaleLowerCase() }}</span
-              >
-              <span
-                *ngIf="actor.role[0] == 'MANAGER'"
-                class="badge bg-warning"
-                >{{ actor.role[0].toLocaleLowerCase() }}</span
-              >
-              <span *ngIf="actor.role[0] == 'SPONSOR'" class="badge bg-info">{{
-                actor.role[0].toLocaleLowerCase()
+              <span *ngIf="actor.role == 'EXPLORER'" class="badge bg-success">{{
+                actor.role[0].toLowerCase()
+              }}</span>
+              <span *ngIf="actor.role == 'MANAGER'" class="badge bg-warning">{{
+                actor.role[0].toLowerCase()
+              }}</span>
+              <span *ngIf="actor.role == 'SPONSOR'" class="badge bg-info">{{
+                actor.role[0].toLowerCase()
               }}</span>
               <span
-                *ngIf="actor.role[0] == 'ADMINISTRATOR'"
+                *ngIf="actor.role == 'ADMINISTRATOR'"
                 class="badge bg-primary"
-                >{{ actor.role[0].toLocaleLowerCase() }}</span
+                >{{ actor.role[0].toLowerCase() }}</span
               >
             </h4>
           </div>
@@ -54,15 +50,32 @@
             role="group"
             aria-label="Basic outlined example"
           >
-            <button i18n type="button" class="btn btn-outline-primary" disabled>
+            <button
+              i18n
+              type="button"
+              class="btn btn-outline-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#profileEditModal"
+            >
               Edit profile
             </button>
-            <button i18n type="button" class="btn btn-outline-primary" disabled>
+            <button
+              i18n
+              type="button"
+              class="btn btn-outline-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#profilePasswordEditModal"
+            >
               Change password
             </button>
           </div>
         </div>
+        <app-message></app-message>
       </div>
     </div>
   </div>
+  <app-profile-edit
+    (actorUpdatedEvent)="handleUpdatedActor($event)"
+  ></app-profile-edit>
+  <app-profile-password-edit></app-profile-password-edit>
 </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Actor } from 'src/app/models/actor.model';
 
 import { AuthService } from 'src/app/services/auth.service';
 import { MessageService } from 'src/app/services/message.service';
@@ -13,6 +14,8 @@ export class RegisterComponent implements OnInit {
   registrationForm: FormGroup;
   errorMessage: string = '';
   successMessage: string = '';
+  protected currentActor: Actor | undefined;
+  protected activeRole: string = 'anonymous';
 
   constructor(
     private authService: AuthService,
@@ -20,18 +23,27 @@ export class RegisterComponent implements OnInit {
     private messageService: MessageService
   ) {
     this.registrationForm = this.fb.group({
-      name: [''],
-      surname: [''],
-      email: [''],
+      name: ['', Validators.required],
+      surname: ['', Validators.required],
+      email: ['', Validators.required],
       phone: [''],
       address: [''],
-      password: [''],
+      password: ['', Validators.required],
+      role: [''],
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.currentActor = this.authService.getCurrentActor();
+    if (this.currentActor) {
+      this.activeRole = this.currentActor!.role.toString().toLowerCase();
+    }
+  }
 
   onRegister() {
+    if (this.activeRole === 'administrator') {
+      this.registrationForm.value.role = [this.registrationForm.value.role];
+    }
     this.authService.registerUser(this.registrationForm.value).then(
       (res) => {
         this.errorMessage = '';
@@ -43,10 +55,18 @@ export class RegisterComponent implements OnInit {
       },
       (err) => {
         if (err.status === 422) {
-          this.errorMessage = $localize`There are some errors in the data introduced`;
+          console.log(err.error.errors);
+          this.errorMessage = $localize`There are some errors in the data introduced:
+          ${err.error.errors.map((error: any) => error.param).join(', ')}`;
         } else {
           console.log(err);
-          this.errorMessage = $localize`There was an error during the registration process`;
+          if (err.error.err.code == 11000) {
+            this.errorMessage = $localize`The email introduced is already registered`;
+          } else if (err.error.err.errors.email) {
+            this.errorMessage = $localize`The email introduced is invalid`;
+          } else {
+            this.errorMessage = $localize`There was an error during the registration process`;
+          }
         }
         this.messageService.notifyMessage(
           this.errorMessage,
@@ -55,5 +75,18 @@ export class RegisterComponent implements OnInit {
         this.successMessage = '';
       }
     );
+  }
+
+  get name() {
+    return this.registrationForm.get('name');
+  }
+  get surname() {
+    return this.registrationForm.get('surname');
+  }
+  get email() {
+    return this.registrationForm.get('email');
+  }
+  get password() {
+    return this.registrationForm.get('password');
   }
 }

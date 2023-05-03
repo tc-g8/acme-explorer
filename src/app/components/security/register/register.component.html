@@ -2,8 +2,22 @@
   <div class="col col-md-6 offset-md-3">
     <form [formGroup]="registrationForm" (ngSubmit)="onRegister()">
       <fieldset>
-        <h2 i18n>Signup</h2>
-        <legend i18n>Register new explorer</legend>
+        <h2 *ngIf="activeRole === 'anonymous'" i18n>Signup</h2>
+        <legend *ngIf="activeRole === 'anonymous'" i18n>Register new explorer</legend>
+        <legend *ngIf="activeRole === 'administrator'" i18n>Register new manager or sponsor</legend>
+        
+        <div *ngIf="activeRole === 'administrator'" class="form-group has-danger mb-3">
+          <label i18n for="role" class="form-label">Select role:</label>
+          <select 
+          formControlName="role"
+          id="role" 
+          class="form-select" 
+          aria-label="select role">
+            <option i18n value="">Roles</option>
+            <option i18n value="MANAGER">Manager</option>
+            <option i18n value="SPONSOR">Sponsor</option>
+          </select>
+        </div>
 
         <div class="form-group has-danger mb-3">
           <label i18n for="name" class="form-label">Name:</label>
@@ -14,6 +28,9 @@
             formControlName="name"
             required
           />
+          <div *ngIf="name?.invalid && name?.dirty" class="validation-msg">
+            <span i18n>Name field is required</span>
+          </div>
         </div>
 
         <div class="form-group has-danger mb-3">
@@ -25,6 +42,9 @@
             formControlName="surname"
             required
           />
+          <div *ngIf="surname?.invalid && surname?.dirty" class="validation-msg">
+            <span i18n>Surname field is required</span>
+          </div>
         </div>
 
         <div class="form-group has-danger mb-3">
@@ -36,6 +56,9 @@
             formControlName="email"
             required
           />
+          <div *ngIf="email?.invalid && email?.dirty" class="validation-msg">
+            <span i18n>Email field is required</span>
+          </div>
         </div>
 
         <div class="form-group has-danger mb-3">
@@ -47,6 +70,9 @@
             formControlName="password"
             required
           />
+          <div *ngIf="password?.invalid && password?.dirty" class="validation-msg">
+            <span i18n>Password field is required</span>
+          </div>
         </div>
 
         <div class="form-group has-danger mb-3">
@@ -69,7 +95,10 @@
           />
         </div>
 
-        <button i18n type="submit" class="btn btn-primary mb-3 shadow-sm">
+        <button i18n 
+        type="submit" 
+        class="btn btn-primary mb-3 shadow-sm" 
+        [disabled]="registrationForm.invalid">
           Register
         </button>
         <app-message></app-message>

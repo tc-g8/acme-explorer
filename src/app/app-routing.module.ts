@@ -15,10 +15,20 @@ import { MainComponent } from './components/master/main/main.component';
 import { ActorRoleGuard } from './guards/actor-role.guard';
 import { DeniedAccessComponent } from './components/shared/denied-access/denied-access.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { FormTripComponent } from './components/trip/form-trip/form-trip.component';
+import { CheckoutComponent } from './components/payment/checkout/checkout.component';
+import { EditTripComponent } from './components/trip/edit-trip/edit-trip.component';
+import { CreateSponsorshipComponent } from './components/sponsorship/create-sponsorship/create-sponsorship.component';
+import { ActorIdGuard } from './guards/actor-id.guard';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
-  { path: 'singin', component: RegisterComponent },
+  {
+    path: 'singin',
+    component: RegisterComponent,
+    canActivate: [ActorRoleGuard],
+    data: { expectedRole: 'anonymous|administrator' },
+  },
   { path: 'login', component: LoginComponent },
   {
     path: 'dashboard',
@@ -44,9 +54,25 @@ const routes: Routes = [
         },
       },
       {
-        path: 'manager/:managerId',
-        component: ListManagerTripsComponent,
+        path: 'form/add',
+        component: FormTripComponent,
         canActivate: [ActorRoleGuard],
+        data: {
+          expectedRole: 'manager',
+        },
+      },
+      {
+        path: 'form/edit/:id',
+        component: EditTripComponent,
+        canActivate: [ActorRoleGuard],
+        data: {
+          expectedRole: 'manager',
+        },
+      },
+      {
+        path: 'manager/:id',
+        component: ListManagerTripsComponent,
+        canActivate: [ActorRoleGuard, ActorIdGuard],
         data: { expectedRole: 'manager' },
       },
       {
@@ -69,9 +95,9 @@ const routes: Routes = [
         data: { expectedRole: 'manager' },
       },
       {
-        path: 'explorer/:explorerId',
+        path: 'explorer/:id',
         component: ListApplicationsComponent,
-        canActivate: [ActorRoleGuard],
+        canActivate: [ActorRoleGuard, ActorIdGuard],
         data: { expectedRole: 'explorer' },
       },
     ],
@@ -86,9 +112,9 @@ const routes: Routes = [
     path: 'sponsorships',
     children: [
       {
-        path: 'sponsor/:sponsorId',
+        path: 'sponsor/:id',
         component: ListSponsorshipsComponent,
-        canActivate: [ActorRoleGuard],
+        canActivate: [ActorRoleGuard, ActorIdGuard],
         data: { expectedRole: 'sponsor' },
       },
       {
@@ -97,7 +123,19 @@ const routes: Routes = [
         canActivate: [ActorRoleGuard],
         data: { expectedRole: 'sponsor' },
       },
+      {
+        path: 'form/add',
+        component: CreateSponsorshipComponent,
+        canActivate: [ActorRoleGuard],
+        data: { expectedRole: 'sponsorship' },
+      },
     ],
+  },
+  {
+    path: 'checkout',
+    component: CheckoutComponent,
+    canActivate: [ActorRoleGuard],
+    data: { expectedRole: 'explorer' },
   },
   { path: '', redirectTo: '', pathMatch: 'full' },
   { path: 'denied-access', component: DeniedAccessComponent },

@@ -1,37 +1,122 @@
-<div class="row mt-4">
+<div *ngIf="!loading; else spinner" class="row mt-4">
   <div class="col-12">
     <div class="row mb-2">
       <div
         *ngIf="acceptedSponsorships.length > 0"
         class="col-md-6 offset-md-3 mb-2 d-flex justify-content-center"
       >
+        <div class="ads"><small i18n>ads</small></div>
         <a
+          class="banner-link"
           href="{{ acceptedSponsorships[randomBanner].landingPage }}"
           target="_blank"
         >
-          <img
-            src="{{ acceptedSponsorships[randomBanner].banner.image }}"
-            class="img-fluid"
-            alt="{{ acceptedSponsorships[randomBanner].landingPage }}"
-          />
+          <div
+            class="bg-image"
+            [ngStyle]="{
+              'background-image':
+                'url(' + acceptedSponsorships[randomBanner].banner.image + ')'
+            }"
+          ></div>
         </a>
       </div>
     </div>
     <div class="row">
-      <div class="col-12 d-flex justify-content-center">
+      <div *ngIf="showCounter" class="col-12 d-flex justify-content-center">
         <app-count-down [startDate]="trip.startDate"></app-count-down>
+      </div>
+      <div *ngIf="trip.isOver" class="col-12 d-flex justify-content-center">
+        <h5 i18n class="text-danger">This trip is over</h5>
       </div>
     </div>
     <div class="row">
       <div class="col-12 col-lg-10 offset-lg-1">
+        <app-message></app-message>
         <div class="card">
           <div class="card-body">
-            <div class="row">
+            <div class="row mb-2">
               <div class="d-flex">
-                <div class="d-flex flex-column col-9">
+                <div class="d-flex flex-column col-8">
                   <p class="h5">
                     <span class="badge bg-primary"> #{{ trip.status }} </span>
                   </p>
+                </div>
+                <div
+                  *ngIf="
+                    activeRole === 'manager' &&
+                    trip.status === 'PUBLISHED' &&
+                    !hasApplicationsPaid &&
+                    !tripStartSoon
+                  "
+                  class="d-flex flex-column col-4 col-md-2 offset-md-2"
+                >
+                  <button
+                    type="button"
+                    class="btn btn-outline-danger"
+                    data-bs-toggle="modal"
+                    [attr.data-bs-target]="'#cancellationModal' + trip._id"
+                  >
+                    Cancel
+                  </button>
+                </div>
+                <div
+                  *ngIf="activeRole === 'explorer' && hasApplication"
+                  class="d-flex flex-column col-4 text-end"
+                >
+                  <p>
+                    <a
+                      i18n
+                      routerLink="/applications/explorer/{{
+                        currentActor!._id
+                      }}"
+                    >
+                      Go to my applications</a
+                    >
+                  </p>
+                </div>
+                <div
+                  *ngIf="
+                    activeRole === 'explorer' &&
+                    trip.status === 'PUBLISHED' &&
+                    !hasApplication &&
+                    !trip.isOver
+                  "
+                  class="d-flex flex-column col-4 col-md-2 offset-md-2"
+                >
+                  <button
+                    type="button"
+                    class="btn btn-outline-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#createApplication"
+                  >
+                    Apply
+                  </button>
+                </div>
+                <div
+                  *ngIf="activeRole === 'sponsor' && !trip.isOver"
+                  class="d-flex flex-column col-3 offset-1 col-md-2 offset-md-2"
+                >
+                  <button
+                    class="btn btn-outline-primary"
+                    [routerLink]="['/sponsorships/form/add']"
+                    [queryParams]="{ tripId: trip._id }"
+                    i18n
+                  >
+                    Sponsor
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div
+                  *ngIf="trip.status == 'CANCELLED'"
+                  class="card border-primary mb-3"
+                >
+                  <div class="card-body">
+                    <h5 i18n class="card-title">Cancelation reason:</h5>
+                    <p class="card-text">{{ trip.cancelationReason }}</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -53,6 +138,7 @@
                   <p class="card-text">
                     {{ trip.startDate | date : "shortDate" }} -
                     {{ trip.endDate | date : "shortDate" }}
+                    <br /><small class="mt-1">Ticker: {{ trip.ticker }}</small>
                   </p>
                   <div class="row mt-1">
                     <div class="col-12">
@@ -152,3 +238,14 @@
     </div>
   </div>
 </div>
+<ng-template #spinner>
+  <app-loading-spinner></app-loading-spinner>
+</ng-template>
+<app-create-application
+  (applicationCreatedEvent)="handleCreatedApplication($event)"
+  [tripId]="trip._id"
+></app-create-application>
+<app-cancellation
+  (tripCancelledEvent)="handleCanceledTrip($event)"
+  [tripId]="trip._id"
+></app-cancellation>

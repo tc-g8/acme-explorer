@@ -1,0 +1,81 @@
+<div class="row mt-3">
+  <div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2">
+    <h2 i18n>Add New Sponsorship</h2>
+    <form (ngSubmit)="onAddSponsorship(f)" #f="ngForm">
+      <div class="form-group">
+        <div class="row mb-2">
+          <div class="col">
+            <div class="d-flex justify-content-between">
+              <label class="center-block fw-bold" i18n>Banner:</label>
+              <input
+                class="form-control file-input"
+                id="banner"
+                name="banner"
+                type="file"
+                accept="image/*"
+                (change)="onFileSelected($event)"
+                #fileUpload
+                #bannerValidator="ngModel"
+                ngModel
+                required
+              />
+              <div
+                *ngIf="bannerValidator.invalid && bannerValidator.dirty"
+                class="validation-msg"
+              >
+                <span i18n>Banner field is required</span>
+              </div>
+              <div class="file-upload">
+                <button
+                  type="button"
+                  class="btn btn-primary upload-btn"
+                  (click)="fileUpload.click()"
+                  [disabled]="banner.image"
+                >
+                  <i class="fa-solid fa-plus"></i>
+                  &nbsp;<i class="fa-regular fa-image"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div *ngIf="banner.image" class="col-6 col-md-3 mb-3">
+            <div class="remove-img" (click)="removeImage()">
+              <i class="fa-solid fa-x"></i>
+            </div>
+            <img [src]="banner.image" class="img-fluid" />
+          </div>
+        </div>
+        <label i18n for="landingPage">Landing page link:</label>
+        <input
+          type="url"
+          class="form-control"
+          name="landingPage"
+          id="landingPage"
+          #landingPage="ngModel"
+          ngModel
+          required
+        />
+        <div
+          *ngIf="landingPage.invalid && landingPage.dirty"
+          class="validation-msg"
+        >
+          <span i18n>Description field is required</span>
+        </div>
+      </div>
+      <br />
+      <div class="btn-group">
+        <button
+          i18n
+          type="submit"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          [disabled]="bannerValidator.invalid || landingPage.invalid"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

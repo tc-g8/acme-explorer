@@ -1,16 +1,24 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Sponsorship } from '../models/sponsorship.model';
 import { Trip } from '../models/trip.model';
+import { AuthService } from './auth.service';
+
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json; charset=utf-8',
+  }),
+};
 
 @Injectable({
   providedIn: 'root',
 })
 export class TripService {
-  private tripsUrl = environment.backendApiBaseURL + '/api/v1/trips';
+  private tripsUrlV1 = environment.backendApiBaseURL + '/api/v1/trips';
+  private tripsUrlV2 = environment.backendApiBaseURL + '/api/v2/trips';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   getTrips(query: any) {
     let finder = {};
@@ -29,28 +37,84 @@ export class TripService {
     if (query.maxDate) {
       finder = { ...finder, maxDate: query.maxDate };
     }
-    const url = `${this.tripsUrl}`;
+    const url = `${this.tripsUrlV1}`;
     return this.http.get<Trip[]>(url, { params: finder });
   }
 
   getTrip(id: string) {
-    const url = `${this.tripsUrl}/${id}`;
-    return this.http.get<Trip>(url);
+    const url = `${this.tripsUrlV1}/${id}`;
+    return this.http.get<Trip>(url, httpOptions);
   }
 
   getTripsByManager(managerId: string) {
-    const url = `${this.tripsUrl}/manager/${managerId}`;
-    return this.http.get<Trip[]>(url);
+    const url = `${this.tripsUrlV2}/manager/${managerId}`;
+    httpOptions.headers = httpOptions.headers.set(
+      'idToken',
+      this.authService.getCurrentActor()!.idToken!
+    );
+    return this.http.get<Trip[]>(url, httpOptions);
   }
 
   getSponsorshipsBySponsorId(sponsorId: string) {
-    const url = `${this.tripsUrl}/sponsorships/sponsor/${sponsorId}`;
+    httpOptions.headers = httpOptions.headers.set(
+      'idToken',
+      this.authService.getCurrentActor()!.idToken!
+    );
+    const url = `${this.tripsUrlV1}/sponsorships/sponsor/${sponsorId}`;
     return this.http.get<Sponsorship[]>(url);
   }
 
   getTripSponsorshipById(id: string) {
-    const url = `${this.tripsUrl}/sponsorships/${id}`;
+    httpOptions.headers = httpOptions.headers.set(
+      'idToken',
+      this.authService.getCurrentActor()!.idToken!
+    );
+    const url = `${this.tripsUrlV1}/sponsorships/${id}`;
     return this.http.get<Sponsorship>(url);
   }
 
+  cancelTrip(tripId: string, cancelationReason: string) {
+    const url = `${this.tripsUrlV2}/${tripId}/cancel`;
+    httpOptions.headers = httpOptions.headers.set(
+      'idToken',
+      this.authService.getCurrentActor()!.idToken!
+    );
+    return this.http.patch<any>(url, { cancelationReason }, httpOptions);
+  }
+
+  createTrip(trip: any) {
+    const url = `${this.tripsUrlV2}`;
+    httpOptions.headers = httpOptions.headers.set(
+      'idToken',
+      this.authService.getCurrentActor()!.idToken!
+    );
+
+    const body = JSON.stringify(trip);
+
+    return this.http.post<any>(url, body, httpOptions);
+  }
+
+  updateTrip(trip: any) {
+    const url = `${this.tripsUrlV2}/${trip._id}`;
+    httpOptions.headers = httpOptions.headers.set(
+      'idToken',
+      this.authService.getCurrentActor()!.idToken!
+    );
+
+    const body = JSON.stringify(trip);
+
+    return this.http.put<any>(url, body, httpOptions);
+  }
+
+  createSponsorship(sponsorship: any, tripId: string) {
+    const url = `${this.tripsUrlV2}/${tripId}/sponsorships`;
+    httpOptions.headers = httpOptions.headers.set(
+      'idToken',
+      this.authService.getCurrentActor()!.idToken!
+    );
+
+    const body = JSON.stringify(sponsorship);
+
+    return this.http.put<any>(url, body, httpOptions);
+  }
 }

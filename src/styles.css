@@ -1,1 +1,192 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* -- Common styles -- */
+
+.file-input {
+  display: none;
+}
+.remove-img {
+  display: inline-block;
+  position: relative;
+  border-radius: 3px;
+  top: 30px;
+  left: 4px;
+  padding: 1px 5px;
+  background-color: white;
+}
+.validation-msg {
+  color: rgb(183, 1, 1);
+  margin-top: 1px;
+}
+.bg-image,
+.bg-std-image {
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.bg-std-image {
+  background-image: url("./assets/images/trip-placeholder.png");
+}
+
+/* -- Theme light/dark -- */
+
+body {
+  --text-color: #3b3b3b;
+  --bkg-color: #fff;
+  --bkg-sec-color: #f8f9fa;
+  --bkg-input-color: #fff;
+  --footer-box-shadow: 0 1px 40px 5px rgba(0, 0, 0, 0.15);
+  --footer-a-color: rgba(0, 0, 0, 0.28);
+  --bt-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  --placeholder-color: rgba(0, 0, 0, 0.5);
+}
+
+body.dark-theme {
+  --text-color: #eee;
+  --bkg-color: #695a83;
+  --bkg-sec-color: #483d5b;
+  --bkg-input-color: #80729a;
+  --footer-box-shadow: 0 1px 40px 5px rgba(217, 217, 217, 0.15);
+  --footer-a-color: rgba(160, 152, 152, 0.852);
+  --bt-shadow: 0 0.3rem 1rem rgba(227, 195, 224, 0.603);
+  --placeholder-color: rgba(255, 255, 255, 0.8);
+}
+
+body {
+  background: var(--bkg-color);
+}
+body.dark-theme nav,
+body.dark-theme nav i,
+body.dark-theme .timer-icon i,
+body.dark-theme .dropdown-toggle::after,
+body.dark-theme ul,
+body.dark-theme .card,
+body.dark-theme .accordion-button,
+body.dark-theme .modal-content {
+  background: #483d5b !important;
+  color: white !important;
+}
+body.dark-theme a,
+body.dark-theme footer a,
+body.dark-theme .footer-icons i,
+body.dark-theme .footer-distributed i,
+body.dark-theme .spinner-border.text-secondary.custom {
+  color: white !important;
+}
+body.dark-theme .navbar-toggler {
+  background: #e2cadd;
+}
+body.dark-theme .accordion-button::after {
+  background-color: white;
+  border-radius: 3px;
+}
+body.dark-theme .accordion-body {
+  background: #695a83;
+  color: white;
+}
+body.dark-theme .accordion-item {
+  border-color: #e2cadd;
+}
+body.dark-theme .validation-msg,
+body.dark-theme .validation-msg span,
+body.dark-theme .text-danger {
+  color: orange !important;
+}
+body.dark-theme .nextTrip {
+  box-shadow: 0 0.3rem 1rem rgba(227, 195, 224, 0.603) !important;
+}
+.footer-distributed,
+.timer-card {
+  background: var(--bkg-sec-color) !important;
+}
+.footer-distributed {
+  box-shadow: var(--footer-box-shadow) !important;
+}
+.shadow {
+  box-shadow: var(--bt-shadow) !important;
+}
+.display-1 {
+  color: var(--text-color) !important;
+}
+input,
+textarea {
+  background: var(--bkg-input-color) !important;
+  color: var(--text-color) !important;
+}
+body.dark-theme .btn-outline-success,
+body.dark-theme .btn-outline-primary {
+  background-color: white;
+  color: #80729a;
+  border-color: #453b58;
+}
+body.dark-theme .btn-outline-success:hover,
+body.dark-theme .btn-outline-primary:hover {
+  background-color: #453b58;
+  color: white;
+  border-color: #e2cadd;
+}
+body.dark-theme .btn-primary {
+  background: #eea1de;
+  border-color: #453b58;
+  color: #453b58 !important;
+}
+body.dark-theme .btn-primary:hover {
+  background: #453b58;
+  border-color: #eea1de;
+  color: #eea1de !important;
+}
+body.dark-theme .btn-success {
+  background-color: white;
+  color: #695a83;
+  border-color: #e2cadd;
+}
+body.dark-theme .btn-success:hover {
+  background-color: #453b58;
+  border-color: #eea1de;
+  color: #e2cadd;
+  box-shadow: 0 0 15px 0px rgba(227, 195, 224, 0.603) !important;
+}
+body.dark-theme .btn-danger {
+  background: #695a83;
+  border-color: #695a83;
+}
+body.dark-theme .btn-danger:hover {
+  background: #453b58;
+  border-color: #e2cadd;
+}
+body.dark-theme .btn-outline-danger {
+  color: #eea1de;
+  border-color: #eea1de;
+}
+body.dark-theme .btn-outline-danger:hover {
+  color: #695a83;
+  background: #eea1de;
+}
+body.dark-theme .dropdown-item:hover {
+  background: #695a83;
+  color: #e2cadd;
+}
+::placeholder {
+  color: var(--placeholder-color) !important;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+label,
+small,
+table,
+.timer {
+  color: var(--text-color) !important;
+}

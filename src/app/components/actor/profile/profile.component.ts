@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Actor } from 'src/app/models/actor.model';
+import { ActorService } from 'src/app/services/actor.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -10,11 +11,25 @@ import { AuthService } from 'src/app/services/auth.service';
 export class ProfileComponent implements OnInit {
   actor: Actor;
 
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private actorService: ActorService
+  ) {
     this.actor = new Actor();
   }
 
   ngOnInit(): void {
-    this.actor = this.authService.getCurrentActor()!;
+    const curActor = this.authService.getCurrentActor();
+
+    if (curActor) {
+      const idActor = curActor._id;
+      this.actorService.getActor(idActor).subscribe((data) => {
+        this.actor = data;
+      });
+    }
+  }
+
+  handleUpdatedActor(actor: Actor) {
+    this.actor = actor;
   }
 }

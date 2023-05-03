@@ -1,0 +1,70 @@
+<div *ngIf="applicationId; else cancelTrip">
+    <div class="modal fade" id="{{ 'cancellationModal' + applicationId }}" tabindex="-1"
+        aria-labelledby="cancellationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 i18n class="modal-title fs-5" id="cancellationModalLabel">
+                        Application cancellation
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group has-danger">
+                        <p i18n>You are going to cancel the application for this trip. Are you
+                            sure?</p>
+                        <br />
+                        <div class="btn-group">
+                            <button i18n type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                Close
+                            </button>
+                            <button i18n type="submit" (click)="cancelApplication()" class="btn btn-primary"
+                                data-bs-dismiss="modal">
+                                Yes, cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #cancelTrip>
+    <div class="modal fade" id="{{ 'cancellationModal' + tripId }}" tabindex="-1"
+        aria-labelledby="cancellationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 i18n class="modal-title fs-5" id="cancellationModalLabel">
+                        Trip cancellation
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form (ngSubmit)="cancelationTrip(params)" #params="ngForm">
+                        <div class="form-group has-danger">
+                            <p i18n>You are going to cancel this trip. Are you sure?</p>
+                            <div class="mb-3">
+                                <label i18n for="message-text" class="col-form-label">Send your reason:</label>
+                                <textarea class="form-control" id="reason" name="reason" #reason="ngModel" required
+                                    ngModel></textarea>
+                                <div *ngIf="reason.invalid && reason.dirty" class="validation-msg">
+                                    <span i18n>Reason field is required</span>
+                                </div>
+                            </div>
+                            <div class="btn-group">
+                                <button i18n type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    Close
+                                </button>
+                                <button i18n type="submit" class="btn btn-primary" data-bs-dismiss="modal"
+                                    [disabled]="reason.invalid">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
