@@ -117,4 +117,26 @@ export class TripService {
 
     return this.http.put<any>(url, body, httpOptions);
   }
+
+  getCachedTrips(queryHash: string): Trip[] | undefined {
+    const cachedTripsRaw = localStorage.getItem(queryHash);
+    if (cachedTripsRaw) {
+      const cachedTripsParsed = JSON.parse(cachedTripsRaw) as any;
+      const currentDateInMs = new Date().getTime();
+      const diff = currentDateInMs - cachedTripsParsed.date;
+
+      if (diff < cachedTripsParsed.duration) {
+        this.saveTripsInCache(queryHash, cachedTripsParsed);
+        return cachedTripsParsed.trips;
+      } else {
+        localStorage.removeItem(queryHash);
+      }
+    }
+    return undefined;
+  }
+
+  saveTripsInCache(queryHash: any, cachedTrips: any) {
+    const newCachedTrips = { ...cachedTrips, date: new Date().getTime() };
+    localStorage.setItem(queryHash, JSON.stringify(newCachedTrips));
+  }
 }
