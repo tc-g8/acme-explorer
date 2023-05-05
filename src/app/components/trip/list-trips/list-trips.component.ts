@@ -5,6 +5,7 @@ import { Trip } from 'src/app/models/trip.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { TripService } from 'src/app/services/trip.service';
 import { isPastDate } from 'src/app/utils/dates';
+import * as objectHash from 'object-hash';
 
 @Component({
   selector: 'app-list-trips',
@@ -53,18 +54,22 @@ export class ListTripsComponent implements OnInit {
 
   search(form: NgForm) {
     const query = form.value;
-    const cacheTime = form.value.cacheTime
+    const cacheTime: number = form.value.cacheTime
       ? form.value.cacheTime > 0 && form.value.cacheTime <= 24
         ? form.value.cacheTime
         : 1
       : 1;
-    const cacheTimeInMs = cacheTime * 60 * 60 * 1000;
+    query.cacheTime = cacheTime * 1000 * 60 * 60;
 
-    const cachedTrips = this.tripService.getCachedTrips(query, cacheTimeInMs);
+    const queryHash = objectHash.sha1(query);
+    console.log(queryHash);
+
+    const cachedTrips = this.tripService.getCachedTrips(queryHash);
+    console.log(cachedTrips);
+
     if (cachedTrips) {
       console.log('Cached search');
       this.trips = cachedTrips;
-      this.tripService.saveTripsInCache(query, cachedTrips, Date.now());
       return;
     } else {
       this.tripService.getTrips(query).subscribe((data: any) => {
@@ -87,7 +92,11 @@ export class ListTripsComponent implements OnInit {
           }
         });
         console.log('New search');
-        this.tripService.saveTripsInCache(query, this.trips, Date.now());
+        this.tripService.saveTripsInCache(queryHash, {
+          trips: this.trips,
+          date: new Date().getTime(),
+          duration: query.cacheTime,
+        });
       });
     }
   }

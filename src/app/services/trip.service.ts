@@ -118,35 +118,25 @@ export class TripService {
     return this.http.put<any>(url, body, httpOptions);
   }
 
-  getCachedTrips(query: any, cacheTimeInMs: number): Trip[] | undefined {
-    const cachedTrips = localStorage.getItem('cachedTrips');
-    if (cachedTrips) {
-      const cachedTripsParsed = JSON.parse(cachedTrips);
-      const cachedTripsDate = new Date(cachedTripsParsed.date);
-      const currentDate = new Date();
-      const diff = currentDate.getTime() - cachedTripsDate.getTime();
-      if (diff < cacheTimeInMs) {
-        const cachedQuery = cachedTripsParsed.query;
-        if (
-          cachedQuery.keyword === query.keyword &&
-          cachedQuery.minPrice === query.minPrice &&
-          cachedQuery.maxPrice === query.maxPrice &&
-          cachedQuery.minDate === query.minDate &&
-          cachedQuery.maxDate === query.maxDate
-        ) {
-          return cachedTripsParsed.trips;
-        }
+  getCachedTrips(queryHash: string): Trip[] | undefined {
+    const cachedTripsRaw = localStorage.getItem(queryHash);
+    if (cachedTripsRaw) {
+      const cachedTripsParsed = JSON.parse(cachedTripsRaw) as any;
+      const currentDateInMs = new Date().getTime();
+      const diff = currentDateInMs - cachedTripsParsed.date;
+
+      if (diff < cachedTripsParsed.duration) {
+        this.saveTripsInCache(queryHash, cachedTripsParsed);
+        return cachedTripsParsed.trips;
+      } else {
+        localStorage.removeItem(queryHash);
       }
     }
     return undefined;
   }
 
-  saveTripsInCache(query: any, trips: Trip[], cacheTime: any) {
-    const cachedTrips = {
-      query,
-      trips,
-      date: new Date(),
-    };
-    localStorage.setItem('cachedTrips', JSON.stringify(cachedTrips));
+  saveTripsInCache(queryHash: any, cachedTrips: any) {
+    const newCachedTrips = { ...cachedTrips, date: new Date().getTime() };
+    localStorage.setItem(queryHash, JSON.stringify(newCachedTrips));
   }
 }
