@@ -1,5 +1,6 @@
 <div class="row mt-4">
   <div class="col-12 col-md-8 offset-md-2">
+    <app-message></app-message>
     <div class="card">
       <div class="card-body">
         <div class="row">
@@ -51,9 +52,23 @@
                 />
               </div>
             </div>
+            <div *ngIf="sponsorship.status === 'PENDING'" class="text-end">
+              <button
+                type="button"
+                class="btn btn-outline-danger"
+                data-bs-toggle="modal"
+                [attr.data-bs-target]="'#cancellationModal' + sponsorship._id"
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<app-cancellation
+  [sponsorship]="sponsorship"
+  (sponsorshipCancelledEvent)="handleCanceledSponsorship()"
+></app-cancellation>
