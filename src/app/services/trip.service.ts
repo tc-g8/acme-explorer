@@ -118,6 +118,16 @@ export class TripService {
     return this.http.put<any>(url, body, httpOptions);
   }
 
+  cancelSponsorship(tripId: string, sponsorshipId: string) {
+    const url = `${this.tripsUrlV2}/${tripId}/sponsorships/${sponsorshipId}`;
+    httpOptions.headers = httpOptions.headers.set(
+      'idToken',
+      this.authService.getCurrentActor()!.idToken!
+    );
+
+    return this.http.patch<any>(url, {}, httpOptions);
+  }
+
   getCachedTrips(queryHash: string): Trip[] | undefined {
     const cachedTripsRaw = localStorage.getItem(queryHash);
     if (cachedTripsRaw) {
