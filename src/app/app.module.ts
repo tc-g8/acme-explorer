@@ -42,6 +42,7 @@ import { EditTripComponent } from './components/trip/edit-trip/edit-trip.compone
 import { CreateSponsorshipComponent } from './components/sponsorship/create-sponsorship/create-sponsorship.component';
 import { LoadingSpinnerComponent } from './components/master/loading-spinner/loading-spinner.component';
 import { EditCommentComponent } from './components/application/edit-comment/edit-comment.component';
+import { EditSponsorshipComponent } from './components/sponsorship/edit-sponsorship/edit-sponsorship.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { EditCommentComponent } from './components/application/edit-comment/edit
     CreateSponsorshipComponent,
     LoadingSpinnerComponent,
     EditCommentComponent,
+    EditSponsorshipComponent,
   ],
   imports: [
     BrowserModule,

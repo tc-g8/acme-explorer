@@ -52,15 +52,29 @@
                 />
               </div>
             </div>
-            <div *ngIf="sponsorship.status === 'PENDING'" class="text-end">
-              <button
-                type="button"
-                class="btn btn-outline-danger"
-                data-bs-toggle="modal"
-                [attr.data-bs-target]="'#cancellationModal' + sponsorship._id"
-              >
-                Cancel
-              </button>
+            <div class="text-end">
+              <span *ngIf="sponsorship.status === 'PENDING'" class="me-1">
+                <button
+                  class="btn btn-outline-primary"
+                  routerLink="/sponsorships/form/edit/{{ id }}"
+                  [queryParams]="{
+                    tripId: sponsorship.trip_id
+                  }"
+                  i18n
+                >
+                  Edit
+                </button>
+              </span>
+              <span *ngIf="sponsorship.status === 'PENDING'">
+                <button
+                  type="button"
+                  class="btn btn-outline-danger"
+                  data-bs-toggle="modal"
+                  [attr.data-bs-target]="'#cancellationModal' + sponsorship._id"
+                >
+                  Cancel
+                </button>
+              </span>
             </div>
           </div>
         </div>
