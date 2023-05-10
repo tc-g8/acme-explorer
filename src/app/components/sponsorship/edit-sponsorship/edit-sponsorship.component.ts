@@ -49,10 +49,19 @@ export class EditSponsorshipComponent implements OnInit {
 
   editSponsorship(form: NgForm) {
     const landingPage = form.value.landingPage;
-    const sponsorship = {
-      banner: this.banner,
-      landingPage: landingPage,
-    };
+    var sponsorship = {};
+
+    if (this.banner.image) {
+      sponsorship = {
+        banner: this.banner,
+        landingPage: landingPage,
+      };
+    } else {
+      sponsorship = {
+        landingPage: landingPage,
+      };
+    }
+
     const sponsorshipId = this.route.snapshot.params['id'];
     const tripId = this.route.snapshot.queryParams['tripId'];
 
