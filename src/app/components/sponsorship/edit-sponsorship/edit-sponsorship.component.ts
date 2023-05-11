@@ -37,6 +37,7 @@ export class EditSponsorshipComponent implements OnInit {
         .getTripSponsorshipById(this.sponsorshipId)
         .subscribe((data: any) => {
           this.sponsorship = data as Sponsorship;
+          this.banner = this.sponsorship.banner;
           if (this.sponsorship.status != SponsorshipStatus.PENDING) {
             this.router.navigate([`sponsorships/${this.sponsorshipId}`]);
           }
@@ -49,7 +50,7 @@ export class EditSponsorshipComponent implements OnInit {
 
   editSponsorship(form: NgForm) {
     const landingPage = form.value.landingPage;
-    var sponsorship = {};
+    let sponsorship = {};
 
     if (this.banner.image) {
       sponsorship = {
@@ -68,10 +69,7 @@ export class EditSponsorshipComponent implements OnInit {
     this.tripService
       .updateSponsorship(tripId, sponsorshipId, sponsorship)
       .subscribe({
-        next: (_) =>
-          this.router.navigate([
-            `/sponsorships/${this.authService.getCurrentActor()!._id}`,
-          ]),
+        next: (_) => this.router.navigate([`/sponsorships/${sponsorshipId}`]),
         error: (e) => console.error(e),
         complete: () => console.info('POST Completed'),
       });

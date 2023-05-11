@@ -46,6 +46,7 @@
               <div class="col-12">
                 <p><strong>Banner</strong></p>
                 <img
+                  *ngIf="sponsorship.banner"
                   class="img-fluid"
                   src="{{ sponsorship.banner.image }}"
                   alt="Imagen de patrocinio"
