@@ -71,7 +71,9 @@
           type="submit"
           class="btn btn-primary"
           data-bs-dismiss="modal"
-          [disabled]="bannerValidator.invalid || landingPage.invalid"
+          [disabled]="
+            bannerValidator.invalid || landingPage.invalid || !banner.image
+          "
         >
           Save
         </button>

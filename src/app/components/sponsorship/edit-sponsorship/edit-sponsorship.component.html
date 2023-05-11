@@ -18,6 +18,12 @@
                 #bannerValidator="ngModel"
                 ngModel
               />
+              <div
+                *ngIf="bannerValidator.invalid && bannerValidator.dirty"
+                class="validation-msg"
+              >
+                <span i18n>Banner field is required</span>
+              </div>
               <div class="file-upload">
                 <button
                   type="button"
@@ -64,7 +70,9 @@
           type="submit"
           class="btn btn-primary"
           data-bs-dismiss="modal"
-          [disabled]="bannerValidator.invalid || landingPage.invalid"
+          [disabled]="
+            bannerValidator.invalid || landingPage.invalid || !banner.image
+          "
         >
           Save
         </button>
