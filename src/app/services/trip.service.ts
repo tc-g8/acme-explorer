@@ -165,4 +165,22 @@ export class TripService {
     const newCachedTrips = { ...cachedTrips, date: new Date().getTime() };
     localStorage.setItem(queryHash, JSON.stringify(newCachedTrips));
   }
+
+  getCachedTripNumber(): number {
+    const CachedTripNumber = localStorage.getItem('currentTripNumber');
+    console.log(CachedTripNumber);
+    if (CachedTripNumber) {
+      return JSON.parse(CachedTripNumber) as number;
+    } else {
+      return 0;
+    }
+  }
+
+  saveCachedTripNumber(tripNumber: number) {
+    localStorage.setItem(
+      'currentTripNumber',
+      JSON.stringify(tripNumber)
+    );
+  }
+
 }

@@ -31,22 +31,20 @@ export class ListTripsComponent implements OnInit {
       this.activeRole = this.currentActor!.role.toString().toLowerCase();
     }
     this.tripService.getTrips(query).subscribe((data: any) => {
-      this.trips = data;
+      this.trips = data.filter((trip: Trip) => {
+        return !isPastDate(trip.startDate) && !isPastDate(trip.endDate)
+      });
+      let tripNumber : number = this.tripService.getCachedTripNumber();
+      if (tripNumber === 0) {
+        this.trips = this.trips.slice(0, 10);
+      } else {
+        this.trips = this.trips.slice(0, tripNumber);
+      }
       this.trips.map((trip) => {
         if (this.isNextTrip(trip.startDate)) {
           trip.isNext = true;
           trip.isStarted = false;
           trip.isOver = false;
-        }
-        if (isPastDate(trip.startDate)) {
-          trip.isStarted = true;
-          trip.isNext = false;
-          trip.isOver = false;
-        }
-        if (isPastDate(trip.endDate)) {
-          trip.isOver = true;
-          trip.isNext = false;
-          trip.isStarted = false;
         }
       });
     });
@@ -60,35 +58,39 @@ export class ListTripsComponent implements OnInit {
         : 1
       : 1;
     query.cacheTime = cacheTime * 1000 * 60 * 60;
-
-    const queryHash = objectHash.sha1(query);
-    console.log(queryHash);
-
+    const modifiedQuery = { ...query }; // Create a shallow copy of the query object
+    delete modifiedQuery.tripNumber;
+    const queryHash = objectHash.sha1(modifiedQuery);
     const cachedTrips = this.tripService.getCachedTrips(queryHash);
-    console.log(cachedTrips);
+
+    let tripNumber : number = this.tripService.getCachedTripNumber();
+
+    if (tripNumber === 0 || form.value.tripNumber) {
+      tripNumber = form.value.tripNumber
+        ? form.value.tripNumber > 10 && form.value.tripNumber <= 100
+          ? form.value.tripNumber
+          : 10
+        : 10;
+      this.tripService.saveCachedTripNumber(tripNumber);
+    }
 
     if (cachedTrips) {
       console.log('Cached search');
-      this.trips = cachedTrips;
+      this.trips = cachedTrips.filter((trip: Trip) => {
+        return !isPastDate(trip.startDate) && !isPastDate(trip.endDate)
+      });
+      this.trips = cachedTrips.slice(0, tripNumber);
       return;
     } else {
-      this.tripService.getTrips(query).subscribe((data: any) => {
-        this.trips = data;
+      this.tripService.getTrips(query).subscribe((data: any) => {        
+        this.trips = data.filter((trip: Trip) => {
+          return !isPastDate(trip.startDate) && !isPastDate(trip.endDate)
+        });
         this.trips.map((trip) => {
           if (this.isNextTrip(trip.startDate)) {
             trip.isNext = true;
             trip.isStarted = false;
             trip.isOver = false;
-          }
-          if (isPastDate(trip.startDate)) {
-            trip.isStarted = true;
-            trip.isNext = false;
-            trip.isOver = false;
-          }
-          if (isPastDate(trip.endDate)) {
-            trip.isOver = true;
-            trip.isNext = false;
-            trip.isStarted = false;
           }
         });
         console.log('New search');
@@ -97,6 +99,7 @@ export class ListTripsComponent implements OnInit {
           date: new Date().getTime(),
           duration: query.cacheTime,
         });
+        this.trips = this.trips.slice(0, tripNumber);
       });
     }
   }

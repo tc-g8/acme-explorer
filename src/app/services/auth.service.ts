@@ -69,6 +69,7 @@ export class AuthService {
             .then(async (_) => {
               const idToken = await this.fireAuth.currentUser;
               actor.idToken = await idToken?.getIdToken();
+              localStorage.clear();
               this.setCurrentActor(actor);
               this.loginStatus.next(true);
               this.currentActor = actor;
