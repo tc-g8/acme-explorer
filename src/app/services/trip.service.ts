@@ -118,6 +118,22 @@ export class TripService {
     return this.http.put<any>(url, body, httpOptions);
   }
 
+  updateSponsorship(tripId: string, sponsorshipId: string, sponsorship: any) {
+    const url = `${this.tripsUrlV2}/${tripId}/sponsorships/${sponsorshipId}`;
+    httpOptions.headers = httpOptions.headers.set(
+      'idToken',
+      this.authService.getCurrentActor()!.idToken!
+    );
+
+    const body = JSON.stringify(sponsorship);
+
+    return this.http.put<any>(
+      url,
+      { banner: sponsorship.banner, landingPage: sponsorship.landingPage },
+      httpOptions
+    );
+  }
+
   cancelSponsorship(tripId: string, sponsorshipId: string) {
     const url = `${this.tripsUrlV2}/${tripId}/sponsorships/${sponsorshipId}`;
     httpOptions.headers = httpOptions.headers.set(

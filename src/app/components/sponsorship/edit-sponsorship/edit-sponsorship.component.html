@@ -1,7 +1,7 @@
 <div class="row mt-3">
   <div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2">
-    <h2 i18n>Add New Sponsorship</h2>
-    <form (ngSubmit)="onAddSponsorship(f)" #f="ngForm">
+    <h2 i18n>Edit Sponsorship</h2>
+    <form (ngSubmit)="editSponsorship(f)" #f="ngForm">
       <div class="form-group">
         <div class="row mb-2">
           <div class="col">
@@ -17,7 +17,6 @@
                 #fileUpload
                 #bannerValidator="ngModel"
                 ngModel
-                required
               />
               <div
                 *ngIf="bannerValidator.invalid && bannerValidator.dirty"
@@ -49,12 +48,12 @@
         </div>
         <label i18n for="landingPage">Landing page link:</label>
         <input
-          type="url"
+          type="text"
           class="form-control"
           name="landingPage"
           id="landingPage"
           #landingPage="ngModel"
-          ngModel
+          [(ngModel)]="sponsorship.landingPage"
           required
         />
         <div
