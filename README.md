@@ -1,6 +1,6 @@
 # AcmeExplorer
 
-## Users
+## USERS
 
 | email | password |
 |--------|----------|
@@ -8,6 +8,12 @@
 | manager@gmail.com | Prueba_12345 |
 | sponsor@gmail.com | Prueba_12345 |
 | admin@gmail.com | Prueba_12345 |
+
+## PAYPAL SANDBOX ACCOUNT:
+| email | password |
+|--------|----------|
+| sb-5cneq25632225@personal.example.com | 7&l0<%xB |
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.10.
 

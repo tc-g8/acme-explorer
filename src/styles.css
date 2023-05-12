@@ -191,6 +191,7 @@ h6,
 label,
 small,
 table,
+legend,
 .timer {
   color: var(--text-color) !important;
 }
