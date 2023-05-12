@@ -4,8 +4,11 @@ import { TripService } from '../../../services/trip.service';
 import { Trip } from '../../../models/trip.model';
 import { TripStatus } from 'src/app/enums/trip.enum';
 import { ActivatedRouteStub } from '../../shared/activatedroute-stub';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { of } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { AngularFireModule } from '@angular/fire/compat';
 import { CountDownComponent } from '../count-down/count-down.component';
 
 describe('DisplayTripComponent', () => {
@@ -41,7 +44,11 @@ describe('DisplayTripComponent', () => {
 
     await TestBed.configureTestingModule({
       declarations: [DisplayTripComponent, CountDownComponent],
-      imports: [],
+      imports: [
+        HttpClientTestingModule,
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        RouterModule
+      ],
       providers: [
         { provide: TripService, useValue: tripSpy },
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
