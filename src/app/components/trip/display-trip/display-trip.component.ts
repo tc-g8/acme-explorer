@@ -20,11 +20,11 @@ export class DisplayTripComponent implements OnInit {
   id: string;
   randomBanner: number;
   acceptedSponsorships: Sponsorship[];
-  protected currentActor: Actor | undefined;
-  protected activeRole: string = 'anonymous';
-  protected hasApplication: boolean = false;
-  protected hasApplicationsPaid: boolean = false;
-  protected tripStartSoon: boolean = false;
+  currentActor: Actor | undefined;
+  activeRole: string = 'anonymous';
+  hasApplication: boolean = false;
+  hasApplicationsPaid: boolean = false;
+  tripStartSoon: boolean = false;
   showCounter: boolean;
   loading: boolean = true;
 

@@ -1,4 +1,4 @@
-<div *ngIf="applications && applications.length > 0" class="row g-4 mt-2">
+<div class="row g-4 mt-2">
   <div class="row mt-2">
     <div class="col-12 col-md-6 offset-md-3">
       <h1 i18n *ngIf="activeRole === 'explorer'">My Applications</h1>
@@ -6,7 +6,7 @@
     </div>
   </div>
   <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
-    <div class="accordion mt-3" id="applicationsAccordion">
+    <div *ngIf="applications && applications.length > 0; else noApplications" class="accordion mt-3" id="applicationsAccordion">
       <app-message></app-message>
       <div *ngFor="let application of applications" class="accordion-item">
         <h2 class="accordion-header">
@@ -175,5 +175,10 @@
         </div>
       </div>
     </div>
+    <ng-template #noApplications>
+      <p i18n *ngIf="activeRole === 'explorer'">You have no Applications yet</p>
+      <p i18n *ngIf="activeRole === 'manager'">You have no Applications yet for this trip</p>
+    </ng-template>
   </div>
 </div>
+

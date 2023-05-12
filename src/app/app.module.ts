@@ -16,7 +16,6 @@ import { environment } from 'src/environments/environment';
 import { ProfileComponent } from './components/actor/profile/profile.component';
 import { FooterComponent } from './components/master/footer/footer.component';
 import { ListTripsComponent } from './components/trip/list-trips/list-trips.component';
-import { ListFavouritesComponent } from './components/trip/list-favourites/list-favourites.component';
 import { ListSponsorshipsComponent } from './components/sponsorship/list-sponsorships/list-sponsorships.component';
 import { DisplayTripComponent } from './components/trip/display-trip/display-trip.component';
 import { ListManagerTripsComponent } from './components/trip/list-manager-trips/list-manager-trips.component';
@@ -53,7 +52,6 @@ import { EditSponsorshipComponent } from './components/sponsorship/edit-sponsors
     NotFoundComponent,
     HeaderComponent,
     ListTripsComponent,
-    ListFavouritesComponent,
     ListSponsorshipsComponent,
     ProfileComponent,
     FooterComponent,

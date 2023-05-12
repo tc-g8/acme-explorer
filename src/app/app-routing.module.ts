@@ -4,7 +4,6 @@ import { RegisterComponent } from './components/security/register/register.compo
 import { LoginComponent } from './components/security/login/login.component';
 import { NotFoundComponent } from './components/shared/not-found/not-found.component';
 import { ListTripsComponent } from './components/trip/list-trips/list-trips.component';
-import { ListFavouritesComponent } from './components/trip/list-favourites/list-favourites.component';
 import { ProfileComponent } from './components/actor/profile/profile.component';
 import { ListSponsorshipsComponent } from './components/sponsorship/list-sponsorships/list-sponsorships.component';
 import { DisplayTripComponent } from './components/trip/display-trip/display-trip.component';
@@ -102,12 +101,6 @@ const routes: Routes = [
         data: { expectedRole: 'explorer' },
       },
     ],
-  },
-  {
-    path: 'favourites/explorer/:id',
-    component: ListFavouritesComponent,
-    canActivate: [ActorRoleGuard],
-    data: { expectedRole: 'explorer' },
   },
   {
     path: 'sponsorships',

@@ -74,14 +74,6 @@
                 >My Applications</a
               >
             </li>
-            <li *ngIf="activeRole === 'explorer'">
-              <a
-                i18n
-                class="dropdown-item"
-                routerLink="/favourites/explorer/{{ currentActor._id }}"
-                >My Favourites</a
-              >
-            </li>
             <li *ngIf="activeRole === 'administrator'">
               <a i18n class="dropdown-item" routerLink="/dashboard"
                 >Dashboard</a

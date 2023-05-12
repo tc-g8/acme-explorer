@@ -4,9 +4,15 @@ import { TripService } from '../../../services/trip.service';
 import { Trip } from '../../../models/trip.model';
 import { TripStatus } from 'src/app/enums/trip.enum';
 import { ActivatedRouteStub } from '../../shared/activatedroute-stub';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { of } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { AngularFireModule } from '@angular/fire/compat';
 import { CountDownComponent } from '../count-down/count-down.component';
+import { AuthService } from 'src/app/services/auth.service';
+import { ApplicationService } from 'src/app/services/application.service';
+
 
 describe('DisplayTripComponent', () => {
   let component: DisplayTripComponent;
@@ -41,7 +47,11 @@ describe('DisplayTripComponent', () => {
 
     await TestBed.configureTestingModule({
       declarations: [DisplayTripComponent, CountDownComponent],
-      imports: [],
+      imports: [
+        HttpClientTestingModule,
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        RouterModule
+      ],
       providers: [
         { provide: TripService, useValue: tripSpy },
         { provide: ActivatedRoute, useValue: mockActivatedRoute },
@@ -75,4 +85,31 @@ describe('DisplayTripComponent', () => {
     fixture.detectChanges();
     expect(titleDiv.textContent).toContain(testTrip.title);
   });
+
+  it('should not apply for a trip whose starting data has already passed ', () => {
+    component.activeRole = 'explorer';
+    component.trip.status = TripStatus.PUBLISHED;
+    component.hasApplication = false;
+    let applyButton = fixture.nativeElement.querySelector('#applyButton');
+    fixture.detectChanges();
+    expect(applyButton).toBeNull();
+  });
+
+  it('should not apply for a trip whose starting date has not yet passed', () => {
+    component.activeRole = 'explorer';
+    component.trip.status = TripStatus.PUBLISHED;
+    component.hasApplication = false;
+    
+    let today = new Date() ;
+    let newDate = new Date(today);
+    newDate.setDate(today.getDate() + 5);
+    component.trip.startDate = newDate;
+    component.trip.isOver = false;
+    fixture.detectChanges();
+
+    let applyButton = fixture.nativeElement.querySelector('#applyButton');
+    fixture.detectChanges();
+    expect(applyButton).not.toBeNull();
+  });
+  
 });

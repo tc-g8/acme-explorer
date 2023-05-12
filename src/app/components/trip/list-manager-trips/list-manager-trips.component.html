@@ -13,8 +13,7 @@
         <div *ngFor="let trip of trips" [ngClass]="{ nextTrip: trip.isNext }" class="card mb-3 shadow-sm cardTrip">
           <div class="row g-0">
             <div class="col-sm-3 d-none d-sm-block" routerLink="/trips/{{ trip._id }}">
-              <div *ngIf="trip.imageCollection[0]; else stdImage" 
-              class="bg-image card-img" [ngStyle]="{
+              <div *ngIf="trip.imageCollection[0]; else stdImage" class="bg-image card-img" [ngStyle]="{
                   'background-image':
                     'url(' + trip.imageCollection[0].image + ')'
                 }"></div>
@@ -24,45 +23,43 @@
             </div>
             <div class="col-12 col-sm-9">
               <div class="card-body">
-                <div class="row">
-                  <div routerLink="/trips/{{ trip._id }}">
-                    <div class="col-12 col-lg-8">
-                      <h4 class="card-title">
-                        {{ trip.title }}
-                      </h4>
-                    </div>
-                    <div class="col-12 col-lg-4">
-                      <p class="card-text text-lg-end h4">
-                        <span class="badge bg-success shadow-price">
-                          {{ trip.price | currency }}
-                        </span>
-                      </p>
-                    </div>
-                    <div class="row mt-2">
-                      <small class="card-text">
-                        {{ trip.startDate | date : "shortDate" }} -
-                        {{ trip.endDate | date : "shortDate" }}
-                      </small>
-                    </div>
-                    <p *ngIf="trip.isNext" class="card-text h5">
-                      <span i18n class="badge bg-danger">Few days left to start it</span>
+                <div class="row" routerLink="/trips/{{ trip._id }}">
+                  <div class="col-12 col-lg-8">
+                    <h4 class="card-title">
+                      {{ trip.title }}
+                    </h4>
+                  </div>
+                  <div class="col-12 col-lg-4">
+                    <p class="card-text text-lg-end h4">
+                      <span class="badge bg-success shadow-price">
+                        {{ trip.price | currency }}
+                      </span>
                     </p>
-                    <small class="mt-2">Ticker: {{ trip.ticker }}</small>
                   </div>
-                  <div class="text-end">
-                    <div *ngIf="trip.status == 'DRAFT'; else publishedTrip" class="btn-group">
-                      <button class="btn btn-primary" routerLink="/trips/form/edit/{{ trip._id }}">
-                        Edit
-                      </button>
-                      <button i18n type="button" class="btn btn btn-danger publish-btn" data-bs-toggle="modal"
-                        [attr.data-bs-target]="'#publishTripModal' + trip._id">Publish</button>
-                    </div>
-                    <ng-template #publishedTrip>
-                      <button i18n class="btn btn-primary" routerLink="/applications/trip/{{ trip._id }}" role="button">
-                        Applications
-                      </button>
-                    </ng-template>
+                  <div class="row mt-2">
+                    <small class="card-text">
+                      {{ trip.startDate | date : "shortDate" }} -
+                      {{ trip.endDate | date : "shortDate" }}
+                    </small>
                   </div>
+                  <p *ngIf="trip.isNext" class="card-text h5">
+                    <span i18n class="badge bg-danger">Few days left to start it</span>
+                  </p>
+                  <small class="mt-2">Ticker: {{ trip.ticker }}</small>
+                </div>
+                <div class="text-end">
+                  <div *ngIf="trip.status == 'DRAFT'; else publishedTrip" class="btn-group">
+                    <button class="btn btn-primary" routerLink="/trips/form/edit/{{ trip._id }}">
+                      Edit
+                    </button>
+                    <button i18n type="button" class="btn btn btn-danger publish-btn" data-bs-toggle="modal"
+                      [attr.data-bs-target]="'#publishTripModal' + trip._id">Publish</button>
+                  </div>
+                  <ng-template #publishedTrip>
+                    <button i18n class="btn btn-primary" routerLink="/applications/trip/{{ trip._id }}" role="button">
+                      Applications
+                    </button>
+                  </ng-template>
                 </div>
               </div>
             </div>

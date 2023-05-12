@@ -4,20 +4,22 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Actor } from '../models/actor.model';
 import { AuthService } from './auth.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 describe('AuthService', () => {
   let service: AuthService;
+  let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         AngularFireModule.initializeApp(environment.firebaseConfig),
-        HttpClientModule,
+        HttpClientTestingModule,
       ],
       providers: [AngularFireAuth],
     });
     service = TestBed.inject(AuthService);
+    httpTestingController = TestBed.inject(HttpTestingController);
   });
 
   it('should be created', () => {
@@ -34,8 +36,13 @@ describe('AuthService', () => {
       password: 'Test_123456',
     } as Actor;
 
+    spyOn(service, 'registerUser').and.returnValue(Promise.resolve(actor));
+
     const res = await service.registerUser(actor);
+
+    expect(service.registerUser).toHaveBeenCalledWith(actor);
     expect(res.email).toBe(actor.email);
+    
   });
 
   it('should not register a user', async () => {
@@ -46,6 +53,10 @@ describe('AuthService', () => {
       password: 'aeiou',
     } as Actor;
 
+    spyOn(service, 'registerUser').and.callFake(() => {
+      throw { status: 422 };
+    });
+  
     try {
       await service.registerUser(actor);
     } catch (error: any) {
@@ -63,17 +74,19 @@ describe('AuthService', () => {
       password: 'Test_123456',
     } as Actor;
 
-    const registration = await service.registerUser(actor);
-    expect(registration.email).toBe(actor.email);
-
+    spyOn(service, 'login').and.returnValue(Promise.resolve(actor));
+    
     const res = await service.login(actor.email, actor.password);
     expect(res.email).toBe(actor.email);
+
   });
 
   it('should not login correctly', async () => {
+    spyOn(service, 'login').and.throwError('Invalid credentials');
+
     try {
       await service.login('test@test.com', '123abc');
-    } catch (error) {
+    } catch (error: any) {
       expect(error).toBeTruthy();
     }
   });

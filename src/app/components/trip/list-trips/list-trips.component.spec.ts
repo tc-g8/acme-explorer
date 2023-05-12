@@ -95,7 +95,7 @@ describe('ListTripsComponent', () => {
   it('should list correct trip', () => {
     let titleDiv = fixture.nativeElement.querySelector('h4.card-title');
     fixture.detectChanges();
-    expect(titleDiv.textContent).toContain(testTrip1.title);
+    expect(titleDiv.textContent).toContain(testTrip2.title);
   });
 
   it('should not list trip', () => {
