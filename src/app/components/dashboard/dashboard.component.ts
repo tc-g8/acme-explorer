@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Actor } from 'src/app/models/actor.model';
 import { Datawarehouse } from 'src/app/models/datawarehouse.model';
+import { Role } from 'src/app/enums/role.enum';
 import { AuthService } from 'src/app/services/auth.service';
+import { ActorService } from 'src/app/services/actor.service';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import Chart from 'chart.js/auto';
+import { NgForm } from '@angular/forms';
+import { MessageService } from 'src/app/services/message.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,12 +20,19 @@ export class DashboardComponent implements OnInit {
   protected activeRole: string = 'anonymous';
   protected ratioApplicationsByStatus: any;
   protected topSearchedKeyWords: any;
+  actors: Actor[];
+  amountSpentByExplorer: any;
+  explorersByAmountSpent: any[];
 
   constructor(
     private dashboardService: DashboardService,
-    private authService: AuthService
+    private authService: AuthService,
+    private actorService: ActorService,
+    private messageService: MessageService
   ) {
     this.dashboard = [];
+    this.actors = [];
+    this.explorersByAmountSpent = [];
   }
 
   ngOnInit(): void {
@@ -34,6 +45,13 @@ export class DashboardComponent implements OnInit {
       this.dashboard = dashboard;
       this.getRatioApplicationsByStatus(dashboard);
       this.getTopSearchedKeyWords(dashboard);
+    });
+    this.actorService.getActors().subscribe((actors) => {
+      actors.forEach((actor) => {
+        if (actor.role == Role.EXPLORER) {
+          this.actors.push(actor);
+        }
+      });
     });
   }
 
@@ -57,6 +75,7 @@ export class DashboardComponent implements OnInit {
               'rgba(255, 92, 98, 0.4)',
               'rgba(214, 234, 232, 0.4)',
               'rgba(29, 166, 188, 0.4)',
+              'rgba(20, 30, 180, 0.4)',
             ],
             borderColor: [
               'rgba(112, 206, 174)',
@@ -92,6 +111,38 @@ export class DashboardComponent implements OnInit {
           },
         ],
       },
+    });
+  }
+
+  getAmountSpentByExplorer(form: NgForm) {
+    const explorerId = form.value.explorer;
+    const cubeParam = form.value.cubeParam;
+    this.dashboardService
+      .getAmoutSpentByExplorer(explorerId, cubeParam)
+      .subscribe((res) => {
+        this.amountSpentByExplorer = res.amount;
+      });
+  }
+
+  getExplorersByAmountSpent(form: NgForm) {
+    const period = form.value.period;
+    const logicParam = form.value.logicOperator;
+    const v = form.value.cubeValue as number;
+
+    this.dashboardService
+      .getExplorersByAmountSpent(period, logicParam, v)
+      .subscribe((res) => {
+        this.explorersByAmountSpent = res;
+      });
+  }
+
+  updateSponsorshipsFlatRate(form: NgForm) {
+    const flatRate = Number(form.value.flatRate);
+    this.dashboardService.updateFlatRate(flatRate).subscribe((res) => {
+      this.messageService.notifyMessage(
+        $localize`Flat rate updated`,
+        'alert alert-success'
+      );
     });
   }
 }

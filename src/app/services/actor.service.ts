@@ -28,6 +28,10 @@ export class ActorService {
     return this.http.get<Actor>(url);
   }
 
+  getActors() {
+    return this.http.get<Actor[]>(this.actorsUrl);
+  }
+
   updateProfile(actor: Actor) {
     const url = `${this.actorsUrl}/${actor._id}`;
     httpOptions.headers.set(
