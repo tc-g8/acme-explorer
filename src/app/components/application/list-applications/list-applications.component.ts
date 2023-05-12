@@ -74,4 +74,12 @@ export class ListApplicationsComponent implements OnInit {
     );
     application[0].status = ApplicationStatus.DUE;
   }
+
+  handleEditComment(result: any) {
+    console.log(result);
+    const application = this.applications.filter(
+      (app) => app._id == result.applicationId
+    );
+    application[0].comment = result.comment;
+  }
 }

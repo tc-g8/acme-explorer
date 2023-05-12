@@ -1,5 +1,6 @@
 <div class="row mt-4">
   <div class="col-12 col-md-8 offset-md-2">
+    <app-message></app-message>
     <div class="card">
       <div class="card-body">
         <div class="row">
@@ -44,8 +45,37 @@
             <div class="row mt-1">
               <div class="col-12">
                 <p><strong>Banner</strong></p>
-                <img class="img-fluid" src="{{ sponsorship.banner.image }}" />
+                <img
+                  *ngIf="sponsorship.banner"
+                  class="img-fluid"
+                  src="{{ sponsorship.banner.image }}"
+                  alt="Imagen de patrocinio"
+                />
               </div>
+            </div>
+            <div class="text-end">
+              <span *ngIf="sponsorship.status === 'PENDING'" class="me-1">
+                <button
+                  class="btn btn-outline-primary"
+                  routerLink="/sponsorships/form/edit/{{ id }}"
+                  [queryParams]="{
+                    tripId: sponsorship.trip_id
+                  }"
+                  i18n
+                >
+                  Edit
+                </button>
+              </span>
+              <span *ngIf="sponsorship.status === 'PENDING'">
+                <button
+                  type="button"
+                  class="btn btn-outline-danger"
+                  data-bs-toggle="modal"
+                  [attr.data-bs-target]="'#cancellationModal' + sponsorship._id"
+                >
+                  Cancel
+                </button>
+              </span>
             </div>
           </div>
         </div>
@@ -53,3 +83,7 @@
     </div>
   </div>
 </div>
+<app-cancellation
+  [sponsorship]="sponsorship"
+  (sponsorshipCancelledEvent)="handleCanceledSponsorship()"
+></app-cancellation>

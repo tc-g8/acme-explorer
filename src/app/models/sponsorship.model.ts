@@ -8,6 +8,7 @@ export class Sponsorship extends Entity {
   private _amount!: number;
   private _status!: SponsorshipStatus;
   private _sponsor_id!: string;
+  private _trip_id!: string;
 
   constructor() {
     super();
@@ -46,5 +47,12 @@ export class Sponsorship extends Entity {
   }
   public set sponsor_id(value: string) {
     this._sponsor_id = value;
+  }
+
+  public get trip_id(): string {
+    return this._trip_id;
+  }
+  public set trip_id(value: string) {
+    this._trip_id = value;
   }
 }

@@ -125,4 +125,52 @@ export class TripService {
 
     return this.http.put<any>(url, body, httpOptions);
   }
+
+  updateSponsorship(tripId: string, sponsorshipId: string, sponsorship: any) {
+    const url = `${this.tripsUrlV2}/${tripId}/sponsorships/${sponsorshipId}`;
+    httpOptions.headers = httpOptions.headers.set(
+      'idToken',
+      this.authService.getCurrentActor()!.idToken!
+    );
+
+    const body = JSON.stringify(sponsorship);
+
+    return this.http.put<any>(
+      url,
+      { banner: sponsorship.banner, landingPage: sponsorship.landingPage },
+      httpOptions
+    );
+  }
+
+  cancelSponsorship(tripId: string, sponsorshipId: string) {
+    const url = `${this.tripsUrlV2}/${tripId}/sponsorships/${sponsorshipId}`;
+    httpOptions.headers = httpOptions.headers.set(
+      'idToken',
+      this.authService.getCurrentActor()!.idToken!
+    );
+
+    return this.http.patch<any>(url, {}, httpOptions);
+  }
+
+  getCachedTrips(queryHash: string): Trip[] | undefined {
+    const cachedTripsRaw = localStorage.getItem(queryHash);
+    if (cachedTripsRaw) {
+      const cachedTripsParsed = JSON.parse(cachedTripsRaw) as any;
+      const currentDateInMs = new Date().getTime();
+      const diff = currentDateInMs - cachedTripsParsed.date;
+
+      if (diff < cachedTripsParsed.duration) {
+        this.saveTripsInCache(queryHash, cachedTripsParsed);
+        return cachedTripsParsed.trips;
+      } else {
+        localStorage.removeItem(queryHash);
+      }
+    }
+    return undefined;
+  }
+
+  saveTripsInCache(queryHash: any, cachedTrips: any) {
+    const newCachedTrips = { ...cachedTrips, date: new Date().getTime() };
+    localStorage.setItem(queryHash, JSON.stringify(newCachedTrips));
+  }
 }

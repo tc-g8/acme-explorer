@@ -1,4 +1,8 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, retry, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -15,14 +19,16 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class ApplicationService {
-  private applicationsUrl = environment.backendApiBaseURL + '/api/v2/applications';
+  private applicationsUrl =
+    environment.backendApiBaseURL + '/api/v2/applications';
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   getApplicationsByExplorer(explorerId: string) {
     const url = `${this.applicationsUrl}/explorer/${explorerId}`;
     httpOptions.headers = httpOptions.headers.set(
-      'idToken', this.authService.getCurrentActor()!.idToken!
+      'idToken',
+      this.authService.getCurrentActor()!.idToken!
     );
     return this.http.get<Application[]>(url, httpOptions);
   }
@@ -30,7 +36,8 @@ export class ApplicationService {
   getApplicationsByTripId(tripId: string) {
     const url = `${this.applicationsUrl}/trip/${tripId}`;
     httpOptions.headers = httpOptions.headers.set(
-      'idToken', this.authService.getCurrentActor()!.idToken!
+      'idToken',
+      this.authService.getCurrentActor()!.idToken!
     );
     return this.http.get<Application[]>(url, httpOptions);
   }
@@ -38,7 +45,8 @@ export class ApplicationService {
   updateApplicationStatus(applicationId: string, status: string) {
     const url = `${this.applicationsUrl}/${applicationId}/change-status`;
     httpOptions.headers = httpOptions.headers.set(
-      'idToken', this.authService.getCurrentActor()!.idToken!
+      'idToken',
+      this.authService.getCurrentActor()!.idToken!
     );
     return this.http.patch(url, { status }, httpOptions);
   }
@@ -46,7 +54,8 @@ export class ApplicationService {
   rejectApplication(applicationId: string, rejectedReason: string) {
     const url = `${this.applicationsUrl}/${applicationId}/reject`;
     httpOptions.headers = httpOptions.headers.set(
-      'idToken', this.authService.getCurrentActor()!.idToken!
+      'idToken',
+      this.authService.getCurrentActor()!.idToken!
     );
     return this.http.patch(url, { rejectedReason }, httpOptions);
   }
@@ -54,7 +63,8 @@ export class ApplicationService {
   payApplication(applicationId: string) {
     const url = `${this.applicationsUrl}/${applicationId}/pay`;
     httpOptions.headers = httpOptions.headers.set(
-      'idToken', this.authService.getCurrentActor()!.idToken!
+      'idToken',
+      this.authService.getCurrentActor()!.idToken!
     );
     return this.http.post<Application[]>(url, {}, httpOptions);
   }
@@ -62,10 +72,21 @@ export class ApplicationService {
   createApplication(comment: string, explorer_id: string, trip_id: string) {
     const url = `${this.applicationsUrl}`;
     httpOptions.headers = httpOptions.headers.set(
-      'idToken', this.authService.getCurrentActor()!.idToken!
+      'idToken',
+      this.authService.getCurrentActor()!.idToken!
     );
-    return this.http.post(url, { comment, explorer_id, trip_id }, httpOptions)
+    return this.http
+      .post(url, { comment, explorer_id, trip_id }, httpOptions)
       .pipe(retry(3), catchError(this.handleError));
+  }
+
+  editComment(comment: string, applicationId: string) {
+    const url = `${this.applicationsUrl}/${applicationId}/change-comment`;
+    httpOptions.headers = httpOptions.headers.set(
+      'idToken',
+      this.authService.getCurrentActor()!.idToken!
+    );
+    return this.http.patch(url, { comment }, httpOptions);
   }
 
   private handleError(error: HttpErrorResponse) {
