@@ -31,7 +31,12 @@ export class ListTripsComponent implements OnInit {
       this.activeRole = this.currentActor!.role.toString().toLowerCase();
     }
     this.tripService.getTrips(query).subscribe((data: any) => {
-      this.trips = data;
+      let tripNumber : number = this.tripService.getCachedTripNumber();
+      if (tripNumber === 0) {
+        this.trips = data.slice(0, 10);
+      } else {
+        this.trips = data.slice(0, tripNumber);
+      }
       this.trips.map((trip) => {
         if (this.isNextTrip(trip.startDate)) {
           trip.isNext = true;
@@ -60,20 +65,29 @@ export class ListTripsComponent implements OnInit {
         : 1
       : 1;
     query.cacheTime = cacheTime * 1000 * 60 * 60;
-
-    const queryHash = objectHash.sha1(query);
-    console.log(queryHash);
-
+    const modifiedQuery = { ...query }; // Create a shallow copy of the query object
+    delete modifiedQuery.tripNumber;
+    const queryHash = objectHash.sha1(modifiedQuery);
     const cachedTrips = this.tripService.getCachedTrips(queryHash);
-    console.log(cachedTrips);
+
+    let tripNumber : number = this.tripService.getCachedTripNumber();
+
+    if (tripNumber === 0 || form.value.tripNumber) {
+      tripNumber = form.value.tripNumber
+        ? form.value.tripNumber > 10 && form.value.tripNumber <= 100
+          ? form.value.tripNumber
+          : 10
+        : 10;
+      this.tripService.saveCachedTripNumber(tripNumber);
+    }
 
     if (cachedTrips) {
       console.log('Cached search');
-      this.trips = cachedTrips;
+      this.trips = cachedTrips.slice(0, tripNumber);
       return;
     } else {
       this.tripService.getTrips(query).subscribe((data: any) => {
-        this.trips = data;
+        this.trips = data.slice(0, tripNumber);
         this.trips.map((trip) => {
           if (this.isNextTrip(trip.startDate)) {
             trip.isNext = true;

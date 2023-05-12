@@ -78,6 +78,19 @@
         ngModel
       />
     </div>
+    <div class="col-6 col-md-2">
+      <label i18n class="small">Trip number</label>
+      <input
+        type="number"
+        class="form-control shadow-sm"
+        min="10"
+        max="100"
+        placeholder="limit"
+        i18n-placeholder
+        name="tripNumber"
+        ngModel
+      />
+    </div>
   </div>
 </form>
 <div *ngIf="trips && trips.length > 0" class="row g-4 mt-2">
