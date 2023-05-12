@@ -78,7 +78,7 @@ describe('CreateApplicationComponent', () => {
       value: {
         comment: 'Test comment',
       },
-      reset: () => {},
+      reset: () => { },
     } as NgForm;
 
     // Mocking the applicationService.createApplication method to return a successful response
@@ -99,4 +99,5 @@ describe('CreateApplicationComponent', () => {
       'alert alert-success'
     );
   });
+
 });

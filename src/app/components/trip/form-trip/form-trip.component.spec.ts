@@ -33,4 +33,31 @@ describe('FormTripComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should correct validate new trip', () => {
+    component.tripForm.controls['manager_id'].setValue("64344f7965cca599602c91a5");
+    component.tripForm.controls['title'].setValue("Test1");
+    component.tripForm.controls['description'].setValue("Jungle party");
+    component.tripForm.controls['startDate'].setValue((new Date("2023-07-01")));
+    component.tripForm.controls['endDate'].setValue((new Date("2023-07-06")));
+    component.tripForm.controls['requirements'].setValue(["Requirement1"]);
+    component.tripForm.controls['stages'].setValue({title: "Stage1", description: "Stage1 description", price: 1000});
+    fixture.detectChanges();
+    let button = fixture.nativeElement.querySelector('#saveTripBtn');
+    expect(button.disabled).toBeFalsy();
+  });
+
+  it('should invalid validate new trip', () => {
+    component.tripForm.controls['manager_id'].setValue("64344f7965cca599602c91a5");
+    component.tripForm.controls['title'].setValue("Test1");
+    component.tripForm.controls['description'].setValue("Jungle party");
+    component.tripForm.controls['startDate'].setValue((new Date("2023-07-01")));
+    component.tripForm.controls['endDate'].setValue((new Date("2023-02-06")));
+    component.tripForm.controls['requirements'].setValue(["Requirement1"]);
+    component.tripForm.controls['stages'].setValue({title: "Stage1", description: "Stage1 description", price: 1000});
+    fixture.detectChanges();
+    let button = fixture.nativeElement.querySelector('#saveTripBtn');
+    expect(button.disabled).toBeTruthy();
+  });
+
 });
