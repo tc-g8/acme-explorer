@@ -10,11 +10,13 @@ describe('Edit trip', () => {
   const editTripPage = new EditTripPage();
 
   it('should edit trip', () => {
-    loginPage.navigateTo();
+    headerPage.navigateToHome();
 
-    loginPage.fillInLoginForm();
+    loginPage.navigateToLogin();
 
-    headerPage.navigateToTrips();
+    loginPage.managerLogIn();
+
+    headerPage.navigateToManagerTrips();
 
     tripListPage.navigateToEditTrip();
 
