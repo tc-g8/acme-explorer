@@ -82,7 +82,7 @@ export class ListTripsComponent implements OnInit {
       this.trips = cachedTrips.slice(0, tripNumber);
       return;
     } else {
-      this.tripService.getTrips(query).subscribe((data: any) => {
+      this.tripService.getTrips(query).subscribe((data: any) => {        
         this.trips = data.filter((trip: Trip) => {
           return !isPastDate(trip.startDate) && !isPastDate(trip.endDate)
         });
@@ -99,7 +99,7 @@ export class ListTripsComponent implements OnInit {
           date: new Date().getTime(),
           duration: query.cacheTime,
         });
-        this.trips = data.slice(0, tripNumber);
+        this.trips = this.trips.slice(0, tripNumber);
       });
     }
   }
