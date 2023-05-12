@@ -111,7 +111,8 @@ body.dark-theme .nextTrip {
   color: var(--text-color) !important;
 }
 input,
-textarea {
+textarea,
+select {
   background: var(--bkg-input-color) !important;
   color: var(--text-color) !important;
 }
@@ -167,6 +168,9 @@ body.dark-theme .btn-outline-danger:hover {
 body.dark-theme .dropdown-item:hover {
   background: #695a83;
   color: #e2cadd;
+}
+body.dark-theme .chart-container {
+  background: #ffffff;
 }
 ::placeholder {
   color: var(--placeholder-color) !important;
