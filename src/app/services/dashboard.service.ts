@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Datawarehouse } from '../models/datawarehouse.model';
+import { AuthService } from './auth.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -14,8 +15,10 @@ const httpOptions = {
 })
 export class DashboardService {
   private dashboardUrl = environment.backendApiBaseURL + '/api/v1/dashboard';
+  private configurationUrl =
+    environment.backendApiBaseURL + '/api/v2/configurations';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   getIndicators() {
     const url = `${this.dashboardUrl}/latest`;
@@ -48,5 +51,19 @@ export class DashboardService {
     });
 
     return this.http.post<any>(url, body, httpOptions);
+  }
+
+  updateFlatRate(flat_rate: number) {
+    const url = `${this.configurationUrl}/63ef50fea06dbef16f6193e6`;
+    httpOptions.headers = httpOptions.headers.set(
+      'idToken',
+      this.authService.getCurrentActor()!.idToken!
+    );
+
+    const body = JSON.stringify({
+      sponsorshipPrice: flat_rate,
+    });
+
+    return this.http.put<any>(url, body, httpOptions);
   }
 }

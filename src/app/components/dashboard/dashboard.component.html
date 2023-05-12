@@ -156,14 +156,16 @@
       <canvas id="topSearchedKeyWords">{{ topSearchedKeyWords }}</canvas>
     </div>
   </div>
-  <div class="col-12 col-md-8 offset-md-2 mt-2">
+  <div class="col-12 col-md-8 offset-md-2 mt-5">
     <div class="col-12">
-      <h2 i18n>Cube</h2>
+      <h2 i18n>Cube calculator</h2>
       <form (ngSubmit)="getAmountSpentByExplorer(fCube1)" #fCube1="ngForm">
         <div class="row">
-          <div class="col-5">
+          <h5 i18n>Amount spent by explorer</h5>
+          <div class="col-sm-5">
+            <label for="explorer">Explorer</label>
             <select name="explorer" id="explorer" ngModel class="form-select">
-              <option selected value="">Select explorer</option>
+              <option selected value="" i18n>Select explorer</option>
               <option
                 *ngFor="let explorer of actors"
                 value="{{ explorer._id }}"
@@ -172,60 +174,147 @@
               </option>
             </select>
           </div>
-          <div class="col-5">
+          <div class="col-sm-5">
+            <label for="cubeParam" i18n>Period</label>
             <input
               type="text"
               class="form-control"
               name="cubeParam"
               id="cubeParam"
+              i18n-placeholder
+              placeholder="M01 to M36 or Y01 to Y03"
               ngModel
             />
           </div>
-          <div class="col-2">
-            <button type="submit" class="btn btn-primary">Calculate</button>
+          <div class="col-sm-2">
+            <button type="submit" class="btn btn-primary mt-4" i18n>
+              Calculate
+            </button>
           </div>
         </div>
       </form>
     </div>
-    <div class="row">
-      <div class="col-12">{{ amountSpentByExplorer | currency }}</div>
+    <div class="row py-2">
+      <div class="col-12">
+        <span *ngIf="amountSpentByExplorer">
+          <strong>
+            <span i18n>Amount: </span>
+            {{ amountSpentByExplorer | currency }}
+          </strong>
+        </span>
+      </div>
     </div>
   </div>
-  <div class="col-12 col-md-8 offset-md-2 mt-2">
+  <div class="col-12 col-md-8 offset-md-2 mt-3">
+    <h5 i18n>Explorers by amount spent</h5>
     <form (ngSubmit)="getExplorersByAmountSpent(fCube2)" #fCube2="ngForm">
       <div class="row">
-        <div class="col-3">
+        <div class="col-sm-4">
+          <label for="period" i18n>Period</label>
           <input
             type="text"
             class="form-control"
             name="period"
             id="period"
+            i18n-placeholder
+            placeholder="M01 to M36 or Y01 to Y03"
             ngModel
           />
         </div>
-        <div class="col-4">
-          <select name="explorer" id="explorer" ngModel class="form-select">
-            <option selected value="">Select logic operator</option>
-            <option value="eq">Equal</option>
-            <option value="ne">Not Equal</option>
-            <option value="gt">Greater than</option>
-            <option value="gte">Greater or equal than</option>
-            <option value="lt">Lower than</option>
-            <option value="lte">Lower or equal than</option>
+        <div class="col-sm-4">
+          <label for="logicOperator" i18n>Logic operator</label>
+          <select
+            name="logicOperator"
+            id="logicOperator"
+            ngModel
+            class="form-select"
+          >
+            <option selected value="" i18n>Select logic operator</option>
+            <option value="eq" i18n>Equal</option>
+            <option value="ne" i18n>Not Equal</option>
+            <option value="gt" i18n>Greater than</option>
+            <option value="gte" i18n>Greater or equal than</option>
+            <option value="lt" i18n>Lower than</option>
+            <option value="lte" i18n>Lower or equal than</option>
           </select>
         </div>
-        <div class="col-3">
+        <div class="col-sm-2">
+          <label for="cubeValue" i18n>Value</label>
           <input
             type="number"
             name="cubeValue"
             id="cubeValue"
             class="form-control"
+            required
+            ngModel
+            #value="ngModel"
           />
+          <div *ngIf="value.invalid && value.dirty" class="validation-msg">
+            <span i18n
+              >Value field is required and must be a positive value</span
+            >
+          </div>
         </div>
         <div class="col-2">
-          <button type="submit" class="btn btn-primary">Calculate</button>
+          <button
+            type="submit"
+            class="btn btn-primary mt-4"
+            i18n
+            [disabled]="value.invalid || value.value < 0"
+          >
+            Calculate
+          </button>
         </div>
       </div>
     </form>
+    <div class="row py-2">
+      <div *ngIf="explorersByAmountSpent.length > 0" class="col-12">
+        <strong>Explorers</strong>
+        <ul>
+          <li *ngFor="let explorer of explorersByAmountSpent">
+            {{ explorer._id }} - ({{ explorer.amount | currency }})
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-md-8 offset-md-2 mt-3">
+    <h2>Sponsorships Flat Rate</h2>
+    <form
+      (ngSubmit)="updateSponsorshipsFlatRate(fFlatRate)"
+      #fFlatRate="ngForm"
+    >
+      <div class="row">
+        <div class="col">
+          <input
+            type="number"
+            name="flatRate"
+            id="flatRate"
+            class="form-control"
+            ngModel
+            required
+            #flatRate="ngModel"
+          />
+          <div
+            *ngIf="flatRate.invalid && flatRate.dirty"
+            class="validation-msg"
+          >
+            <span i18n
+              >Flat rate field is required and must be a positive value</span
+            >
+          </div>
+        </div>
+        <div class="col">
+          <button
+            class="btn btn-primary"
+            type="submit"
+            [disabled]="flatRate.invalid || flatRate.value < 0"
+          >
+            Update
+          </button>
+        </div>
+      </div>
+    </form>
+    <app-message></app-message>
   </div>
 </div>

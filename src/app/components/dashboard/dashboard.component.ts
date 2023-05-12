@@ -7,6 +7,7 @@ import { ActorService } from 'src/app/services/actor.service';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import Chart from 'chart.js/auto';
 import { NgForm } from '@angular/forms';
+import { MessageService } from 'src/app/services/message.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,14 +22,17 @@ export class DashboardComponent implements OnInit {
   protected topSearchedKeyWords: any;
   actors: Actor[];
   amountSpentByExplorer: any;
+  explorersByAmountSpent: any[];
 
   constructor(
     private dashboardService: DashboardService,
     private authService: AuthService,
-    private actorService: ActorService
+    private actorService: ActorService,
+    private messageService: MessageService
   ) {
     this.dashboard = [];
     this.actors = [];
+    this.explorersByAmountSpent = [];
   }
 
   ngOnInit(): void {
@@ -119,5 +123,25 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  getExplorersByAmountSpent(form: NgForm) {}
+  getExplorersByAmountSpent(form: NgForm) {
+    const period = form.value.period;
+    const logicParam = form.value.logicOperator;
+    const v = form.value.cubeValue as number;
+
+    this.dashboardService
+      .getExplorersByAmountSpent(period, logicParam, v)
+      .subscribe((res) => {
+        this.explorersByAmountSpent = res;
+      });
+  }
+
+  updateSponsorshipsFlatRate(form: NgForm) {
+    const flatRate = Number(form.value.flatRate);
+    this.dashboardService.updateFlatRate(flatRate).subscribe((res) => {
+      this.messageService.notifyMessage(
+        $localize`Flat rate updated`,
+        'alert alert-success'
+      );
+    });
+  }
 }
