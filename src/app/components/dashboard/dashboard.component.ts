@@ -75,6 +75,7 @@ export class DashboardComponent implements OnInit {
               'rgba(255, 92, 98, 0.4)',
               'rgba(214, 234, 232, 0.4)',
               'rgba(29, 166, 188, 0.4)',
+              'rgba(20, 30, 180, 0.4)',
             ],
             borderColor: [
               'rgba(112, 206, 174)',
