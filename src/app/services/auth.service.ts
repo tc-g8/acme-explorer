@@ -6,7 +6,6 @@ import { environment } from 'src/environments/environment';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 
-
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
 };
@@ -15,17 +14,17 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class AuthService {
-
   private loginStatus = new Subject<Boolean>();
   currentActor: Actor | undefined;
 
-  constructor(private fireAuth: AngularFireAuth, private http: HttpClient) { }
+  constructor(private fireAuth: AngularFireAuth, private http: HttpClient) {}
 
   registerUser(actor: Actor) {
     return new Promise<any>((resolve, reject) => {
-      if (this.getCurrentActor()){
+      if (this.getCurrentActor()) {
         httpOptions.headers = httpOptions.headers.set(
-          'idToken', this.getCurrentActor()!.idToken!
+          'idToken',
+          this.getCurrentActor()!.idToken!
         );
       }
       const url = `${environment.backendApiBaseURL + '/api/v2/actors'}`;
@@ -91,30 +90,42 @@ export class AuthService {
 
   logout() {
     return new Promise<any>((resolve, reject) => {
-      this.fireAuth.signOut()
-        .then(_ => {
-          let msg = $localize `Logging out`;
+      this.fireAuth
+        .signOut()
+        .then((_) => {
+          let msg = $localize`Logging out`;
           console.log(msg);
           localStorage.clear();
           this.loginStatus.next(false);
           resolve('Logout succesful');
-        }).catch(error => {
+        })
+        .catch((error) => {
           reject(error);
         });
     });
   }
 
   setCurrentActor(actor: Actor) {
-    localStorage.setItem('currentActor', JSON.stringify({ actor: actor }));
+    localStorage.setItem(
+      'currentActor',
+      JSON.stringify({
+        actor: {
+          _id: actor._id,
+          email: actor.email,
+          role: actor.role,
+          idToken: actor.idToken,
+        },
+      })
+    );
   }
 
   getCurrentActor(): Actor | undefined {
-      const currentActor = localStorage.getItem('currentActor');
-      if (currentActor) {
-        return JSON.parse(currentActor).actor;
-      } else {
-        return undefined;
-      }
+    const currentActor = localStorage.getItem('currentActor');
+    if (currentActor) {
+      return JSON.parse(currentActor).actor;
+    } else {
+      return undefined;
+    }
   }
 
   getStatus(): Observable<Boolean> {
