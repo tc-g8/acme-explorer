@@ -31,27 +31,20 @@ export class ListTripsComponent implements OnInit {
       this.activeRole = this.currentActor!.role.toString().toLowerCase();
     }
     this.tripService.getTrips(query).subscribe((data: any) => {
+      this.trips = data.filter((trip: Trip) => {
+        return !isPastDate(trip.startDate) && !isPastDate(trip.endDate)
+      });
       let tripNumber : number = this.tripService.getCachedTripNumber();
       if (tripNumber === 0) {
-        this.trips = data.slice(0, 10);
+        this.trips = this.trips.slice(0, 10);
       } else {
-        this.trips = data.slice(0, tripNumber);
+        this.trips = this.trips.slice(0, tripNumber);
       }
       this.trips.map((trip) => {
         if (this.isNextTrip(trip.startDate)) {
           trip.isNext = true;
           trip.isStarted = false;
           trip.isOver = false;
-        }
-        if (isPastDate(trip.startDate)) {
-          trip.isStarted = true;
-          trip.isNext = false;
-          trip.isOver = false;
-        }
-        if (isPastDate(trip.endDate)) {
-          trip.isOver = true;
-          trip.isNext = false;
-          trip.isStarted = false;
         }
       });
     });
@@ -83,26 +76,21 @@ export class ListTripsComponent implements OnInit {
 
     if (cachedTrips) {
       console.log('Cached search');
+      this.trips = cachedTrips.filter((trip: Trip) => {
+        return !isPastDate(trip.startDate) && !isPastDate(trip.endDate)
+      });
       this.trips = cachedTrips.slice(0, tripNumber);
       return;
     } else {
       this.tripService.getTrips(query).subscribe((data: any) => {
-        this.trips = data.slice(0, tripNumber);
+        this.trips = data.filter((trip: Trip) => {
+          return !isPastDate(trip.startDate) && !isPastDate(trip.endDate)
+        });
         this.trips.map((trip) => {
           if (this.isNextTrip(trip.startDate)) {
             trip.isNext = true;
             trip.isStarted = false;
             trip.isOver = false;
-          }
-          if (isPastDate(trip.startDate)) {
-            trip.isStarted = true;
-            trip.isNext = false;
-            trip.isOver = false;
-          }
-          if (isPastDate(trip.endDate)) {
-            trip.isOver = true;
-            trip.isNext = false;
-            trip.isStarted = false;
           }
         });
         console.log('New search');
@@ -111,6 +99,7 @@ export class ListTripsComponent implements OnInit {
           date: new Date().getTime(),
           duration: query.cacheTime,
         });
+        this.trips = data.slice(0, tripNumber);
       });
     }
   }
