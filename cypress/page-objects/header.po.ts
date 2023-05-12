@@ -1,6 +1,9 @@
 export class HeaderPage {
-
-    navigateToTrips () {
-        return cy.visit('http://localhost:4200/trips/manager/6436d2ef562d70fe957fb65d');
-    }
+  navigateToTrips() {
+    cy.wait(5000);
+    cy.get('#headerCollapse > ul > li:nth-child(2) > a > i').click();
+    cy.get(
+      '#headerCollapse > ul > li:nth-child(2) > ul > li:nth-child(2) > a'
+    ).click();
+  }
 }

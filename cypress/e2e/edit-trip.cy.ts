@@ -1,8 +1,7 @@
-import { EditTripPage } from "cypress/page-objects/edit-trip.po";
-import { HeaderPage } from "cypress/page-objects/header.po";
-import { LoginPage } from "cypress/page-objects/login.po";
-import { TripListPage } from "cypress/page-objects/trip-list.po";
-
+import { EditTripPage } from 'cypress/page-objects/edit-trip.po';
+import { HeaderPage } from 'cypress/page-objects/header.po';
+import { LoginPage } from 'cypress/page-objects/login.po';
+import { TripListPage } from 'cypress/page-objects/trip-list.po';
 
 describe('Edit trip', () => {
   const loginPage = new LoginPage();
@@ -21,7 +20,6 @@ describe('Edit trip', () => {
 
     editTripPage.fillInEditTripForm();
 
-    tripListPage.getPageTitke().should('include.text', 'My trips');
-
+    tripListPage.getPageTitle().should('include.text', 'My Trips');
   });
 });
