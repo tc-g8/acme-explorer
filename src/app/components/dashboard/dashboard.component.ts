@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Actor } from 'src/app/models/actor.model';
 import { Datawarehouse } from 'src/app/models/datawarehouse.model';
+import { Role } from 'src/app/enums/role.enum';
 import { AuthService } from 'src/app/services/auth.service';
+import { ActorService } from 'src/app/services/actor.service';
 import { DashboardService } from 'src/app/services/dashboard.service';
 import Chart from 'chart.js/auto';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,12 +19,16 @@ export class DashboardComponent implements OnInit {
   protected activeRole: string = 'anonymous';
   protected ratioApplicationsByStatus: any;
   protected topSearchedKeyWords: any;
+  actors: Actor[];
+  amountSpentByExplorer: any;
 
   constructor(
     private dashboardService: DashboardService,
-    private authService: AuthService
+    private authService: AuthService,
+    private actorService: ActorService
   ) {
     this.dashboard = [];
+    this.actors = [];
   }
 
   ngOnInit(): void {
@@ -34,6 +41,13 @@ export class DashboardComponent implements OnInit {
       this.dashboard = dashboard;
       this.getRatioApplicationsByStatus(dashboard);
       this.getTopSearchedKeyWords(dashboard);
+    });
+    this.actorService.getActors().subscribe((actors) => {
+      actors.forEach((actor) => {
+        if (actor.role == Role.EXPLORER) {
+          this.actors.push(actor);
+        }
+      });
     });
   }
 
@@ -94,4 +108,16 @@ export class DashboardComponent implements OnInit {
       },
     });
   }
+
+  getAmountSpentByExplorer(form: NgForm) {
+    const explorerId = form.value.explorer;
+    const cubeParam = form.value.cubeParam;
+    this.dashboardService
+      .getAmoutSpentByExplorer(explorerId, cubeParam)
+      .subscribe((res) => {
+        this.amountSpentByExplorer = res.amount;
+      });
+  }
+
+  getExplorersByAmountSpent(form: NgForm) {}
 }

@@ -156,4 +156,76 @@
       <canvas id="topSearchedKeyWords">{{ topSearchedKeyWords }}</canvas>
     </div>
   </div>
+  <div class="col-12 col-md-8 offset-md-2 mt-2">
+    <div class="col-12">
+      <h2 i18n>Cube</h2>
+      <form (ngSubmit)="getAmountSpentByExplorer(fCube1)" #fCube1="ngForm">
+        <div class="row">
+          <div class="col-5">
+            <select name="explorer" id="explorer" ngModel class="form-select">
+              <option selected value="">Select explorer</option>
+              <option
+                *ngFor="let explorer of actors"
+                value="{{ explorer._id }}"
+              >
+                {{ explorer.email }}
+              </option>
+            </select>
+          </div>
+          <div class="col-5">
+            <input
+              type="text"
+              class="form-control"
+              name="cubeParam"
+              id="cubeParam"
+              ngModel
+            />
+          </div>
+          <div class="col-2">
+            <button type="submit" class="btn btn-primary">Calculate</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="row">
+      <div class="col-12">{{ amountSpentByExplorer | currency }}</div>
+    </div>
+  </div>
+  <div class="col-12 col-md-8 offset-md-2 mt-2">
+    <form (ngSubmit)="getExplorersByAmountSpent(fCube2)" #fCube2="ngForm">
+      <div class="row">
+        <div class="col-3">
+          <input
+            type="text"
+            class="form-control"
+            name="period"
+            id="period"
+            ngModel
+          />
+        </div>
+        <div class="col-4">
+          <select name="explorer" id="explorer" ngModel class="form-select">
+            <option selected value="">Select logic operator</option>
+            <option value="eq">Equal</option>
+            <option value="ne">Not Equal</option>
+            <option value="gt">Greater than</option>
+            <option value="gte">Greater or equal than</option>
+            <option value="lt">Lower than</option>
+            <option value="lte">Lower or equal than</option>
+          </select>
+        </div>
+        <div class="col-3">
+          <input
+            type="number"
+            name="cubeValue"
+            id="cubeValue"
+            class="form-control"
+          />
+        </div>
+        <div class="col-2">
+          <button type="submit" class="btn btn-primary">Calculate</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
