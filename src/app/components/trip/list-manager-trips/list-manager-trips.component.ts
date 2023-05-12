@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TripStatus } from 'src/app/enums/trip.enum';
 import { Actor } from 'src/app/models/actor.model';
 import { Trip } from 'src/app/models/trip.model';
 import { TripService } from 'src/app/services/trip.service';
@@ -26,5 +27,10 @@ export class ListManagerTripsComponent implements OnInit {
       this.trips = data;
       this.loading = false;
     });
+  }
+
+  handlePublishedTrip(tripId: string) {
+    const trip = this.trips.filter((trip) => trip._id == tripId);
+    trip[0].status = TripStatus.PUBLISHED;
   }
 }

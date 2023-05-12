@@ -110,4 +110,5 @@ export class DisplayTripComponent implements OnInit {
     this.trip.cancelationReason = cancelationReason;
     this.trip.status = TripStatus.CANCELLED;
   }
+
 }
