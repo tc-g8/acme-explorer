@@ -1,0 +1,71 @@
+<div class="row g-4 mt-2">
+    <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
+        <div class="d-flex justify-content-between mb-3">
+            <h2 i18n>My Precancelled Trips</h2>
+        </div>
+        <div *ngIf="!loading && trips; else spinner">
+            <div *ngIf="trips && trips.length > 0; else noTrips">
+                <div class="text-end mb-4">
+                    <button type="button" (click)="cancelAllPreCancelledTrips(trips)" class="btn btn-outline-danger">
+                        Cancel all trips
+                    </button>
+                </div>
+                <h4 class="mb-3">Trips whose start date is close to current date and trips that have applications cannot be cancelled.</h4>
+
+                <div *ngFor="let trip of trips" [ngClass]="{ nextTrip: trip.isNext }"
+                    class="card mb-3 shadow-sm cardTrip">
+                    <div class="row g-0">
+                        <div class="col-sm-3 d-none d-sm-block" routerLink="/trips/{{ trip._id }}">
+                            <div *ngIf="trip.imageCollection[0]; else stdImage" class="bg-image card-img" [ngStyle]="{
+                    'background-image':
+                      'url(' + trip.imageCollection[0].image + ')'
+                  }"></div>
+                            <ng-template #stdImage>
+                                <div class="bg-std-image"></div>
+                            </ng-template>
+                        </div>
+                        <div class="col-12 col-sm-9">
+                            <div class="card-body">
+                                <div class="row" routerLink="/trips/{{ trip._id }}">
+                                    <div class="col-12 col-lg-8">
+                                        <h4 class="card-title">
+                                            {{ trip.title }}
+                                        </h4>
+                                    </div>
+                                    <div class="col-12 col-lg-4">
+                                        <p class="card-text text-lg-end h4">
+                                            <span class="badge bg-success shadow-price">
+                                                {{ trip.price | currency }}
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <small class="card-text">
+                                            {{ trip.startDate | date : "shortDate" }} -
+                                            {{ trip.endDate | date : "shortDate" }}
+                                        </small>
+                                    </div>
+                                    <p *ngIf="trip.isNext" class="card-text h5">
+                                        <span i18n class="badge bg-danger">Few days left to start it</span>
+                                    </p>
+                                    <small class="mt-2">Ticker: {{ trip.ticker }}</small>
+                                </div>
+                                <div class="text-end">
+                                    <button type="button" (click)="deletePreCancelledTrip(trip)" class="btn btn-outline-primary">
+                                        <i class="fa-solid fa-trash" style="color: #9328cc;"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-template #spinner>
+            <app-loading-spinner></app-loading-spinner>
+        </ng-template>
+        <ng-template #noTrips>
+            <p i18n>You don't have any precancelled trip yet.</p>
+        </ng-template>
+    </div>
+</div>

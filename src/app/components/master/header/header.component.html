@@ -66,6 +66,14 @@
                 >My Trips</a
               >
             </li>
+            <li *ngIf="activeRole === 'manager'">
+              <a
+                i18n
+                class="dropdown-item"
+                routerLink="/precancelled"
+                >My precancelled trips</a
+              >
+            </li>
             <li *ngIf="activeRole === 'explorer'">
               <a
                 i18n

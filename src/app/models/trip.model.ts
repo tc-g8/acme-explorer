@@ -18,6 +18,7 @@ export class Trip extends Entity {
   private _sponsorships?: Sponsorship[] | undefined;
   private _manager_id!: string;
   private _imageCollection!: Image[];
+  private _isPreCancel?: boolean | false;
   private _isNext?: boolean | undefined;
   private _isStarted?: boolean | undefined;
   private _isOver?: boolean | undefined;
@@ -131,6 +132,7 @@ export class Trip extends Entity {
   public get isNext(): boolean | undefined {
     return this._isNext;
   }
+
   public set isNext(value: boolean | undefined) {
     this._isNext = value;
   }
@@ -147,5 +149,12 @@ export class Trip extends Entity {
   }
   public set isOver(value: boolean | undefined) {
     this._isOver = value;
+  }
+
+  public get isPreCancel(): boolean | undefined {
+    return this._isPreCancel;
+  }
+  public set isPreCancel(value: boolean | undefined) {
+    this._isPreCancel = value;
   }
 }

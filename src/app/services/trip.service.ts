@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Sponsorship } from '../models/sponsorship.model';
 import { Trip } from '../models/trip.model';
 import { AuthService } from './auth.service';
+import { isAWeekBeforeDate } from '../utils/dates';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -74,6 +75,8 @@ export class TripService {
   }
 
   cancelTrip(tripId: string, cancelationReason: string) {
+    console.log('cancelationReason', cancelationReason);
+    console.log('tripId', tripId);
     const url = `${this.tripsUrlV2}/${tripId}/cancel`;
     httpOptions.headers = httpOptions.headers.set(
       'idToken',
@@ -191,4 +194,42 @@ export class TripService {
     );
   }
 
+  getCachedpreCancelTrips(){
+    const cachedPreCancelTrip = localStorage.getItem('preCancelTrips');
+    const cachedPreCancelTripParsed = JSON.parse(cachedPreCancelTrip ? cachedPreCancelTrip : '[]');
+    return cachedPreCancelTripParsed;
+  }
+
+  savePreCancelTrip(trip:Trip) {
+    const cachedPreCancelTrip = localStorage.getItem('preCancelTrips');
+    const cachedPreCancelTripParsed = JSON.parse(cachedPreCancelTrip ? cachedPreCancelTrip : '[]');
+    cachedPreCancelTripParsed.push(trip);
+    localStorage.setItem(
+      'preCancelTrips',
+      JSON.stringify(cachedPreCancelTripParsed));
+  } 
+
+  deleteCachedPreCancelTrip(trip:Trip) {
+    const cachedPreCancelTrips = localStorage.getItem('preCancelTrips');
+    const cachedPreCancelTripsParsed = JSON.parse(cachedPreCancelTrips ? cachedPreCancelTrips : '[]');
+    const newCachedPreCancelTrips = cachedPreCancelTripsParsed.filter((t: any) => t._id !== trip._id);
+    localStorage.setItem(
+      'preCancelTrips',
+      JSON.stringify(newCachedPreCancelTrips));
+  }
+
+  deleteAllCachedPreCancelTrips(trips: Trip[]) {
+    const cachedPreCancelTrips = localStorage.getItem('preCancelTrips');
+    const cachedPreCancelTripsParsed = JSON.parse(cachedPreCancelTrips ? cachedPreCancelTrips : '[]');
+    trips.map((trip) => {
+      if (!isAWeekBeforeDate(trip.startDate)) {
+        cachedPreCancelTripsParsed.splice(cachedPreCancelTripsParsed.indexOf(trip), 1);
+        this.cancelTrip(trip._id, "Trip cancel for personal reasons").subscribe((_) => {
+        });
+      }
+    });
+    localStorage.setItem(
+      'preCancelTrips',
+      JSON.stringify(cachedPreCancelTripsParsed));
+  }
 }

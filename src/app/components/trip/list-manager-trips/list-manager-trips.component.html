@@ -56,6 +56,12 @@
                       [attr.data-bs-target]="'#publishTripModal' + trip._id">Publish</button>
                   </div>
                   <ng-template #publishedTrip>
+                    <div *ngIf="trip.isPreCancel" class="text-end">
+                      Precancelled <i class="fa-solid fa-ban" style="color: #9328cc;"></i>
+                    </div>
+                    <button *ngIf="!trip.isPreCancel && !trip.isNext && trip.status != 'CANCELLED' " type="button" (click)="preCancel(trip)" class="btn btn-outline-primary me-2">
+                      Pre <i class="fa-solid fa-ban" style="color: #9328cc;"></i>
+                    </button>
                     <button i18n class="btn btn-primary" routerLink="/applications/trip/{{ trip._id }}" role="button">
                       Applications
                     </button>

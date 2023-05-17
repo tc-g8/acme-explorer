@@ -1,0 +1,7 @@
+.nextTrip {
+    box-shadow: 0px 1px 5px rgb(249, 73, 73) !important;
+}
+
+.cardTrip {
+    cursor: pointer;
+  }

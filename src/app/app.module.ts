@@ -43,6 +43,7 @@ import { LoadingSpinnerComponent } from './components/master/loading-spinner/loa
 import { PublishTripComponent } from './components/trip/publish-trip/publish-trip.component';
 import { EditCommentComponent } from './components/application/edit-comment/edit-comment.component';
 import { EditSponsorshipComponent } from './components/sponsorship/edit-sponsorship/edit-sponsorship.component';
+import { ListPreCancelledComponent } from './components/trip/list-pre-cancelled/list-pre-cancelled.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { EditSponsorshipComponent } from './components/sponsorship/edit-sponsors
     PublishTripComponent,
     EditCommentComponent,
     EditSponsorshipComponent,
+    ListPreCancelledComponent,
   ],
   imports: [
     BrowserModule,
