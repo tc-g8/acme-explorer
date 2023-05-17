@@ -20,6 +20,7 @@ import { EditTripComponent } from './components/trip/edit-trip/edit-trip.compone
 import { CreateSponsorshipComponent } from './components/sponsorship/create-sponsorship/create-sponsorship.component';
 import { ActorIdGuard } from './guards/actor-id.guard';
 import { EditSponsorshipComponent } from './components/sponsorship/edit-sponsorship/edit-sponsorship.component';
+import { PreCancelComponent } from './components/trip/pre-cancel/pre-cancel.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
@@ -72,6 +73,12 @@ const routes: Routes = [
       {
         path: 'manager/:id',
         component: ListManagerTripsComponent,
+        canActivate: [ActorRoleGuard, ActorIdGuard],
+        data: { expectedRole: 'manager' },
+      },
+      {
+        path: 'manager/:id/pre-cancelled',
+        component: PreCancelComponent,
         canActivate: [ActorRoleGuard, ActorIdGuard],
         data: { expectedRole: 'manager' },
       },

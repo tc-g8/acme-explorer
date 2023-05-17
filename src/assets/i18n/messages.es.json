@@ -221,6 +221,25 @@
     "2626778077804557137": "El email introducido es invalido",
     "2700437833497519201": "Editar viaje",
     "2172333518062868885": " Solicitudes ",
-    "2075683897423412676": "No tienes viajes todavía"
+    "2075683897423412676": "No tienes viajes todavía",
+    "2244174399477429353": "No tienes aplicaciones todavía",
+    "3019037811042066245": "No tienes aplicaciones para este trip",
+    "7336484802537494693": " Lista de precancelaciones",
+    "7121838748394627016": "Viaje marcado como precancelado",
+    "4043049091728011235": "Cancelado",
+    "6221775712840236751": " Publicar ",
+    "3289226721231714354": " Precancelar ",
+    "1434598622842822638": "Número de viajes",
+    "5653531963388315526": "Límite",
+    "8443739598623282771": "Mis viajes precancelados",
+    "7877618720666242911": " Cancelar todos ",
+    "1522651516057315906": " Desmarcar como precancelado ",
+    "2774075147621649311": "Este viaje no puede ser cancelado,{$LINE_BREAK}porque empieza próximamente",
+    "5343658069461248486": "Vas a cancelar los viajes",
+    "7515883357904500238": "¿Seguro?",
+    "2758177863253211493": "No hay más viajes para cancelar",
+    "2337780295980094082": " Publicar viaje ",
+    "2462417058930597151": "Vas a publicar el viaje. ¿Seguro?",
+    "6416278232018798515": "Viaje publicado"
   }
 }

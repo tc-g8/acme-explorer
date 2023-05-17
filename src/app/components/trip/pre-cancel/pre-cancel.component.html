@@ -1,27 +1,27 @@
 <div class="row g-4 mt-2">
   <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
     <div class="d-flex justify-content-between mb-3">
-      <h2 i18n>My Trips</h2>
+      <h2 i18n>My Pre-Cancelled Trips</h2>
       <div>
-        <div class="btn-group">
-          <button i18n class="btn btn-success" routerLink="/trips/form/add">
-            Create Trip
-          </button>
-          <button
-            i18n
-            class="btn btn-secondary"
-            routerLink="/trips/manager/{{ id }}/pre-cancelled"
-          >
-            Pre-Cancelled List
-          </button>
-        </div>
+        <button
+          i18n
+          class="btn btn-success"
+          data-bs-toggle="modal"
+          data-bs-target="#preCancelledModal"
+        >
+          Cancell All
+        </button>
       </div>
     </div>
     <div *ngIf="!loading && trips; else spinner">
       <div *ngIf="trips && trips.length > 0; else noTrips">
         <div
           *ngFor="let trip of trips"
-          [ngClass]="{ nextTrip: trip.isNext }"
+          [ngClass]="{
+            nextTrip: trip.isNext,
+            startedTrip: trip.isStarted,
+            overTrip: trip.isOver
+          }"
           class="card mb-3 shadow-sm cardTrip"
         >
           <div class="row g-0">
@@ -72,9 +72,6 @@
                       >Marked as pre-cancelled trip</span
                     >
                   </p>
-                  <p *ngIf="trip.status == 'CANCELLED'">
-                    <span i18n class="badge bg-secondary">Cancelled</span>
-                  </p>
                   <small class="mt-2">Ticker: {{ trip.ticker }}</small>
                 </div>
                 <div class="text-end">
@@ -99,36 +96,68 @@
                     </button>
                   </div>
                   <ng-template #publishedTrip>
-                    <div class="btn-group">
+                    <div *ngIf="!trip.isNext" class="btn-group">
                       <button
-                        *ngIf="trip.status !== 'CANCELLED'"
                         i18n
                         class="btn btn-primary"
-                        routerLink="/applications/trip/{{ trip._id }}"
+                        (click)="undoPreCancelledTrip(trip._id)"
                         role="button"
                       >
-                        Applications
+                        Unmark as pre-cancelled
                       </button>
-                      <button
-                        *ngIf="!trip.isNext && trip.status !== 'CANCELLED'"
-                        i18n
-                        class="btn btn-warning"
-                        role="button"
-                        (click)="handlePreCancelledTrip(trip._id)"
-                        [disabled]="trip.status == 'PRE_CANCELLED'"
+                    </div>
+                    <div *ngIf="trip.isNext">
+                      <span i18n
+                        >This trip cannot be cancelled,<br />because it will
+                        start soon</span
                       >
-                        Pre-Cancel
-                      </button>
                     </div>
                   </ng-template>
                 </div>
               </div>
             </div>
           </div>
-          <app-publish-trip
-            (tripPublishEvent)="handlePublishedTrip($event)"
-            [tripId]="trip._id"
-          ></app-publish-trip>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="preCancelledModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" i18n>You are going to cancel the trips</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <ul>
+              <li *ngFor="let trip of trips">
+                {{ trip.title }} ({{ trip.ticker }})
+              </li>
+            </ul>
+            <p i18n>Are you sure?</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              i18n
+              (click)="cancelBatchOfTrips()"
+              data-bs-dismiss="modal"
+            >
+              Accept
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -136,7 +165,7 @@
       <app-loading-spinner></app-loading-spinner>
     </ng-template>
     <ng-template #noTrips>
-      <p i18n>You have no trips yet</p>
+      <p i18n>No more trips to cancel</p>
     </ng-template>
   </div>
 </div>

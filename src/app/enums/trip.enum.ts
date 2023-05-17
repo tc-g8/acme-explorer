@@ -1,5 +1,6 @@
 export enum TripStatus {
   DRAFT = 'DRAFT',
   PUBLISHED = 'PUBLISHED',
+  PRE_CANCELLED = 'PRE_CANCELLED',
   CANCELLED = 'CANCELLED',
 }
