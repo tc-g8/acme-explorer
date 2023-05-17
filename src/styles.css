@@ -122,6 +122,11 @@ body.dark-theme .btn-outline-primary {
   color: #80729a;
   border-color: #453b58;
 }
+body.dark-theme .btn-outline-info {
+  background-color: white;
+  color: #80729a;
+  border-color: #453b58;
+}
 body.dark-theme .btn-outline-success:hover,
 body.dark-theme .btn-outline-primary:hover {
   background-color: #453b58;

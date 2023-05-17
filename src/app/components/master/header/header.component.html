@@ -74,6 +74,14 @@
                 >My Applications</a
               >
             </li>
+            <li *ngIf="activeRole === 'explorer'">
+              <a
+                i18n
+                class="dropdown-item"
+                routerLink="/favourites"
+                >My favourites</a
+              >
+            </li>
             <li *ngIf="activeRole === 'administrator'">
               <a i18n class="dropdown-item" routerLink="/dashboard"
                 >Dashboard</a

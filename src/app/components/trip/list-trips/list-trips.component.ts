@@ -40,7 +40,12 @@ export class ListTripsComponent implements OnInit {
       } else {
         this.trips = this.trips.slice(0, tripNumber);
       }
+      const listFavs: any[] = this.tripService.getCachedFavTrips();
+
       this.trips.map((trip) => {
+        if (listFavs.some((f) => f["_id"] === trip._id)) {
+          trip.isFavorite = true;
+        }
         if (this.isNextTrip(trip.startDate)) {
           trip.isNext = true;
           trip.isStarted = false;
@@ -102,6 +107,11 @@ export class ListTripsComponent implements OnInit {
         this.trips = this.trips.slice(0, tripNumber);
       });
     }
+  }
+
+  saveFav(trip: Trip) {
+    this.tripService.saveFavTripInCache(trip);
+    trip.isFavorite = true;
   }
 
   private isNextTrip(startDate: any) {

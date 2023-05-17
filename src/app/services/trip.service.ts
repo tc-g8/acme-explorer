@@ -191,4 +191,29 @@ export class TripService {
     );
   }
 
+  getCachedFavTrips() {
+    const cachedFavTrip = localStorage.getItem('favTrips');
+    const cachedFavTripParsed = JSON.parse(cachedFavTrip ? cachedFavTrip : '[]');
+    return cachedFavTripParsed;
+  }
+
+  saveFavTripInCache(trip: Trip) {
+    const cachedFavTrip = localStorage.getItem('favTrips');
+    const cachedFavTripParsed = JSON.parse(cachedFavTrip ? cachedFavTrip : '[]');
+    const newCachedFavTrip = { ...trip, date: new Date().getTime() };
+    cachedFavTripParsed.push(newCachedFavTrip);
+    localStorage.setItem(
+      'favTrips',
+      JSON.stringify(cachedFavTripParsed));
+  }
+
+  deleteCachedFavTrip(trip: Trip) {
+    const cachedFavTrips = localStorage.getItem('favTrips');
+    const cachedFavTripsParsed = JSON.parse(cachedFavTrips ? cachedFavTrips : '[]');
+    const newCachedFavTrips = cachedFavTripsParsed.filter((t: any) => t._id !== trip._id);
+    localStorage.setItem(
+      'favTrips',
+      JSON.stringify(newCachedFavTrips));
+  }
+
 }

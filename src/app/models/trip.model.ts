@@ -18,6 +18,7 @@ export class Trip extends Entity {
   private _sponsorships?: Sponsorship[] | undefined;
   private _manager_id!: string;
   private _imageCollection!: Image[];
+  private _isFavorite?: boolean | false;
   private _isNext?: boolean | undefined;
   private _isStarted?: boolean | undefined;
   private _isOver?: boolean | undefined;
@@ -147,5 +148,12 @@ export class Trip extends Entity {
   }
   public set isOver(value: boolean | undefined) {
     this._isOver = value;
+  }
+
+  public get isFavorite(): boolean | undefined {
+    return this._isFavorite;
+  }
+  public set isFavorite(value: boolean | undefined) {
+    this._isFavorite = value;
   }
 }
